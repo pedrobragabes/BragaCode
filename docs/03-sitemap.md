@@ -85,6 +85,22 @@ Busca/indicação
 - Home aponta para os três cases principais.
 - Cada serviço aponta para projetos que comprovam a capacidade.
 - Cada case aponta para o serviço relacionado e para Contato.
+
+## 7. Rotas em inglês
+
+- `/en`: Home internacional;
+- `/en/services`: visão dos seis serviços;
+- `/en/projects`: seleção de cases prioritários;
+- `/en/projects/aquaflora-agroshop`: case prioritário traduzido;
+- `/en/about`: trajetória e competências;
+- `/en/contact`: contato e formulário localizado.
+
+As rotas equivalentes declaram canonical próprio e alternates `pt-BR`, `en` e `x-default`. Artigos e serviços individuais permanecem somente em português até revisão editorial da tradução.
+
+## 8. Artigos
+
+- `/artigos`: índice editorial;
+- `/artigos/[slug]`: conteúdo MDX, dados estruturados `Article` e CTA contextual.
 - Sobre aponta para projetos e Contato.
 - Contato oferece WhatsApp como alternativa, sem competir com o formulário.
 - Páginas legais retornam à Home e ao contato do responsável.

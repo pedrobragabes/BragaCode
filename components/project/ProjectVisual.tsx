@@ -4,6 +4,7 @@ type ProjectVisualProps = {
   kind: ProjectVisualKind;
   label: string;
   compact?: boolean;
+  locale?: "pt" | "en";
 };
 
 const visualCopy: Record<ProjectVisualKind, { title: string; tags: string[]; rows: [string, string][] }> = {
@@ -44,8 +45,18 @@ const visualCopy: Record<ProjectVisualKind, { title: string; tags: string[]; row
   },
 };
 
-export function ProjectVisual({ kind, label, compact = false }: ProjectVisualProps) {
-  const content = visualCopy[kind];
+const visualCopyEnglish: Record<ProjectVisualKind, { title: string; tags: string[]; rows: [string, string][] }> = {
+  sync: { title: "Synchronization running", tags: ["ERP", "Python", "API"], rows: [["Inventory", "synchronized"], ["Prices", "1,284 updated"], ["Failures", "3 retrying"]] },
+  store: { title: "Operational catalog", tags: ["B2B", "B2C", "Mobile"], rows: [["Products", "published"], ["Categories", "organized"], ["WhatsApp", "contextual"]] },
+  directory: { title: "Local discovery", tags: ["PWA", "Tags", "Deep link"], rows: [["Category", "Home and garden"], ["Distance", "near you"], ["Contact", "one tap"]] },
+  editorial: { title: "Continuous publishing", tags: ["WordPress", "SEO", "PHP"], rows: [["Draft", "in review"], ["Content", "published"], ["Performance", "monitored"]] },
+  finance: { title: "Assisted extraction", tags: ["OCR", "FastAPI", "AI"], rows: [["Document", "processed"], ["Amount", "to validate"], ["Category", "suggested"]] },
+  catalog: { title: "Product query", tags: ["Code", "Price", "Inventory"], rows: [["Code", "789…432"], ["Price", "available"], ["Inventory", "checked now"]] },
+  infra: { title: "Services online", tags: ["Docker", "Nginx", "Linux"], rows: [["Proxy", "healthy"], ["Containers", "running"], ["TLS", "active"]] },
+};
+
+export function ProjectVisual({ kind, label, compact = false, locale = "pt" }: ProjectVisualProps) {
+  const content = locale === "en" ? visualCopyEnglish[kind] : visualCopy[kind];
 
   return (
     <div className={`project-visual visual-${kind} ${compact ? "is-compact" : ""}`} role="img" aria-label={label}>

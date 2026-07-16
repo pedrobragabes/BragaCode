@@ -132,6 +132,14 @@ Para publicar um artigo:
 4. alterar o status para `publicado`;
 5. executar `npm run lint` e `npm test`.
 
+## Versão em inglês
+
+As rotas `/en`, `/en/services`, `/en/projects`, `/en/about`, `/en/contact` e `/en/projects/aquaflora-agroshop` têm conteúdo próprio em inglês. O seletor `PT/EN` mantém pares equivalentes quando existem e volta à Home do outro idioma para conteúdo ainda não traduzido.
+
+`createMetadata` gera canonical, `hreflang` para `pt-BR`, `en` e `x-default`, além do locale correto no Open Graph. O sitemap repete os pares de idioma com alternates. Um script mínimo no `<head>` ajusta `document.documentElement.lang` antes do conteúdo e cada página inglesa também declara `lang="en"` no container principal.
+
+O formulário usa rótulos e mensagens em inglês, mas preserva os valores internos aceitos pelo endpoint. A mensagem de WhatsApp também é localizada. Artigos e páginas individuais de serviço ainda existem somente em português e devem apontar para a Home equivalente ao alternar o idioma.
+
 ## Deploy
 
 ### Sites/Cloudflare

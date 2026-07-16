@@ -123,3 +123,24 @@ test("publica artigos MDX com código acessível, metadata e sitemap", async () 
   const sitemap = await render("/sitemap.xml");
   assert.match(await sitemap.text(), /artigos\/automacao-llm-escalonamento-humano/);
 });
+
+test("publica rotas em inglês com hreflang, formulário localizado e case prioritário", async () => {
+  for (const path of ["/en", "/en/services", "/en/projects", "/en/about", "/en/contact", "/en/projects/aquaflora-agroshop"]) {
+    const response = await render(path);
+    assert.equal(response.status, 200, path);
+    const html = await response.text();
+    assert.match(html, /lang="en"/, path);
+    assert.match(html, /hrefLang="pt-BR"/, path);
+    assert.match(html, /hrefLang="en"/, path);
+  }
+
+  const contact = await render("/en/contact");
+  assert.match(await contact.text(), /Which process needs to work better/);
+  const casePage = await render("/en/projects/aquaflora-agroshop");
+  assert.match(await casePage.text(), /What needed to change/);
+
+  const sitemap = await render("/sitemap.xml");
+  const xml = await sitemap.text();
+  assert.match(xml, /en\/projects\/aquaflora-agroshop/);
+  assert.match(xml, /hreflang="en"/i);
+});

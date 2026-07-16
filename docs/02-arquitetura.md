@@ -115,7 +115,16 @@ O componente de analytics só é renderizado quando `NEXT_PUBLIC_ANALYTICS_PROVI
 - envio de contato pode trocar de Resend para webhook/CRM atrás do mesmo adaptador;
 - a área de artigos usa MDX compilado pelo Vite, frontmatter validado por Zod e syntax highlighting no build;
 - um CMS pode substituir o índice de artigos preservando as rotas e o contrato editorial;
-- a versão em inglês pode ser adicionada como grupo de rota futuro.
+- a versão em inglês usa o prefixo `/en`, conteúdo tipado próprio e alternates derivados do mesmo mapa de rotas.
+
+### Internacionalização
+
+- português permanece no caminho canônico sem prefixo;
+- inglês usa `/en` para não misturar idiomas na mesma URL;
+- `createMetadata` centraliza canonical, `hreflang`, `x-default` e Open Graph locale;
+- header, footer, skip link, formulário e mensagens de WhatsApp derivam o idioma do pathname;
+- o sitemap publica pares `pt-BR`/`en` para as páginas traduzidas;
+- cases sem tradução continuam acessíveis em português; apenas AquaFlora possui página inglesa nesta etapa.
 
 ### Pipeline editorial MDX
 

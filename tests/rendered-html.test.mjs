@@ -1,0 +1,56 @@
+import assert from "node:assert/strict";
+import test from "node:test";
+
+async function render(path = "/", init = {}) {
+  const workerUrl = new URL("../dist/server/index.js", import.meta.url);
+  workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}-${path}`);
+  const { default: worker } = await import(workerUrl.href);
+
+  return worker.fetch(
+    new Request(`http://localhost${path}`, { ...init, headers: { accept: "text/html", ...(init.headers || {}) } }),
+    { ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) } },
+    { waitUntil() {}, passThroughOnException() {} },
+  );
+}
+
+test("renderiza a Home comercial da BragaCode", async () => {
+  const response = await render();
+  assert.equal(response.status, 200);
+  assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
+  const html = await response.text();
+  assert.match(html, /BragaCode/);
+  assert.match(html, /Menos trabalho manual/);
+  assert.match(html, /4\.000\+/);
+  assert.match(html, /AquaFlora AgroShop/);
+  assert.match(html, /application\/ld\+json/);
+  assert.doesNotMatch(html, /codex-preview|Starter Project|react-loading-skeleton/);
+});
+
+test("publica sitemap e robots com os projetos", async () => {
+  const sitemap = await render("/sitemap.xml");
+  assert.equal(sitemap.status, 200);
+  assert.match(await sitemap.text(), /projetos\/aquaflora-agroshop/);
+  const robots = await render("/robots.txt");
+  assert.equal(robots.status, 200);
+  assert.match(await robots.text(), /sitemap\.xml/);
+});
+
+test("rejeita contato inválido no servidor", async () => {
+  const response = await render("/api/contact", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ name: "", email: "invalido" }),
+  });
+  assert.equal(response.status, 422);
+});
+
+test("renderiza as rotas principais e o 404", async () => {
+  for (const path of ["/servicos", "/projetos", "/sobre", "/contato", "/projetos/aquaflora-agroshop"]) {
+    const response = await render(path);
+    assert.equal(response.status, 200, path);
+    assert.match(await response.text(), /BragaCode/, path);
+  }
+  const notFound = await render("/rota-inexistente");
+  assert.equal(notFound.status, 404);
+  assert.match(await notFound.text(), /Essa página não entrou/);
+});

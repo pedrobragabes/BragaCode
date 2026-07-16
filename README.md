@@ -90,9 +90,11 @@ O POST `/api/contact` inclui:
 - tempo mínimo de preenchimento;
 - rate limit de melhor esforço por instância;
 - Cloudflare Turnstile opcional;
-- envio por Resend ou `CONTACT_WEBHOOK_URL`.
+- envio por Resend ou webhook assinado, com idempotência e novas tentativas controladas.
 
-Para Resend, configure `RESEND_API_KEY`, `CONTACT_TO_EMAIL` e `CONTACT_FROM_EMAIL`. Para webhook, configure `CONTACT_WEBHOOK_URL`; ele tem prioridade.
+Para Resend, configure `RESEND_API_KEY`, `CONTACT_TO_EMAIL` e `CONTACT_FROM_EMAIL`. Para webhook, configure `CONTACT_WEBHOOK_URL` e `CONTACT_WEBHOOK_SECRET`; ele tem prioridade. Todas as tentativas do mesmo contato usam `Idempotency-Key: contact/<UUID>`. O receptor do webhook deve persistir essa chave e ignorar duplicatas.
+
+O webhook recebe `X-BragaCode-Timestamp` e `X-BragaCode-Signature`, calculada como HMAC SHA-256 de `<timestamp>.<corpo>`. Valide a assinatura com comparação em tempo constante e rejeite timestamps antigos antes de processar o lead. Campos do honeypot, Turnstile e controle de tempo não são enviados.
 
 O rate limit em memória reduz abuso simples, mas não substitui proteção persistente ou regra de borda em produção.
 
@@ -164,6 +166,7 @@ O conteúdo e os componentes seguem APIs do App Router. Como a base atual usa vi
 - [Decisões técnicas](docs/07-decisoes-tecnicas.md)
 - [Checklist de lançamento](docs/08-checklist-lancamento.md)
 - [Operação e monitoramento](docs/09-operacao-monitoramento.md)
+- [Integração operacional de leads](docs/10-integracao-leads.md)
 
 ### Materiais para etapas manuais
 

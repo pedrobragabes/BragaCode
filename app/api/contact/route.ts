@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { deliverWebhook, DeliveryError, fetchWithRetry } from "@/lib/contact-delivery";
 import { reportOperationalError } from "@/lib/monitoring";
 import { contactSchema, type ContactPayload } from "@/lib/validation";
 
@@ -52,12 +53,9 @@ function emailHtml(data: ContactPayload) {
 async function deliver(data: ContactPayload) {
   const webhook = process.env.CONTACT_WEBHOOK_URL;
   if (webhook) {
-    const response = await fetch(webhook, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ source: "bragacode-site", ...data, website: undefined, startedAt: undefined, turnstileToken: undefined }),
-    });
-    if (!response.ok) throw new Error("webhook_failed");
+    const secret = process.env.CONTACT_WEBHOOK_SECRET;
+    if (!secret) throw new Error("provider_not_configured");
+    await deliverWebhook(data, webhook, secret);
     return;
   }
 
@@ -66,9 +64,13 @@ async function deliver(data: ContactPayload) {
   const from = process.env.CONTACT_FROM_EMAIL;
   if (!apiKey || !to || !from) throw new Error("provider_not_configured");
 
-  const response = await fetch("https://api.resend.com/emails", {
+  await fetchWithRetry("https://api.resend.com/emails", {
     method: "POST",
-    headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+      "Idempotency-Key": `contact/${data.submissionId}`,
+    },
     body: JSON.stringify({
       from,
       to: [to],
@@ -77,7 +79,6 @@ async function deliver(data: ContactPayload) {
       html: emailHtml(data),
     }),
   });
-  if (!response.ok) throw new Error("resend_failed");
 }
 
 export async function POST(request: Request) {
@@ -106,7 +107,8 @@ export async function POST(request: Request) {
     reportOperationalError(error, {
       operation: "contact_delivery",
       provider: process.env.CONTACT_WEBHOOK_URL ? "webhook" : process.env.RESEND_API_KEY ? "resend" : "none",
-      retryable: !notConfigured,
+      retryable: error instanceof DeliveryError ? error.retryable : !notConfigured,
+      status: error instanceof DeliveryError ? error.status : undefined,
     });
     return NextResponse.json(
       { message: notConfigured ? "O envio por formulário ainda não está configurado nesta prévia. Use o WhatsApp para falar com Pedro." : "O envio falhou agora. Tente novamente ou use o WhatsApp." },

@@ -39,6 +39,7 @@ export function ContactForm({ source = "a página de contato", locale = "pt" }: 
   const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
   const formRef = useRef<HTMLFormElement>(null);
   const startedAt = useRef(0);
+  const submissionId = useRef("");
   const [state, setState] = useState<FormState>({ type: "idle", message: "" });
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -48,6 +49,7 @@ export function ContactForm({ source = "a página de contato", locale = "pt" }: 
 
     setState({ type: "sending", message: copy.sending });
     const data = Object.fromEntries(new FormData(form).entries());
+    if (!submissionId.current) submissionId.current = crypto.randomUUID();
 
     try {
       const response = await fetch("/api/contact", {
@@ -55,6 +57,7 @@ export function ContactForm({ source = "a página de contato", locale = "pt" }: 
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...data,
+          submissionId: submissionId.current,
           consent: data.consent === "on",
           startedAt: startedAt.current,
           turnstileToken: data["cf-turnstile-response"],
@@ -67,6 +70,7 @@ export function ContactForm({ source = "a página de contato", locale = "pt" }: 
       setState({ type: "success", message: locale === "en" ? copy.success : result.message || copy.success });
       formRef.current?.reset();
       startedAt.current = 0;
+      submissionId.current = "";
     } catch (error) {
       setState({
         type: "error",

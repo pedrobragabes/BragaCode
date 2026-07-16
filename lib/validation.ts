@@ -9,6 +9,7 @@ const cleanText = (max: number) =>
     .transform((value) => value.replace(/[<>]/g, ""));
 
 export const contactSchema = z.object({
+  submissionId: z.string().uuid(),
   name: cleanText(100),
   company: z.string().trim().max(120).transform((value) => value.replace(/[<>]/g, "")),
   email: z.string().trim().email().max(160),

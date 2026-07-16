@@ -35,6 +35,23 @@ test("publica sitemap e robots com os projetos", async () => {
   assert.match(await robots.text(), /sitemap\.xml/);
 });
 
+test("publica manifest e ícones da marca", async () => {
+  const manifest = await render("/manifest.webmanifest");
+  assert.equal(manifest.status, 200);
+  const data = await manifest.json();
+  assert.equal(data.short_name, "BragaCode");
+  assert.match(data.description, /processos manuais/);
+  assert.ok(data.icons.some((icon) => icon.src === "/icon"));
+
+  const icon = await render("/icon");
+  assert.equal(icon.status, 200);
+  assert.match(icon.headers.get("content-type") ?? "", /^image\/png\b/i);
+
+  const appleIcon = await render("/apple-icon");
+  assert.equal(appleIcon.status, 200);
+  assert.match(appleIcon.headers.get("content-type") ?? "", /^image\/png\b/i);
+});
+
 test("rejeita contato inválido no servidor", async () => {
   const response = await render("/api/contact", {
     method: "POST",

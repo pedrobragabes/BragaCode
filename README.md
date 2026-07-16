@@ -48,10 +48,11 @@ npm run dev      # desenvolvimento com HMR
 npm run build    # build de produção
 npm run lint     # ESLint
 npm test         # build e smoke tests das rotas
-npm run test:e2e # fluxos críticos em Chrome desktop e mobile
+npm run test:e2e # fluxos críticos em Chromium desktop/mobile, Firefox e WebKit
+npm run test:lighthouse # orçamento sintético de performance, acessibilidade e SEO
 ```
 
-Na primeira execução local dos testes de navegador, instale o Chromium com `npx playwright install chromium`. No Windows, o Playwright usa o servidor Vite porque o cache de arquivos estáticos do `vinext start` 0.0.50 ainda normaliza caminhos como POSIX; no CI Linux, os mesmos testes usam o bundle de produção.
+Na primeira execução local dos testes de navegador, instale os navegadores com `npx playwright install chromium firefox webkit`. No Windows, o Playwright usa o servidor Vite porque o cache de arquivos estáticos do `vinext start` 0.0.50 ainda normaliza caminhos como POSIX; no CI Linux, os mesmos testes usam o bundle de produção.
 
 ## Qualidade contínua
 
@@ -172,6 +173,7 @@ O conteúdo e os componentes seguem APIs do App Router. Como a base atual usa vi
 - [Checklist de lançamento](docs/08-checklist-lancamento.md)
 - [Operação e monitoramento](docs/09-operacao-monitoramento.md)
 - [Integração operacional de leads](docs/10-integracao-leads.md)
+- [Auditoria de qualidade e lançamento](docs/11-auditoria-qualidade.md)
 
 ### Materiais para etapas manuais
 

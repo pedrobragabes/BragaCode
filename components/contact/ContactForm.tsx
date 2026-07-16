@@ -2,6 +2,7 @@
 
 import Script from "next/script";
 import { FormEvent, useRef, useState } from "react";
+import { trackContactSubmission } from "@/components/analytics/AnalyticsEvents";
 import { whatsappUrl } from "@/lib/site";
 
 type FormState = { type: "idle" | "sending" | "success" | "error"; message: string };
@@ -44,6 +45,7 @@ export function ContactForm({ source = "a página de contato" }: { source?: stri
       const result = (await response.json()) as { message?: string };
 
       if (!response.ok) throw new Error(result.message || "Não foi possível enviar agora.");
+      trackContactSubmission(source, String(data.projectType || "não informado"));
       setState({ type: "success", message: result.message || "Mensagem enviada. Pedro responderá em breve." });
       formRef.current?.reset();
       startedAt.current = 0;
@@ -63,6 +65,7 @@ export function ContactForm({ source = "a página de contato" }: { source?: stri
       onFocusCapture={() => { if (!startedAt.current) startedAt.current = Date.now(); }}
       onPointerDown={() => { if (!startedAt.current) startedAt.current = Date.now(); }}
       noValidate
+      data-analytics-scope="contact"
     >
       <div className="form-row">
         <div className="field">

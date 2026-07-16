@@ -95,8 +95,18 @@ O rate limit em memória reduz abuso simples, mas não substitui proteção pers
 
 ## Analytics
 
-- Plausible: `NEXT_PUBLIC_ANALYTICS_PROVIDER=plausible` e `NEXT_PUBLIC_PLAUSIBLE_DOMAIN`.
-- Google Analytics: `NEXT_PUBLIC_ANALYTICS_PROVIDER=ga` e `NEXT_PUBLIC_GA_ID`.
+- Recomendado — Plausible: `NEXT_PUBLIC_ANALYTICS_PROVIDER=plausible` e `NEXT_PUBLIC_PLAUSIBLE_SCRIPT_URL` com a URL única fornecida em **Site Settings > Site Installation**.
+- Alternativa mantida — Google Analytics: `NEXT_PUBLIC_ANALYTICS_PROVIDER=ga` e `NEXT_PUBLIC_GA_ID`.
+- Sem as variáveis correspondentes, nenhum script ou listener de analytics é carregado.
+
+Eventos implementados:
+
+- `WhatsApp Click`: links para `wa.me`;
+- `Contact Form Submitted`: somente após resposta de sucesso, com origem e tipo de projeto, sem nome, e-mail ou telefone;
+- `Case Click`: navegação para uma página individual de projeto;
+- `Service Click`: navegação para uma página individual de serviço.
+
+No Plausible, crie metas com esses quatro nomes exatamente como escritos. O cadastro do domínio, a verificação da instalação, o Search Console e o envio do sitemap são etapas manuais.
 
 ## SEO
 

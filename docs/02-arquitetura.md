@@ -103,7 +103,9 @@ Não haverá armazenamento de leads na primeira versão. Isso reduz superfície 
 
 ## 8. Analytics
 
-O componente de analytics só é renderizado quando `NEXT_PUBLIC_ANALYTICS_PROVIDER` e a chave correspondente existirem. A primeira versão prevê Google Analytics (`NEXT_PUBLIC_GA_ID`) ou Plausible (`NEXT_PUBLIC_PLAUSIBLE_DOMAIN`). Nenhum script é carregado por padrão.
+O componente de analytics só é renderizado quando `NEXT_PUBLIC_ANALYTICS_PROVIDER` e a chave correspondente existirem. Plausible é o provedor recomendado e usa a URL única do site em `NEXT_PUBLIC_PLAUSIBLE_SCRIPT_URL`; Google Analytics permanece disponível por `NEXT_PUBLIC_GA_ID`. Nenhum script é carregado por padrão.
+
+`AnalyticsEvents` observa links de WhatsApp e navegações para cases/serviços sem exigir componentes específicos. O formulário dispara um evento apenas depois da resposta de sucesso. As propriedades enviadas são contexto de navegação e tipo de projeto; nome, e-mail, telefone e mensagem nunca entram nos eventos.
 
 ## 9. Escalabilidade
 

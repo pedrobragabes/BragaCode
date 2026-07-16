@@ -99,3 +99,10 @@ test("publica páginas individuais de serviço com SEO e cases relacionados", as
   const sitemap = await render("/sitemap.xml");
   assert.match(await sitemap.text(), /servicos\/apis-e-integracoes/);
 });
+
+test("mantém o formulário identificável sem carregar analytics por padrão", async () => {
+  const response = await render("/contato");
+  const html = await response.text();
+  assert.match(html, /data-analytics-scope="contact"/);
+  assert.doesNotMatch(html, /plausible\.io|googletagmanager\.com/);
+});

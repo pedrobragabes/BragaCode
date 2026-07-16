@@ -1,16 +1,20 @@
 import Script from "next/script";
+import { AnalyticsEvents } from "./AnalyticsEvents";
 
 export function Analytics() {
   const provider = process.env.NEXT_PUBLIC_ANALYTICS_PROVIDER;
 
-  if (provider === "plausible" && process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN) {
+  if (provider === "plausible" && process.env.NEXT_PUBLIC_PLAUSIBLE_SCRIPT_URL) {
     return (
-      <Script
-        defer
-        data-domain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN}
-        src="https://plausible.io/js/script.js"
-        strategy="afterInteractive"
-      />
+      <>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)}",
+          }}
+        />
+        <Script defer src={process.env.NEXT_PUBLIC_PLAUSIBLE_SCRIPT_URL} strategy="afterInteractive" />
+        <AnalyticsEvents />
+      </>
     );
   }
 
@@ -22,6 +26,7 @@ export function Analytics() {
         <Script id="ga-init" strategy="afterInteractive">
           {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${id}',{anonymize_ip:true});`}
         </Script>
+        <AnalyticsEvents />
       </>
     );
   }

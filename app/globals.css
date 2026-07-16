@@ -14,7 +14,7 @@
   --accent: #9fe52f;
   --accent-hover: #8dd21c;
   --accent-ink: #182307;
-  --signal: #256ee8;
+  --signal: #1f63d4;
   --signal-soft: #dce8ff;
   --danger: #c93f38;
   --success: #217a48;
@@ -290,7 +290,7 @@ em {
 .visual-chrome { display: flex; height: 42px; align-items: center; gap: 6px; border-bottom: 1px solid #29352e; padding: 0 16px; background: #121a15; }
 .visual-chrome span { width: 7px; height: 7px; border-radius: 50%; background: #435148; }
 .visual-chrome span:first-child { background: #b7f34b; }
-.visual-chrome i { margin-left: auto; color: #738077; font-family: "JetBrains Mono Variable", monospace; font-size: 0.55rem; font-style: normal; letter-spacing: .1em; }
+.visual-chrome i { margin-left: auto; color: #7c897f; font-family: "JetBrains Mono Variable", monospace; font-size: 0.55rem; font-style: normal; letter-spacing: .1em; }
 .visual-body { display: flex; min-height: inherit; flex-direction: column; padding: clamp(22px, 3vw, 36px); }
 .visual-topline { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
 .visual-topline p { margin: 0; font-size: clamp(.9rem, 2vw, 1.25rem); font-weight: 750; }
@@ -638,7 +638,7 @@ em {
 :root[data-theme="dark"] .case-cta { background: #f0f4ec; color: #121612; }
 .case-cta p { color: color-mix(in srgb, currentColor 62%, transparent); font-family: "JetBrains Mono Variable", monospace; font-size: .64rem; text-transform: uppercase; }
 .case-cta h2 { max-width: 970px; margin: 20px 0 40px; font-size: clamp(2.7rem, 5.7vw, 6rem); letter-spacing: -.08em; line-height: .94; }
-.case-cta h2 em { color: color-mix(in srgb, currentColor 45%, transparent); }
+.case-cta h2 em { color: color-mix(in srgb, currentColor 52%, transparent); }
 .related-projects-section { background: var(--bg); }
 .small-section-heading { display: flex; align-items: end; justify-content: space-between; gap: 30px; margin-bottom: 48px; border-bottom: 1px solid var(--border); padding-bottom: 24px; }
 .small-section-heading p { margin: 0; color: var(--muted); font-family: "JetBrains Mono Variable", monospace; font-size: .62rem; text-transform: uppercase; }
@@ -798,7 +798,8 @@ em {
   .form-actions .text-link { align-self: center; }
   .final-cta .container::after { opacity: .45; }
   .page-hero { padding-block: 82px 72px; }
-  .page-hero h1 { font-size: clamp(3rem, 15vw, 5rem); }
+  .page-hero-grid > * { min-width: 0; }
+  .page-hero h1 { font-size: clamp(2.5rem, 13.5vw, 5rem); }
   .service-detail { grid-template-columns: 36px 1fr; gap: 14px; padding: 52px 0; }
   .service-detail-main, .service-detail-aside { grid-column: 2; }
   .inline-cta { align-items: stretch; flex-direction: column; }

@@ -17,7 +17,7 @@ jobs:
   verify:
     name: Build, lint, tests and audit
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
 
     steps:
       - name: Checkout repository
@@ -41,11 +41,14 @@ jobs:
       - name: Run smoke tests
         run: node --test tests/rendered-html.test.mjs
 
-      - name: Install Playwright browser
-        run: npx playwright install --with-deps chromium
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium firefox webkit
 
       - name: Run critical browser flows
         run: npm run test:e2e
+
+      - name: Enforce Lighthouse budgets
+        run: npm run test:lighthouse
 
       - name: Audit production dependencies
         run: npm audit --omit=dev --audit-level=high

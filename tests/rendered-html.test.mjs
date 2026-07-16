@@ -106,3 +106,20 @@ test("mantém o formulário identificável sem carregar analytics por padrão", 
   assert.match(html, /data-analytics-scope="contact"/);
   assert.doesNotMatch(html, /plausible\.io|googletagmanager\.com/);
 });
+
+test("publica artigos MDX com código acessível, metadata e sitemap", async () => {
+  const index = await render("/artigos");
+  assert.equal(index.status, 200);
+  assert.match(await index.text(), /Como sincronizar estoque e preços/);
+
+  const article = await render("/artigos/sincronizacao-estoque-precos");
+  assert.equal(article.status, 200);
+  const html = await article.text();
+  assert.match(html, /Article/);
+  assert.match(html, /Idempotência evita duplicação/);
+  assert.match(html, /data-rehype-pretty-code-figure/);
+  assert.match(html, /APIs e integrações/);
+
+  const sitemap = await render("/sitemap.xml");
+  assert.match(await sitemap.text(), /artigos\/automacao-llm-escalonamento-humano/);
+});

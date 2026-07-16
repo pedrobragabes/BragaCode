@@ -6,6 +6,7 @@ import { Logo } from "./Logo";
 const pages = [
   ["Serviços", "/servicos"],
   ["Projetos", "/projetos"],
+  ["Artigos", "/artigos"],
   ["Sobre", "/sobre"],
   ["Contato", "/contato"],
 ] as const;

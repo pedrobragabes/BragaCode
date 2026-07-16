@@ -113,7 +113,17 @@ O componente de analytics só é renderizado quando `NEXT_PUBLIC_ANALYTICS_PROVI
 - categorias e filtros derivam do catálogo;
 - um CMS pode substituir `content/projects.ts` sem alterar os componentes;
 - envio de contato pode trocar de Resend para webhook/CRM atrás do mesmo adaptador;
-- blog e versão em inglês podem ser adicionados como grupos de rota futuros.
+- a área de artigos usa MDX compilado pelo Vite, frontmatter validado por Zod e syntax highlighting no build;
+- um CMS pode substituir o índice de artigos preservando as rotas e o contrato editorial;
+- a versão em inglês pode ser adicionada como grupo de rota futuro.
+
+### Pipeline editorial MDX
+
+1. `@mdx-js/rollup` compila os arquivos antes dos plugins de React/vinext;
+2. `remark-frontmatter` e `remark-mdx-frontmatter` expõem o YAML como `frontmatter`;
+3. `content/articles.ts` valida e filtra somente conteúdos publicados;
+4. `rehype-pretty-code` e Shiki geram tokens acessíveis durante o build;
+5. as rotas geram metadata, `Article`, breadcrumbs e entradas de sitemap a partir do mesmo contrato.
 
 ## 10. Riscos e mitigação
 

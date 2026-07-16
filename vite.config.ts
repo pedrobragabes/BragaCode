@@ -1,5 +1,9 @@
 import vinext from "vinext";
 import { defineConfig } from "vite";
+import mdx from "@mdx-js/rollup";
+import rehypePrettyCode from "rehype-pretty-code";
+import remarkFrontmatter from "remark-frontmatter";
+import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 import hostingConfig from "./.openai/hosting.json";
 import { sites } from "./build/sites-vite-plugin";
 
@@ -48,6 +52,13 @@ export default defineConfig(async () => {
       ? { watch: { useFsEvents: false, usePolling: true } }
       : undefined,
     plugins: [
+      {
+        enforce: "pre",
+        ...mdx({
+          remarkPlugins: [remarkFrontmatter, [remarkMdxFrontmatter, { name: "frontmatter" }]],
+          rehypePlugins: [[rehypePrettyCode, { keepBackground: false, theme: { dark: "github-dark", light: "github-light" } }]],
+        }),
+      },
       vinext(),
       sites(),
       cloudflare({

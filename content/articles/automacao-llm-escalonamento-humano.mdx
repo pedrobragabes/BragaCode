@@ -1,0 +1,87 @@
+---
+slug: automacao-llm-escalonamento-humano
+title: Quando uma automação com LLM deve parar e encaminhar para uma pessoa
+description: Critérios concretos para automatizar triagem e respostas recorrentes sem deixar negociação, exceções ou dados sensíveis sem supervisão.
+publishedAt: "2026-07-16"
+status: publicado
+readingTime: 7 min
+category: Automação
+serviceSlugs:
+  - automacoes
+  - apis-e-integracoes
+projectSlugs:
+  - aquaflora-agroshop
+---
+
+Uma automação de atendimento não precisa responder tudo para gerar valor. Em muitos cenários, organizar a primeira mensagem, identificar a intenção e reunir contexto já reduz interrupções sem entregar decisões comerciais a um modelo.
+
+O desenho mais seguro começa pela pergunta: **em quais situações a automação é obrigada a parar?**
+
+## Separe triagem de decisão
+
+Triagem classifica a necessidade e coleta dados autorizados. Decisão define preço, prazo, condição comercial, recomendação técnica ou resposta para uma reclamação. A segunda categoria costuma exigir informação atualizada e responsabilidade humana.
+
+Uma primeira versão pode reconhecer intenções como:
+
+- consulta de horário ou canal;
+- busca de produto;
+- dúvida sobre disponibilidade;
+- acompanhamento de pedido;
+- solicitação comercial fora do padrão;
+- reclamação ou risco.
+
+As duas últimas devem chegar rapidamente a uma pessoa, acompanhadas do histórico necessário.
+
+## Crie regras de saída antes do prompt
+
+O modelo não deve decidir sozinho quando a conversa é sensível. Regras determinísticas podem interromper a automação por assunto, ausência de dados, repetição, linguagem de urgência ou pedido explícito.
+
+```ts
+type Triage = {
+  intent: string;
+  confidence: number;
+  needsHuman: boolean;
+};
+
+export function shouldEscalate(result: Triage, messageCount: number) {
+  if (result.needsHuman) return true;
+  if (result.confidence < 0.78) return true;
+  if (messageCount >= 4) return true;
+
+  return ["reclamacao", "negociacao", "dado_sensivel"].includes(result.intent);
+}
+```
+
+O limiar do exemplo não é universal. Ele precisa ser calibrado com conversas representativas e revisado quando o catálogo, a política ou o comportamento dos usuários mudar.
+
+## A resposta precisa vir de uma fonte controlada
+
+Horários, políticas e instruções podem vir de uma base curta e revisada. Preço e estoque precisam ser consultados em uma API responsável por esses dados. Não é seguro pedir ao modelo que “lembre” informações operacionais que mudam.
+
+Quando a consulta falhar, a resposta correta não é inventar uma aproximação. A automação deve informar que não conseguiu confirmar e encaminhar o atendimento.
+
+## Não envie tudo ao provedor
+
+Antes de chamar um LLM, remova o que não é necessário para a tarefa. Credenciais, documentos, histórico integral do cliente e dados de outras conversas não devem viajar apenas porque estão disponíveis no sistema.
+
+Também é importante limitar ferramentas. Uma etapa de classificação não precisa ter permissão para alterar pedido, preço ou cadastro.
+
+## Registre decisões sem montar um arquivo de dados pessoais
+
+Logs úteis informam versão do fluxo, intenção identificada, motivo do encaminhamento, duração e resultado técnico. O conteúdo integral da conversa só deve ser mantido quando houver finalidade, prazo e controle de acesso definidos.
+
+Para revisar qualidade, uma amostra anonimizada de classificações corretas e incorretas costuma ser mais útil do que guardar mensagens indefinidamente.
+
+## Meça redução de atrito, não quantidade de respostas
+
+Uma automação que envia muitas mensagens pode estar prendendo pessoas em um fluxo ruim. Métricas mais úteis incluem:
+
+- tempo até o primeiro encaminhamento útil;
+- percentual de intenções classificadas corretamente;
+- conversas que voltaram para uma pessoa após resposta inadequada;
+- dúvidas recorrentes que ainda não têm fonte confiável;
+- tempo humano gasto na triagem antes e depois.
+
+## Um bom primeiro escopo
+
+Comece com duas ou três intenções frequentes, uma base de respostas curta e uma regra clara de encaminhamento. A automação deve facilitar a entrada do atendimento humano, não criar uma barreira entre a empresa e quem precisa resolver uma exceção.

@@ -118,6 +118,20 @@ No Plausible, crie metas com esses quatro nomes exatamente como escritos. O cada
 
 Defina `NEXT_PUBLIC_SITE_URL` com o domínio HTTPS final antes do build público para gerar canonicals, sitemap e imagens sociais corretos.
 
+## Artigos em MDX
+
+Os artigos ficam em `content/articles/*.mdx`. O frontmatter obrigatório contém `slug`, `title`, `description`, `publishedAt`, `status`, `readingTime`, `category`, `serviceSlugs` e `projectSlugs`.
+
+Somente arquivos com `status: publicado` entram na listagem e no sitemap. `content/articles.ts` valida o frontmatter com Zod durante o build. Blocos de código recebem destaque server-side via Shiki/rehype-pretty-code, sem JavaScript de syntax highlighting no navegador.
+
+Para publicar um artigo:
+
+1. criar o `.mdx` com slug único e descrição entre 80 e 180 caracteres;
+2. relacionar ao menos um serviço ou projeto pertinente;
+3. revisar afirmações, exemplos e dados confidenciais;
+4. alterar o status para `publicado`;
+5. executar `npm run lint` e `npm test`.
+
 ## Deploy
 
 ### Sites/Cloudflare

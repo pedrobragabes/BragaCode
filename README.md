@@ -10,6 +10,7 @@ Site comercial da BragaCode, operação de desenvolvimento de software fundada p
 - React e TypeScript;
 - Tailwind CSS v4 com design tokens em CSS;
 - Zod para validação do formulário;
+- Sentry para monitoramento opcional e sanitizado no Cloudflare Worker;
 - fontes variáveis locais Manrope e JetBrains Mono;
 - vinext/Vite para build compatível com Cloudflare Workers e Sites.
 
@@ -38,6 +39,8 @@ Site comercial da BragaCode, operação de desenvolvimento de software fundada p
 
 Sem provedor de contato configurado, o formulário valida os dados e orienta a usar o WhatsApp. Nenhum analytics é carregado por padrão.
 
+O monitoramento também é opcional. Quando `SENTRY_DSN` está ausente, nenhum evento é enviado.
+
 ## Scripts
 
 ```bash
@@ -45,7 +48,10 @@ npm run dev      # desenvolvimento com HMR
 npm run build    # build de produção
 npm run lint     # ESLint
 npm test         # build e smoke tests das rotas
+npm run test:e2e # fluxos críticos em Chrome desktop e mobile
 ```
+
+Na primeira execução local dos testes de navegador, instale o Chromium com `npx playwright install chromium`. No Windows, o Playwright usa o servidor Vite porque o cache de arquivos estáticos do `vinext start` 0.0.50 ainda normaliza caminhos como POSIX; no CI Linux, os mesmos testes usam o bundle de produção.
 
 ## Qualidade contínua
 
@@ -55,6 +61,7 @@ Pull requests e pushes em `main` executam automaticamente:
 - lint;
 - build de produção;
 - smoke tests de rotas, SEO e validação do formulário;
+- testes de navegador dos fluxos críticos em desktop e mobile;
 - auditoria das dependências usadas em produção.
 
 O merge deve acontecer somente quando o workflow `CI` estiver aprovado.
@@ -87,9 +94,11 @@ O POST `/api/contact` inclui:
 - tempo mínimo de preenchimento;
 - rate limit de melhor esforço por instância;
 - Cloudflare Turnstile opcional;
-- envio por Resend ou `CONTACT_WEBHOOK_URL`.
+- envio por Resend ou webhook assinado, com idempotência e novas tentativas controladas.
 
-Para Resend, configure `RESEND_API_KEY`, `CONTACT_TO_EMAIL` e `CONTACT_FROM_EMAIL`. Para webhook, configure `CONTACT_WEBHOOK_URL`; ele tem prioridade.
+Para Resend, configure `RESEND_API_KEY`, `CONTACT_TO_EMAIL` e `CONTACT_FROM_EMAIL`. Para webhook, configure `CONTACT_WEBHOOK_URL` e `CONTACT_WEBHOOK_SECRET`; ele tem prioridade. Todas as tentativas do mesmo contato usam `Idempotency-Key: contact/<UUID>`. O receptor do webhook deve persistir essa chave e ignorar duplicatas.
+
+O webhook recebe `X-BragaCode-Timestamp` e `X-BragaCode-Signature`, calculada como HMAC SHA-256 de `<timestamp>.<corpo>`. Valide a assinatura com comparação em tempo constante e rejeite timestamps antigos antes de processar o lead. Campos do honeypot, Turnstile e controle de tempo não são enviados.
 
 O rate limit em memória reduz abuso simples, mas não substitui proteção persistente ou regra de borda em produção.
 
@@ -159,7 +168,10 @@ O conteúdo e os componentes seguem APIs do App Router. Como a base atual usa vi
 - [Dados de projetos](docs/05-dados-de-projetos.md)
 - [Roadmap, milestones e backlog](docs/06-roadmap.md)
 - [Decisões técnicas](docs/07-decisoes-tecnicas.md)
+- [ADR — CMS e fluxo editorial](docs/adr/ADR-009-cms-fluxo-editorial.md)
 - [Checklist de lançamento](docs/08-checklist-lancamento.md)
+- [Operação e monitoramento](docs/09-operacao-monitoramento.md)
+- [Integração operacional de leads](docs/10-integracao-leads.md)
 
 ### Materiais para etapas manuais
 

@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHmac } from "node:crypto";
 import test from "node:test";
 
 async function render(path = "/", init = {}) {
@@ -59,6 +60,65 @@ test("rejeita contato inválido no servidor", async () => {
     body: JSON.stringify({ name: "", email: "invalido" }),
   });
   assert.equal(response.status, 422);
+});
+
+test("assina o webhook e repete o mesmo lead sem alterar a chave idempotente", async () => {
+  const originalFetch = globalThis.fetch;
+  const originalUrl = process.env.CONTACT_WEBHOOK_URL;
+  const originalSecret = process.env.CONTACT_WEBHOOK_SECRET;
+  const calls = [];
+  process.env.CONTACT_WEBHOOK_URL = "https://crm.example.test/leads";
+  process.env.CONTACT_WEBHOOK_SECRET = "test-secret";
+  globalThis.fetch = async (input, init = {}) => {
+    calls.push({ input: String(input), init });
+    return new Response(null, { status: calls.length === 1 ? 503 : 200 });
+  };
+
+  try {
+    const response = await render("/api/contact", {
+      method: "POST",
+      headers: { "content-type": "application/json", "cf-connecting-ip": "203.0.113.15" },
+      body: JSON.stringify({
+        submissionId: "6cbaae3a-a953-4ad0-97f5-4f275c51ce04",
+        name: "Contato de teste",
+        company: "Empresa Exemplo",
+        email: "contato@example.com",
+        phone: "+55 11 99999-0000",
+        projectType: "API ou integração",
+        message: "Precisamos eliminar a digitação duplicada entre o ERP e a loja.",
+        consent: true,
+        website: "",
+        startedAt: Date.now() - 3_000,
+      }),
+    });
+
+    assert.equal(response.status, 200);
+    assert.equal(calls.length, 2);
+    assert.equal(calls[0].input, "https://crm.example.test/leads");
+    assert.equal(calls[0].init.body, calls[1].init.body);
+
+    const headers = new Headers(calls[0].init.headers);
+    const secondHeaders = new Headers(calls[1].init.headers);
+    assert.equal(headers.get("Idempotency-Key"), "contact/6cbaae3a-a953-4ad0-97f5-4f275c51ce04");
+    assert.equal(headers.get("Idempotency-Key"), secondHeaders.get("Idempotency-Key"));
+    assert.equal(headers.get("X-BragaCode-Signature"), secondHeaders.get("X-BragaCode-Signature"));
+
+    const body = JSON.parse(String(calls[0].init.body));
+    assert.equal(body.id, "6cbaae3a-a953-4ad0-97f5-4f275c51ce04");
+    assert.equal(body.website, undefined);
+    assert.equal(body.startedAt, undefined);
+    assert.equal(body.turnstileToken, undefined);
+
+    const timestamp = headers.get("X-BragaCode-Timestamp");
+    const expected = createHmac("sha256", "test-secret").update(`${timestamp}.${calls[0].init.body}`).digest("hex");
+    assert.equal(headers.get("X-BragaCode-Signature"), `sha256=${expected}`);
+  } finally {
+    globalThis.fetch = originalFetch;
+    if (originalUrl === undefined) delete process.env.CONTACT_WEBHOOK_URL;
+    else process.env.CONTACT_WEBHOOK_URL = originalUrl;
+    if (originalSecret === undefined) delete process.env.CONTACT_WEBHOOK_SECRET;
+    else process.env.CONTACT_WEBHOOK_SECRET = originalSecret;
+  }
 });
 
 test("renderiza as rotas principais e o 404", async () => {

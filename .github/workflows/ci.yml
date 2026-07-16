@@ -41,5 +41,11 @@ jobs:
       - name: Run smoke tests
         run: node --test tests/rendered-html.test.mjs
 
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
+
+      - name: Run critical browser flows
+        run: npm run test:e2e
+
       - name: Audit production dependencies
         run: npm audit --omit=dev --audit-level=high

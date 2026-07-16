@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ProjectCard } from "@/components/project/ProjectCard";
-import { ProjectVisual } from "@/components/project/ProjectVisual";
+import { ProjectGalleryMedia } from "@/components/project/ProjectGalleryMedia";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { getProject, projects } from "@/content/projects";
 import { services } from "@/content/services";
@@ -69,7 +69,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   <div><span>Frentes</span><strong>{project.categories.join(" · ")}</strong></div>
                 </div>
               </div>
-              <ProjectVisual kind={project.gallery[0].kind} label={`Representação visual do projeto ${project.name}`} />
+              <ProjectGalleryMedia item={project.gallery[0]} priority sizes="(max-width: 820px) 100vw, 42vw" />
             </div>
           </div>
         </header>
@@ -108,11 +108,11 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
         <section className="section case-gallery-section">
           <div className="container">
-            <div className="gallery-heading"><span>03</span><h2>Galeria do projeto</h2><p>Representações reconstruídas e identificadas para explicar o fluxo sem expor dados internos.</p></div>
+            <div className="gallery-heading"><span>03</span><h2>Galeria do projeto</h2><p>Cada imagem informa se é um screenshot autorizado ou uma representação reconstruída para preservar dados internos.</p></div>
             <div className="case-gallery">
               {project.gallery.map((item) => (
                 <figure key={item.title}>
-                  <ProjectVisual kind={item.kind} label={`${item.title}: ${item.caption}`} />
+                  <ProjectGalleryMedia item={item} />
                   <figcaption><strong>{item.title}</strong><span>{item.caption}</span></figcaption>
                 </figure>
               ))}

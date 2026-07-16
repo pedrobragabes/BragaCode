@@ -78,6 +78,8 @@ test("expõe a origem do case e preserva o status de protótipo", async () => {
   assert.match(professionalHtml, /Transparência do case/);
   assert.match(professionalHtml, /Trabalho profissional/);
   assert.match(professionalHtml, /Experiência profissional e currículo de Pedro Braga/);
+  assert.match(professionalHtml, /Representação reconstruída/);
+  assert.doesNotMatch(professionalHtml, /Screenshot autorizado/);
 
   const prototype = await render("/projetos/rastreia-gastos");
   const prototypeHtml = await prototype.text();

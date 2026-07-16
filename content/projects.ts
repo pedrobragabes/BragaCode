@@ -39,6 +39,20 @@ export type ProjectEvidence = {
   disclosure: string;
 };
 
+export type ProjectGalleryAsset = {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+};
+
+export type ProjectGalleryItem = {
+  kind: ProjectVisualKind;
+  title: string;
+  caption: string;
+  asset?: ProjectGalleryAsset;
+};
+
 export type Project = {
   slug: string;
   name: string;
@@ -57,7 +71,7 @@ export type Project = {
   results: string[];
   metrics: { value: string; label: string; note: string }[];
   evidence: ProjectEvidence;
-  gallery: { kind: ProjectVisualKind; title: string; caption: string }[];
+  gallery: ProjectGalleryItem[];
   confidentialityNote?: string;
   seo: { title: string; description: string };
 };

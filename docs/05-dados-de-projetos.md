@@ -16,10 +16,15 @@ type ProjectMetric = {
 };
 
 type ProjectGalleryItem = {
-  type: "image" | "interface" | "diagram";
-  src?: string;
-  alt: string;
+  kind: ProjectVisualKind;
+  title: string;
   caption: string;
+  asset?: {
+    src: string;
+    alt: string;
+    width: number;
+    height: number;
+  };
 };
 
 type ProjectEvidence = {
@@ -125,11 +130,13 @@ Enquanto não houver assets aprovados pelo cliente, cada case usa três represen
 Ao receber screenshots reais:
 
 - remover dados pessoais e comerciais;
-- usar WebP/AVIF com fallback;
+- salvar em `public/projects/{slug}/` com nome descritivo e usar WebP ou AVIF;
 - registrar largura e altura;
 - escrever alt text que descreve informação, não decoração;
 - manter a legenda indicando ambiente e contexto;
 - solicitar autorização antes de publicar marca de cliente.
+
+O componente `ProjectGalleryMedia` usa `next/image` quando existe `asset`. Sem arquivo autorizado, mantém o visual reconstruído. Em ambos os casos, a origem aparece sobre a mídia como “Screenshot autorizado” ou “Representação reconstruída”.
 
 ## 5. Critério para destaque
 

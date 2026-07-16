@@ -35,11 +35,11 @@ Pedro Braga — BragaCode
 
 Resposta original:
 
-> 
+>
 
 Versão editada para publicação:
 
-> 
+>
 
 Alterações realizadas:
 

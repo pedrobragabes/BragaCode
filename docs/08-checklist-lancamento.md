@@ -45,6 +45,13 @@ Use os modelos em [`docs/templates`](templates/) para registrar autorização de
 - [ ] robots acessível;
 - [ ] JSON-LD validado no Rich Results Test/validator;
 - [ ] Search Console configurado;
+- [ ] Plausible criado e URL única do script configurada;
+- [ ] metas `WhatsApp Click`, `Contact Form Submitted`, `Case Click` e `Service Click` criadas;
+- [ ] eventos verificados na aba Network e no painel do provedor;
+- [ ] sitemap enviado e aceito no Search Console;
+- [ ] alternates `pt-BR`, `en` e `x-default` validados nas seis rotas traduzidas;
+- [ ] conteúdo inglês revisado por pessoa fluente;
+- [ ] seletor de idioma testado no desktop e mobile;
 - [ ] compartilhamento testado em WhatsApp e LinkedIn.
 
 ## Acessibilidade

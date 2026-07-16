@@ -3,18 +3,29 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { whatsappUrl } from "@/lib/site";
+import { localizedPath } from "@/lib/seo";
+import { whatsappUrl, whatsappUrlEnglish } from "@/lib/site";
 import { Logo } from "./Logo";
 
 const navigation = [
   { href: "/servicos", label: "Serviços" },
   { href: "/projetos", label: "Projetos" },
+  { href: "/artigos", label: "Artigos" },
   { href: "/sobre", label: "Sobre" },
   { href: "/contato", label: "Contato" },
 ];
 
+const englishNavigation = [
+  { href: "/en/services", label: "Services" },
+  { href: "/en/projects", label: "Projects" },
+  { href: "/en/about", label: "About" },
+  { href: "/en/contact", label: "Contact" },
+];
+
 export function SiteHeader() {
   const pathname = usePathname();
+  const isEnglish = pathname === "/en" || pathname.startsWith("/en/");
+  const activeNavigation = isEnglish ? englishNavigation : navigation;
   const [menuOpen, setMenuOpen] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
@@ -67,9 +78,9 @@ export function SiteHeader() {
   return (
     <header className="site-header">
       <div className="container header-inner">
-        <Logo />
-        <nav className="desktop-nav" aria-label="Navegação principal">
-          {navigation.map((item) => (
+        <Logo href={isEnglish ? "/en" : "/"} label={isEnglish ? "BragaCode — home page" : "BragaCode — página inicial"} />
+        <nav className="desktop-nav" aria-label={isEnglish ? "Main navigation" : "Navegação principal"}>
+          {activeNavigation.map((item) => (
             <Link
               href={item.href}
               key={item.href}
@@ -81,17 +92,20 @@ export function SiteHeader() {
           ))}
         </nav>
         <div className="header-actions">
+          <Link className="language-switch" href={localizedPath(pathname, isEnglish ? "pt-BR" : "en")} hrefLang={isEnglish ? "pt-BR" : "en"}>
+            {isEnglish ? "PT" : "EN"}
+          </Link>
           <button
             className="theme-toggle"
             type="button"
             onClick={toggleTheme}
-            aria-label="Alternar entre tema claro e escuro"
-            title="Alternar entre tema claro e escuro"
+            aria-label={isEnglish ? "Switch between light and dark theme" : "Alternar entre tema claro e escuro"}
+            title={isEnglish ? "Switch between light and dark theme" : "Alternar entre tema claro e escuro"}
           >
             <span aria-hidden="true">◐</span>
           </button>
-          <a className="button button-small header-cta" href={whatsappUrl("a página inicial")} target="_blank" rel="noreferrer">
-            Solicitar orçamento <span aria-hidden="true">↗</span>
+          <a className="button button-small header-cta" href={isEnglish ? whatsappUrlEnglish("the home page") : whatsappUrl("a página inicial")} target="_blank" rel="noreferrer">
+            {isEnglish ? "Request a quote" : "Solicitar orçamento"} <span aria-hidden="true">↗</span>
           </a>
           <button
             className="menu-toggle"
@@ -99,7 +113,7 @@ export function SiteHeader() {
             type="button"
             aria-expanded={menuOpen}
             aria-controls="mobile-navigation"
-            aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
+            aria-label={menuOpen ? (isEnglish ? "Close menu" : "Fechar menu") : (isEnglish ? "Open menu" : "Abrir menu")}
             onClick={() => setMenuOpen((value) => !value)}
           >
             <span />
@@ -114,16 +128,16 @@ export function SiteHeader() {
         aria-hidden={!menuOpen}
         inert={!menuOpen}
       >
-        <nav className="container" aria-label="Navegação mobile">
-          {navigation.map((item, index) => (
+        <nav className="container" aria-label={isEnglish ? "Mobile navigation" : "Navegação mobile"}>
+          {activeNavigation.map((item, index) => (
             <Link href={item.href} key={item.href} onClick={() => setMenuOpen(false)}>
               <span>0{index + 1}</span>
               {item.label}
               <i aria-hidden="true">↗</i>
             </Link>
           ))}
-          <a className="button" href={whatsappUrl("o menu do site")} target="_blank" rel="noreferrer">
-            Falar sobre um projeto <span aria-hidden="true">↗</span>
+          <a className="button" href={isEnglish ? whatsappUrlEnglish("the website menu") : whatsappUrl("o menu do site")} target="_blank" rel="noreferrer">
+            {isEnglish ? "Discuss a project" : "Falar sobre um projeto"} <span aria-hidden="true">↗</span>
           </a>
         </nav>
       </div>

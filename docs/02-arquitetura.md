@@ -103,7 +103,9 @@ Não haverá armazenamento de leads na primeira versão. Isso reduz superfície 
 
 ## 8. Analytics
 
-O componente de analytics só é renderizado quando `NEXT_PUBLIC_ANALYTICS_PROVIDER` e a chave correspondente existirem. A primeira versão prevê Google Analytics (`NEXT_PUBLIC_GA_ID`) ou Plausible (`NEXT_PUBLIC_PLAUSIBLE_DOMAIN`). Nenhum script é carregado por padrão.
+O componente de analytics só é renderizado quando `NEXT_PUBLIC_ANALYTICS_PROVIDER` e a chave correspondente existirem. Plausible é o provedor recomendado e usa a URL única do site em `NEXT_PUBLIC_PLAUSIBLE_SCRIPT_URL`; Google Analytics permanece disponível por `NEXT_PUBLIC_GA_ID`. Nenhum script é carregado por padrão.
+
+`AnalyticsEvents` observa links de WhatsApp e navegações para cases/serviços sem exigir componentes específicos. O formulário dispara um evento apenas depois da resposta de sucesso. As propriedades enviadas são contexto de navegação e tipo de projeto; nome, e-mail, telefone e mensagem nunca entram nos eventos.
 
 ## 9. Escalabilidade
 
@@ -111,7 +113,26 @@ O componente de analytics só é renderizado quando `NEXT_PUBLIC_ANALYTICS_PROVI
 - categorias e filtros derivam do catálogo;
 - um CMS pode substituir `content/projects.ts` sem alterar os componentes;
 - envio de contato pode trocar de Resend para webhook/CRM atrás do mesmo adaptador;
-- blog e versão em inglês podem ser adicionados como grupos de rota futuros.
+- a área de artigos usa MDX compilado pelo Vite, frontmatter validado por Zod e syntax highlighting no build;
+- um CMS pode substituir o índice de artigos preservando as rotas e o contrato editorial;
+- a versão em inglês usa o prefixo `/en`, conteúdo tipado próprio e alternates derivados do mesmo mapa de rotas.
+
+### Internacionalização
+
+- português permanece no caminho canônico sem prefixo;
+- inglês usa `/en` para não misturar idiomas na mesma URL;
+- `createMetadata` centraliza canonical, `hreflang`, `x-default` e Open Graph locale;
+- header, footer, skip link, formulário e mensagens de WhatsApp derivam o idioma do pathname;
+- o sitemap publica pares `pt-BR`/`en` para as páginas traduzidas;
+- cases sem tradução continuam acessíveis em português; apenas AquaFlora possui página inglesa nesta etapa.
+
+### Pipeline editorial MDX
+
+1. `@mdx-js/rollup` compila os arquivos antes dos plugins de React/vinext;
+2. `remark-frontmatter` e `remark-mdx-frontmatter` expõem o YAML como `frontmatter`;
+3. `content/articles.ts` valida e filtra somente conteúdos publicados;
+4. `rehype-pretty-code` e Shiki geram tokens acessíveis durante o build;
+5. as rotas geram metadata, `Article`, breadcrumbs e entradas de sitemap a partir do mesmo contrato.
 
 ## 10. Riscos e mitigação
 

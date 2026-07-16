@@ -95,8 +95,18 @@ O rate limit em memória reduz abuso simples, mas não substitui proteção pers
 
 ## Analytics
 
-- Plausible: `NEXT_PUBLIC_ANALYTICS_PROVIDER=plausible` e `NEXT_PUBLIC_PLAUSIBLE_DOMAIN`.
-- Google Analytics: `NEXT_PUBLIC_ANALYTICS_PROVIDER=ga` e `NEXT_PUBLIC_GA_ID`.
+- Recomendado — Plausible: `NEXT_PUBLIC_ANALYTICS_PROVIDER=plausible` e `NEXT_PUBLIC_PLAUSIBLE_SCRIPT_URL` com a URL única fornecida em **Site Settings > Site Installation**.
+- Alternativa mantida — Google Analytics: `NEXT_PUBLIC_ANALYTICS_PROVIDER=ga` e `NEXT_PUBLIC_GA_ID`.
+- Sem as variáveis correspondentes, nenhum script ou listener de analytics é carregado.
+
+Eventos implementados:
+
+- `WhatsApp Click`: links para `wa.me`;
+- `Contact Form Submitted`: somente após resposta de sucesso, com origem e tipo de projeto, sem nome, e-mail ou telefone;
+- `Case Click`: navegação para uma página individual de projeto;
+- `Service Click`: navegação para uma página individual de serviço.
+
+No Plausible, crie metas com esses quatro nomes exatamente como escritos. O cadastro do domínio, a verificação da instalação, o Search Console e o envio do sitemap são etapas manuais.
 
 ## SEO
 
@@ -107,6 +117,28 @@ O rate limit em memória reduz abuso simples, mas não substitui proteção pers
 - conteúdo server-rendered e URLs estáveis.
 
 Defina `NEXT_PUBLIC_SITE_URL` com o domínio HTTPS final antes do build público para gerar canonicals, sitemap e imagens sociais corretos.
+
+## Artigos em MDX
+
+Os artigos ficam em `content/articles/*.mdx`. O frontmatter obrigatório contém `slug`, `title`, `description`, `publishedAt`, `status`, `readingTime`, `category`, `serviceSlugs` e `projectSlugs`.
+
+Somente arquivos com `status: publicado` entram na listagem e no sitemap. `content/articles.ts` valida o frontmatter com Zod durante o build. Blocos de código recebem destaque server-side via Shiki/rehype-pretty-code, sem JavaScript de syntax highlighting no navegador.
+
+Para publicar um artigo:
+
+1. criar o `.mdx` com slug único e descrição entre 80 e 180 caracteres;
+2. relacionar ao menos um serviço ou projeto pertinente;
+3. revisar afirmações, exemplos e dados confidenciais;
+4. alterar o status para `publicado`;
+5. executar `npm run lint` e `npm test`.
+
+## Versão em inglês
+
+As rotas `/en`, `/en/services`, `/en/projects`, `/en/about`, `/en/contact` e `/en/projects/aquaflora-agroshop` têm conteúdo próprio em inglês. O seletor `PT/EN` mantém pares equivalentes quando existem e volta à Home do outro idioma para conteúdo ainda não traduzido.
+
+`createMetadata` gera canonical, `hreflang` para `pt-BR`, `en` e `x-default`, além do locale correto no Open Graph. O sitemap repete os pares de idioma com alternates. Um script mínimo no `<head>` ajusta `document.documentElement.lang` antes do conteúdo e cada página inglesa também declara `lang="en"` no container principal.
+
+O formulário usa rótulos e mensagens em inglês, mas preserva os valores internos aceitos pelo endpoint. A mensagem de WhatsApp também é localizada. Artigos e páginas individuais de serviço ainda existem somente em português e devem apontar para a Home equivalente ao alternar o idioma.
 
 ## Deploy
 

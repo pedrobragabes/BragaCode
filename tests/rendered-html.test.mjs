@@ -86,3 +86,61 @@ test("expõe a origem do case e preserva o status de protótipo", async () => {
   assert.match(prototypeHtml, /Protótipo/);
   assert.match(prototypeHtml, /Não é apresentado como produto finalizado/);
 });
+
+test("publica páginas individuais de serviço com SEO e cases relacionados", async () => {
+  const response = await render("/servicos/ecommerce");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /E-commerce que acompanha a operação/);
+  assert.match(html, /AquaFlora AgroShop/);
+  assert.match(html, /FAQPage/);
+  assert.match(html, /Desenvolvimento e integração de e-commerce/);
+
+  const sitemap = await render("/sitemap.xml");
+  assert.match(await sitemap.text(), /servicos\/apis-e-integracoes/);
+});
+
+test("mantém o formulário identificável sem carregar analytics por padrão", async () => {
+  const response = await render("/contato");
+  const html = await response.text();
+  assert.match(html, /data-analytics-scope="contact"/);
+  assert.doesNotMatch(html, /plausible\.io|googletagmanager\.com/);
+});
+
+test("publica artigos MDX com código acessível, metadata e sitemap", async () => {
+  const index = await render("/artigos");
+  assert.equal(index.status, 200);
+  assert.match(await index.text(), /Como sincronizar estoque e preços/);
+
+  const article = await render("/artigos/sincronizacao-estoque-precos");
+  assert.equal(article.status, 200);
+  const html = await article.text();
+  assert.match(html, /Article/);
+  assert.match(html, /Idempotência evita duplicação/);
+  assert.match(html, /data-rehype-pretty-code-figure/);
+  assert.match(html, /APIs e integrações/);
+
+  const sitemap = await render("/sitemap.xml");
+  assert.match(await sitemap.text(), /artigos\/automacao-llm-escalonamento-humano/);
+});
+
+test("publica rotas em inglês com hreflang, formulário localizado e case prioritário", async () => {
+  for (const path of ["/en", "/en/services", "/en/projects", "/en/about", "/en/contact", "/en/projects/aquaflora-agroshop"]) {
+    const response = await render(path);
+    assert.equal(response.status, 200, path);
+    const html = await response.text();
+    assert.match(html, /lang="en"/, path);
+    assert.match(html, /hrefLang="pt-BR"/, path);
+    assert.match(html, /hrefLang="en"/, path);
+  }
+
+  const contact = await render("/en/contact");
+  assert.match(await contact.text(), /Which process needs to work better/);
+  const casePage = await render("/en/projects/aquaflora-agroshop");
+  assert.match(await casePage.text(), /What needed to change/);
+
+  const sitemap = await render("/sitemap.xml");
+  const xml = await sitemap.text();
+  assert.match(xml, /en\/projects\/aquaflora-agroshop/);
+  assert.match(xml, /hreflang="en"/i);
+});

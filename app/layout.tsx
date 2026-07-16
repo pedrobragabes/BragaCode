@@ -5,6 +5,7 @@ import "./globals.css";
 import { Analytics } from "@/components/analytics/Analytics";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
+import { SkipLink } from "@/components/layout/SkipLink";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -42,14 +43,19 @@ const themeScript = `
   } catch (_) {}
 `;
 
+const languageScript = `
+  document.documentElement.lang = location.pathname === '/en' || location.pathname.startsWith('/en/') ? 'en' : 'pt-BR';
+`;
+
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <script dangerouslySetInnerHTML={{ __html: languageScript }} />
       </head>
       <body>
-        <a className="skip-link" href="#conteudo">Pular para o conteúdo</a>
+        <SkipLink />
         <SiteHeader />
         <main id="conteudo">{children}</main>
         <SiteFooter />

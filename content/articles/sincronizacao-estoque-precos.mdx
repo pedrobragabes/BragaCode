@@ -1,0 +1,100 @@
+---
+slug: sincronizacao-estoque-precos
+title: Como sincronizar estoque e preços sem depender de conferência item por item
+description: Um desenho prático para integrar ERP e e-commerce com validação, idempotência, retentativas e rastreabilidade operacional.
+publishedAt: "2026-07-16"
+status: publicado
+readingTime: 8 min
+category: Integrações
+serviceSlugs:
+  - ecommerce
+  - apis-e-integracoes
+  - automacoes
+projectSlugs:
+  - aquaflora-agroshop
+---
+
+Sincronizar catálogo parece simples enquanto o exemplo tem dez produtos e uma conexão estável. Em uma operação real, o ERP pode exportar campos incompletos, a API da loja pode impor limites e uma execução pode parar depois de atualizar apenas parte dos itens.
+
+O objetivo não é apenas transportar dados. É permitir que a equipe saiba **qual sistema decidiu o valor**, **o que foi alterado** e **como recuperar uma execução incompleta**.
+
+## Comece definindo a fonte de verdade
+
+Estoque e preço não precisam ter a mesma origem. O ERP pode ser responsável pela quantidade disponível, enquanto uma regra comercial autorizada calcula preço promocional antes do envio ao e-commerce.
+
+Para cada campo, registre:
+
+- sistema responsável pelo valor;
+- identificador estável do produto;
+- frequência aceitável de atualização;
+- regra para item ausente ou inativo;
+- comportamento quando a origem envia um valor inválido.
+
+Sem esse acordo, o middleware vira mais uma fonte conflitante.
+
+## Separe leitura, transformação e publicação
+
+Uma rotina mais segura mantém três responsabilidades visíveis:
+
+1. ler a origem e preservar um retrato da entrada;
+2. normalizar tipos, códigos e regras sem chamar a loja;
+3. publicar apenas registros válidos e registrar a resposta.
+
+Essa divisão permite testar a transformação com uma amostra antes de alterar produtos reais.
+
+```python
+from dataclasses import dataclass
+from decimal import Decimal
+
+@dataclass(frozen=True)
+class CatalogUpdate:
+    sku: str
+    stock: int
+    price: Decimal
+
+def normalize(row: dict) -> CatalogUpdate:
+    sku = str(row["codigo"]).strip()
+    stock = max(0, int(row["saldo"]))
+    price = Decimal(str(row["preco"])).quantize(Decimal("0.01"))
+
+    if not sku or price <= 0:
+        raise ValueError("registro não pode ser publicado")
+
+    return CatalogUpdate(sku=sku, stock=stock, price=price)
+```
+
+O exemplo é pequeno de propósito. Em produção, a transformação também precisa registrar por que um item foi descartado, sem incluir credenciais ou dados desnecessários no log.
+
+## Idempotência evita duplicação e retrabalho
+
+Reexecutar a mesma entrada deve produzir o mesmo estado final. Para estoque e preço, isso normalmente significa atualizar pelo identificador estável e não criar um novo produto quando a resposta anterior ficou incerta.
+
+Antes de reenviar, o processo pode comparar o valor desejado com o último valor confirmado. Isso reduz chamadas, facilita auditoria e impede que uma retentativa se transforme em duplicação.
+
+## Retentativa precisa de limite
+
+Falha temporária de rede merece nova tentativa. SKU inexistente, preço inválido ou falta de permissão não melhoram esperando alguns segundos.
+
+Classifique os erros:
+
+- **temporários:** timeout, indisponibilidade e limite de requisições;
+- **de dados:** código ausente, tipo incorreto ou regra inválida;
+- **de configuração:** credencial, permissão ou endpoint incorreto.
+
+Somente o primeiro grupo deve entrar em retentativa automática, com espaçamento crescente e limite de tentativas. Os demais precisam de uma fila de correção com contexto suficiente.
+
+## A operação precisa enxergar cinco números
+
+Ao final de cada execução, registre pelo menos:
+
+- itens lidos;
+- itens válidos;
+- itens alterados;
+- itens ignorados por não haver mudança;
+- falhas pendentes, agrupadas por causa.
+
+Um relatório assim responde se a rotina terminou e onde agir. Uma mensagem genérica como “sincronização concluída” não mostra que vinte produtos ficaram para trás.
+
+## Quando começar menor
+
+Antes de automatizar todo o catálogo, execute em modo de simulação, selecione uma categoria ou limite o lote. O primeiro resultado útil é provar que a regra produz os mesmos valores que a equipe espera — e que uma falha pode ser recuperada sem editar milhares de produtos manualmente.

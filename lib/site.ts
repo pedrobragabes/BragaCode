@@ -21,3 +21,11 @@ export function whatsappUrl(context?: string) {
 
   return `https://wa.me/${company.whatsapp}?text=${encodeURIComponent(message)}`;
 }
+
+export function whatsappUrlEnglish(context?: string) {
+  const message = context
+    ? `Hello, Pedro. I found ${context} on the BragaCode website and would like to discuss a project.`
+    : "Hello, Pedro. I found BragaCode through the website and would like to discuss a project.";
+
+  return `https://wa.me/${company.whatsapp}?text=${encodeURIComponent(message)}`;
+}

@@ -16,10 +16,22 @@ type ProjectMetric = {
 };
 
 type ProjectGalleryItem = {
-  type: "image" | "interface" | "diagram";
-  src?: string;
-  alt: string;
+  kind: ProjectVisualKind;
+  title: string;
   caption: string;
+  asset?: {
+    src: string;
+    alt: string;
+    width: number;
+    height: number;
+  };
+};
+
+type ProjectEvidence = {
+  nature: "Trabalho profissional" | "Projeto de portfólio" | "Projeto próprio" | "Protótipo" | "Laboratório técnico";
+  lastReviewed: string;
+  basis: string;
+  disclosure: string;
 };
 
 type Project = {
@@ -39,6 +51,7 @@ type Project = {
   technologies: string[];
   results: string[];
   metrics: ProjectMetric[];
+  evidence: ProjectEvidence;
   gallery: ProjectGalleryItem[];
   confidentialityNote?: string;
   publicUrl?: string;
@@ -46,6 +59,8 @@ type Project = {
   seo: { title: string; description: string };
 };
 ```
+
+`evidence` é obrigatório em todos os cases. A página individual usa esses dados para informar a natureza do trabalho, em que fonte a descrição se apoia, quais restrições de divulgação existem e quando o conteúdo foi revisado. Links e números só devem entrar depois de verificação e, quando necessário, autorização do cliente.
 
 ## 3. Inventário editorial
 
@@ -115,11 +130,13 @@ Enquanto não houver assets aprovados pelo cliente, cada case usa três represen
 Ao receber screenshots reais:
 
 - remover dados pessoais e comerciais;
-- usar WebP/AVIF com fallback;
+- salvar em `public/projects/{slug}/` com nome descritivo e usar WebP ou AVIF;
 - registrar largura e altura;
 - escrever alt text que descreve informação, não decoração;
 - manter a legenda indicando ambiente e contexto;
 - solicitar autorização antes de publicar marca de cliente.
+
+O componente `ProjectGalleryMedia` usa `next/image` quando existe `asset`. Sem arquivo autorizado, mantém o visual reconstruído. Em ambos os casos, a origem aparece sobre a mídia como “Screenshot autorizado” ou “Representação reconstruída”.
 
 ## 5. Critério para destaque
 

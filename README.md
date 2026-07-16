@@ -129,6 +129,12 @@ O conteúdo e os componentes seguem APIs do App Router. Como a base atual usa vi
 - [Decisões técnicas](docs/07-decisoes-tecnicas.md)
 - [Checklist de lançamento](docs/08-checklist-lancamento.md)
 
+### Materiais para etapas manuais
+
+- [Autorização de divulgação de case](docs/templates/autorizacao-case.md)
+- [Inventário de screenshots e assets](docs/templates/inventario-assets-case.md)
+- [Solicitação e aprovação de depoimento](docs/templates/pedido-depoimento.md)
+
 ## Pendências antes do lançamento público
 
 - confirmar domínio e e-mail comercial;

@@ -25,6 +25,34 @@ export type ProjectVisualKind =
   | "catalog"
   | "infra";
 
+export type ProjectNature =
+  | "Trabalho profissional"
+  | "Projeto de portfólio"
+  | "Projeto próprio"
+  | "Protótipo"
+  | "Laboratório técnico";
+
+export type ProjectEvidence = {
+  nature: ProjectNature;
+  lastReviewed: string;
+  basis: string;
+  disclosure: string;
+};
+
+export type ProjectGalleryAsset = {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+};
+
+export type ProjectGalleryItem = {
+  kind: ProjectVisualKind;
+  title: string;
+  caption: string;
+  asset?: ProjectGalleryAsset;
+};
+
 export type Project = {
   slug: string;
   name: string;
@@ -42,7 +70,8 @@ export type Project = {
   technologies: string[];
   results: string[];
   metrics: { value: string; label: string; note: string }[];
-  gallery: { kind: ProjectVisualKind; title: string; caption: string }[];
+  evidence: ProjectEvidence;
+  gallery: ProjectGalleryItem[];
   confidentialityNote?: string;
   seo: { title: string; description: string };
 };
@@ -103,6 +132,12 @@ export const projects: Project[] = [
       { value: "6.300+", label: "ativos", note: "tratados no catálogo" },
       { value: "3", label: "frentes", note: "loja, operação interna e atendimento" },
     ],
+    evidence: {
+      nature: "Trabalho profissional",
+      lastReviewed: "16 de julho de 2026",
+      basis: "Experiência profissional e currículo de Pedro Braga.",
+      disclosure: "Cliente identificado; métricas operacionais publicadas sem expor regras comerciais ou dados internos.",
+    },
     gallery: [
       { kind: "sync", title: "Fluxo de sincronização", caption: "Representação do caminho entre ERP, middleware e WooCommerce." },
       { kind: "catalog", title: "Consulta no estoque", caption: "Recorte reconstruído da experiência mobile por código de barras." },
@@ -159,6 +194,12 @@ export const projects: Project[] = [
       { value: "1", label: "painel", note: "para produtos, categorias e imagens" },
       { value: "mobile", label: "first", note: "do catálogo ao contato" },
     ],
+    evidence: {
+      nature: "Projeto de portfólio",
+      lastReviewed: "16 de julho de 2026",
+      basis: "Escopo técnico implementado por Pedro Braga.",
+      disclosure: "Cliente e ativos comerciais permanecem anônimos até autorização expressa.",
+    },
     gallery: [
       { kind: "store", title: "Catálogo responsivo", caption: "Representação da vitrine organizada por categorias." },
       { kind: "catalog", title: "Painel administrativo", caption: "Recorte reconstruído do cadastro de produtos e imagens." },
@@ -208,6 +249,12 @@ export const projects: Project[] = [
       { value: "2", label: "entradas", note: "categoria e tags" },
       { value: "1 toque", label: "contato", note: "via WhatsApp" },
     ],
+    evidence: {
+      nature: "Projeto próprio",
+      lastReviewed: "16 de julho de 2026",
+      basis: "Produto hiperlocal desenvolvido e mantido por Pedro Braga.",
+      disclosure: "Resultados descritos de forma qualitativa; não há métricas comerciais publicadas.",
+    },
     gallery: [
       { kind: "directory", title: "Descoberta hiperlocal", caption: "Representação da busca por categoria e proximidade." },
       { kind: "store", title: "Página do estabelecimento", caption: "Recorte reconstruído de uma página comercial mobile-first." },
@@ -237,6 +284,12 @@ export const projects: Project[] = [
     technologies: ["WordPress", "PHP", "JavaScript", "CSS", "SEO"],
     results: ["O projeto permanece como ambiente real de publicação e manutenção desde 2020."],
     metrics: [{ value: "2020", label: "início", note: "operação contínua do projeto" }],
+    evidence: {
+      nature: "Projeto próprio",
+      lastReviewed: "16 de julho de 2026",
+      basis: "Projeto editorial operado por Pedro Braga desde 2020.",
+      disclosure: "A continuidade operacional é pública; números de audiência não são apresentados sem medição atualizada.",
+    },
     gallery: [
       { kind: "editorial", title: "Fluxo editorial", caption: "Representação do ciclo de pauta, publicação e otimização." },
       { kind: "store", title: "Página de conteúdo", caption: "Recorte editorial reconstruído para o portfólio." },
@@ -265,6 +318,12 @@ export const projects: Project[] = [
     technologies: ["Python", "FastAPI", "React", "PostgreSQL", "IA/OCR"],
     results: ["A arquitetura inicial e APIs de validação foram estruturadas; o produto ainda está em desenvolvimento."],
     metrics: [{ value: "MVP", label: "status", note: "protótipo em validação" }],
+    evidence: {
+      nature: "Protótipo",
+      lastReviewed: "16 de julho de 2026",
+      basis: "Arquitetura e APIs iniciais desenvolvidas por Pedro Braga.",
+      disclosure: "Não é apresentado como produto finalizado nem como operação de cliente.",
+    },
     gallery: [
       { kind: "finance", title: "Entrada assistida", caption: "Representação do envio e leitura de comprovante." },
       { kind: "catalog", title: "Validação humana", caption: "Recorte reconstruído para revisar campos extraídos." },
@@ -293,6 +352,12 @@ export const projects: Project[] = [
     technologies: ["Python", "FastAPI", "React", "PostgreSQL", "IA/OCR"],
     results: ["O fluxo e as APIs iniciais estão em desenvolvimento; ainda não é apresentado como produto finalizado."],
     metrics: [{ value: "MVP", label: "status", note: "protótipo em validação" }],
+    evidence: {
+      nature: "Protótipo",
+      lastReviewed: "16 de julho de 2026",
+      basis: "Fluxo e APIs iniciais desenvolvidos por Pedro Braga.",
+      disclosure: "Não é apresentado como produto finalizado nem como operação de cliente.",
+    },
     gallery: [
       { kind: "catalog", title: "Cadastro assistido", caption: "Representação do formulário com sugestões e validação." },
       { kind: "sync", title: "Validação de dados", caption: "Fluxo proposto antes de persistir o produto." },
@@ -321,6 +386,12 @@ export const projects: Project[] = [
     technologies: ["Proxmox VE", "Docker", "LXC", "Linux", "Nginx", "Tailscale"],
     results: ["O ambiente permite testar deploy, isolamento e recuperação antes de aplicar padrões semelhantes em projetos."],
     metrics: [{ value: "24/7", label: "laboratório", note: "operação e aprendizado contínuos" }],
+    evidence: {
+      nature: "Laboratório técnico",
+      lastReviewed: "16 de julho de 2026",
+      basis: "Ambiente pessoal de estudo, testes e operação de Pedro Braga.",
+      disclosure: "Não representa infraestrutura de cliente ou serviço comercial de hospedagem.",
+    },
     gallery: [
       { kind: "infra", title: "Camadas do laboratório", caption: "Representação de host, containers e proxy reverso." },
       { kind: "sync", title: "Publicação de serviço", caption: "Fluxo entre aplicação, rede privada, Nginx e SSL." },

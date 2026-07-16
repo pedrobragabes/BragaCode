@@ -561,6 +561,13 @@ em {
 .results-list span { color: var(--signal); font-family: "JetBrains Mono Variable", monospace; font-size: .6rem; }
 .results-list p { margin: 0; color: var(--text-soft); }
 .confidentiality-note { margin: 32px 0 0; border-left: 2px solid var(--accent); background: var(--surface); color: var(--muted); padding: 20px; font-size: .78rem; }
+.case-evidence { display: grid; grid-template-columns: .55fr 1.45fr; gap: 28px; margin-top: 16px; border: 1px solid var(--border); background: var(--surface); padding: 24px; }
+.case-evidence > div { display: flex; flex-direction: column; gap: 9px; }
+.case-evidence > div span, .case-evidence dt { color: var(--muted); font-family: "JetBrains Mono Variable", monospace; font-size: .58rem; letter-spacing: .03em; text-transform: uppercase; }
+.case-evidence > div strong { color: var(--signal); font-size: .8rem; }
+.case-evidence dl { display: grid; gap: 16px; margin: 0; }
+.case-evidence dl div { display: grid; grid-template-columns: 145px 1fr; gap: 16px; }
+.case-evidence dd { margin: 0; color: var(--text-soft); font-size: .72rem; line-height: 1.6; }
 .case-stack-section { background: var(--surface); }
 .stack-grid { display: grid; grid-template-columns: .65fr 1.35fr; gap: 70px; }
 .stack-grid > div:first-child > span { color: var(--signal); font-family: "JetBrains Mono Variable", monospace; font-size: .65rem; }
@@ -741,6 +748,7 @@ em {
   .back-link { margin-bottom: 52px; }
   .case-hero h1 { font-size: clamp(3rem, 16vw, 5rem); }
   .case-meta { grid-template-columns: 1fr; }
+  .case-evidence, .case-evidence dl div { grid-template-columns: 1fr; }
   .gallery-heading { grid-template-columns: 1fr; }
   .gallery-heading p { grid-column: auto; }
   .timeline-list li { grid-template-columns: 1fr; gap: 12px; }

@@ -128,6 +128,17 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 {project.results.map((result, index) => <li key={result}><span>0{index + 1}</span><p>{result}</p></li>)}
               </ol>
               {project.confidentialityNote && <p className="confidentiality-note"><strong>Nota de confidencialidade.</strong> {project.confidentialityNote}</p>}
+              <aside className="case-evidence" aria-labelledby="case-evidence-title">
+                <div>
+                  <span id="case-evidence-title">Transparência do case</span>
+                  <strong>{project.evidence.nature}</strong>
+                </div>
+                <dl>
+                  <div><dt>Base da descrição</dt><dd>{project.evidence.basis}</dd></div>
+                  <div><dt>Política de divulgação</dt><dd>{project.evidence.disclosure}</dd></div>
+                  <div><dt>Última revisão</dt><dd>{project.evidence.lastReviewed}</dd></div>
+                </dl>
+              </aside>
             </div>
           </div>
         </section>

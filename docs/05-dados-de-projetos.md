@@ -22,6 +22,13 @@ type ProjectGalleryItem = {
   caption: string;
 };
 
+type ProjectEvidence = {
+  nature: "Trabalho profissional" | "Projeto de portfólio" | "Projeto próprio" | "Protótipo" | "Laboratório técnico";
+  lastReviewed: string;
+  basis: string;
+  disclosure: string;
+};
+
 type Project = {
   slug: string;
   name: string;
@@ -39,6 +46,7 @@ type Project = {
   technologies: string[];
   results: string[];
   metrics: ProjectMetric[];
+  evidence: ProjectEvidence;
   gallery: ProjectGalleryItem[];
   confidentialityNote?: string;
   publicUrl?: string;
@@ -46,6 +54,8 @@ type Project = {
   seo: { title: string; description: string };
 };
 ```
+
+`evidence` é obrigatório em todos os cases. A página individual usa esses dados para informar a natureza do trabalho, em que fonte a descrição se apoia, quais restrições de divulgação existem e quando o conteúdo foi revisado. Links e números só devem entrar depois de verificação e, quando necessário, autorização do cliente.
 
 ## 3. Inventário editorial
 

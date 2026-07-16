@@ -71,3 +71,16 @@ test("renderiza as rotas principais e o 404", async () => {
   assert.equal(notFound.status, 404);
   assert.match(await notFound.text(), /Essa página não entrou/);
 });
+
+test("expõe a origem do case e preserva o status de protótipo", async () => {
+  const professionalCase = await render("/projetos/aquaflora-agroshop");
+  const professionalHtml = await professionalCase.text();
+  assert.match(professionalHtml, /Transparência do case/);
+  assert.match(professionalHtml, /Trabalho profissional/);
+  assert.match(professionalHtml, /Experiência profissional e currículo de Pedro Braga/);
+
+  const prototype = await render("/projetos/rastreia-gastos");
+  const prototypeHtml = await prototype.text();
+  assert.match(prototypeHtml, /Protótipo/);
+  assert.match(prototypeHtml, /Não é apresentado como produto finalizado/);
+});

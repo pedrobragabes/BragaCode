@@ -18,9 +18,9 @@
 
 ## ADR-003 - Objetos TypeScript em vez de MDX
 
-**Status:** aceito para a primeira versão.
+**Status:** parcialmente substituído pelo ADR-009.
 
-**Decisão:** projetos e serviços ficam em módulos TypeScript.
+**Decisão:** projetos e serviços ficam em módulos TypeScript. Artigos longos passaram a usar MDX validado.
 
 **Motivo:** o catálogo é pequeno, estruturado e repetível. Tipos oferecem melhor controle editorial. MDX volta a ser avaliado quando houver artigos longos ou autoria não técnica.
 
@@ -63,3 +63,11 @@
 **Decisão:** nenhum script de terceiros é carregado sem variável de ambiente.
 
 **Motivo:** desenvolvimento e prévias permanecem limpos, e o provedor pode mudar sem refatorar páginas.
+
+## ADR-009 - CMS e fluxo editorial
+
+**Status:** aceito.
+
+**Decisão:** manter cases em TypeScript e artigos em MDX enquanto Pedro for o publicador principal e o volume permanecer baixo. Um CMS só será reavaliado por gatilhos objetivos de equipe, frequência, aprovação, tradução ou mídia.
+
+**Registro completo:** [ADR-009 — CMS e fluxo editorial](adr/ADR-009-cms-fluxo-editorial.md).

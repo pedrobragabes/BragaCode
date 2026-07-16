@@ -168,6 +168,7 @@ O conteúdo e os componentes seguem APIs do App Router. Como a base atual usa vi
 - [Dados de projetos](docs/05-dados-de-projetos.md)
 - [Roadmap, milestones e backlog](docs/06-roadmap.md)
 - [Decisões técnicas](docs/07-decisoes-tecnicas.md)
+- [ADR — CMS e fluxo editorial](docs/adr/ADR-009-cms-fluxo-editorial.md)
 - [Checklist de lançamento](docs/08-checklist-lancamento.md)
 - [Operação e monitoramento](docs/09-operacao-monitoramento.md)
 - [Integração operacional de leads](docs/10-integracao-leads.md)

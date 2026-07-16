@@ -1,5 +1,14 @@
 # Roadmap, milestones e backlog
 
+## Status executável no GitHub — M4 Operação e escala
+
+- [x] #14 — monitoramento de erros sem PII;
+- [x] #15 — entrega de leads assinada e idempotente;
+- [x] #16 — testes E2E dos fluxos críticos;
+- [x] #17 — decisão e gatilhos para CMS.
+
+Os itens foram implementados em commits separados. O status definitivo da milestone depende do CI e da integração da pull request na `main`.
+
 ## Milestone 0 - Descoberta e base editorial
 
 Objetivo: remover ambiguidades antes do código de produto.

@@ -86,3 +86,16 @@ test("expõe a origem do case e preserva o status de protótipo", async () => {
   assert.match(prototypeHtml, /Protótipo/);
   assert.match(prototypeHtml, /Não é apresentado como produto finalizado/);
 });
+
+test("publica páginas individuais de serviço com SEO e cases relacionados", async () => {
+  const response = await render("/servicos/ecommerce");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /E-commerce que acompanha a operação/);
+  assert.match(html, /AquaFlora AgroShop/);
+  assert.match(html, /FAQPage/);
+  assert.match(html, /Desenvolvimento e integração de e-commerce/);
+
+  const sitemap = await render("/sitemap.xml");
+  assert.match(await sitemap.text(), /servicos\/apis-e-integracoes/);
+});

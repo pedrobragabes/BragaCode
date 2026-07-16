@@ -149,7 +149,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             <div>
               <div className="large-tag-list">{project.technologies.map((technology) => <span key={technology}>{technology}</span>)}</div>
               <div className="related-services">
-                {relatedServices.map((service) => <Link key={service.slug} href={`/servicos#${service.slug}`}>{service.shortTitle} <span aria-hidden="true">↗</span></Link>)}
+                {relatedServices.map((service) => <Link key={service.slug} href={`/servicos/${service.slug}`}>{service.shortTitle} <span aria-hidden="true">↗</span></Link>)}
               </div>
             </div>
           </div>

@@ -44,12 +44,13 @@ export default function ServicesPage() {
                 <div className="service-detail-number">{service.number}</div>
                 <div className="service-detail-main">
                   <p className="eyebrow"><span aria-hidden="true" />{service.shortTitle}</p>
-                  <h2>{service.title}</h2>
+                  <h2><Link href={`/servicos/${service.slug}`}>{service.title}</Link></h2>
                   <p className="service-summary">{service.summary}</p>
                   <div className="service-problem">
                     <span>Quando faz sentido</span>
                     <p>{service.problem}</p>
                   </div>
+                  <Link className="text-link service-learn-more" href={`/servicos/${service.slug}`}>Conhecer este serviço ↗</Link>
                 </div>
                 <div className="service-detail-aside">
                   <div>

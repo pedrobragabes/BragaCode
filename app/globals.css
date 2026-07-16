@@ -224,13 +224,13 @@ em {
 .menu-toggle[aria-expanded="true"] span:first-child { transform: rotate(45deg); }
 .menu-toggle[aria-expanded="true"] span:last-child { transform: rotate(-45deg); }
 
-.mobile-menu { display: none; overflow: hidden; max-height: 0; background: var(--bg); transition: max-height 280ms cubic-bezier(.2,.8,.2,1); }
+.mobile-menu { display: none; overflow: hidden; max-height: 0; background: var(--bg); pointer-events: none; visibility: hidden; transition: max-height 280ms cubic-bezier(.2,.8,.2,1), visibility 0s linear 280ms; }
 .mobile-menu nav { display: flex; flex-direction: column; padding-block: 20px 32px; }
 .mobile-menu nav > a:not(.button) { display: grid; min-height: 68px; grid-template-columns: 36px 1fr auto; align-items: center; border-bottom: 1px solid var(--border); font-size: 1.45rem; font-weight: 700; }
 .mobile-menu nav > a span { color: var(--muted); font-family: "JetBrains Mono Variable", monospace; font-size: 0.65rem; }
 .mobile-menu nav > a i { color: var(--accent); font-style: normal; }
 .mobile-menu .button { margin-top: 24px; }
-.mobile-menu.is-open { max-height: calc(100vh - 76px); overflow-y: auto; }
+.mobile-menu.is-open { max-height: calc(100vh - 76px); overflow-y: auto; pointer-events: auto; visibility: visible; transition-delay: 0s; }
 
 /* Shared headings */
 .section-heading { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(280px, .6fr); gap: 80px; align-items: end; margin-bottom: clamp(50px, 7vw, 88px); }

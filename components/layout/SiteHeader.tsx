@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { whatsappUrl } from "@/lib/site";
 import { Logo } from "./Logo";
 
@@ -16,15 +16,41 @@ const navigation = [
 export function SiteHeader() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!menuOpen) return;
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setMenuOpen(false);
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+        menuButtonRef.current?.focus();
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+      const focusable = mobileMenuRef.current?.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      );
+      if (!focusable?.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     };
+    const focusTimer = window.setTimeout(() => {
+      mobileMenuRef.current?.querySelector<HTMLElement>("a[href]")?.focus();
+    }, 0);
     document.addEventListener("keydown", onKeyDown);
     document.body.classList.add("menu-is-open");
     return () => {
+      window.clearTimeout(focusTimer);
       document.removeEventListener("keydown", onKeyDown);
       document.body.classList.remove("menu-is-open");
     };
@@ -69,6 +95,7 @@ export function SiteHeader() {
           </a>
           <button
             className="menu-toggle"
+            ref={menuButtonRef}
             type="button"
             aria-expanded={menuOpen}
             aria-controls="mobile-navigation"
@@ -80,7 +107,13 @@ export function SiteHeader() {
           </button>
         </div>
       </div>
-      <div className={`mobile-menu ${menuOpen ? "is-open" : ""}`} id="mobile-navigation">
+      <div
+        className={`mobile-menu ${menuOpen ? "is-open" : ""}`}
+        id="mobile-navigation"
+        ref={mobileMenuRef}
+        aria-hidden={!menuOpen}
+        inert={!menuOpen}
+      >
         <nav className="container" aria-label="Navegação mobile">
           {navigation.map((item, index) => (
             <Link href={item.href} key={item.href} onClick={() => setMenuOpen(false)}>

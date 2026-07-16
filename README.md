@@ -1,5 +1,7 @@
 # BragaCode - site institucional e portfólio
 
+[![CI](https://github.com/pedrobragabes/BragaCode/actions/workflows/ci.yml/badge.svg)](https://github.com/pedrobragabes/BragaCode/actions/workflows/ci.yml)
+
 Site comercial da BragaCode, operação de desenvolvimento de software fundada por Pedro Braga. O projeto apresenta serviços, cases, trajetória e canais de contato com conteúdo em português brasileiro.
 
 ## Stack
@@ -44,6 +46,18 @@ npm run build    # build de produção
 npm run lint     # ESLint
 npm test         # build e smoke tests das rotas
 ```
+
+## Qualidade contínua
+
+Pull requests e pushes em `main` executam automaticamente:
+
+- instalação reproduzível com `npm ci` e Node.js 22;
+- lint;
+- build de produção;
+- smoke tests de rotas, SEO e validação do formulário;
+- auditoria das dependências usadas em produção.
+
+O merge deve acontecer somente quando o workflow `CI` estiver aprovado.
 
 ## Estrutura
 

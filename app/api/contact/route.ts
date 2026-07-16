@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { reportOperationalError } from "@/lib/monitoring";
 import { contactSchema, type ContactPayload } from "@/lib/validation";
 
 const WINDOW_MS = 15 * 60 * 1000;
@@ -102,6 +103,11 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: "Mensagem enviada. Pedro responderá assim que possível." });
   } catch (error) {
     const notConfigured = error instanceof Error && error.message === "provider_not_configured";
+    reportOperationalError(error, {
+      operation: "contact_delivery",
+      provider: process.env.CONTACT_WEBHOOK_URL ? "webhook" : process.env.RESEND_API_KEY ? "resend" : "none",
+      retryable: !notConfigured,
+    });
     return NextResponse.json(
       { message: notConfigured ? "O envio por formulário ainda não está configurado nesta prévia. Use o WhatsApp para falar com Pedro." : "O envio falhou agora. Tente novamente ou use o WhatsApp." },
       { status: notConfigured ? 503 : 502 },

@@ -10,6 +10,7 @@ Site comercial da BragaCode, operação de desenvolvimento de software fundada p
 - React e TypeScript;
 - Tailwind CSS v4 com design tokens em CSS;
 - Zod para validação do formulário;
+- Sentry para monitoramento opcional e sanitizado no Cloudflare Worker;
 - fontes variáveis locais Manrope e JetBrains Mono;
 - vinext/Vite para build compatível com Cloudflare Workers e Sites.
 
@@ -37,6 +38,8 @@ Site comercial da BragaCode, operação de desenvolvimento de software fundada p
 4. Abra a URL indicada no terminal.
 
 Sem provedor de contato configurado, o formulário valida os dados e orienta a usar o WhatsApp. Nenhum analytics é carregado por padrão.
+
+O monitoramento também é opcional. Quando `SENTRY_DSN` está ausente, nenhum evento é enviado.
 
 ## Scripts
 
@@ -160,6 +163,7 @@ O conteúdo e os componentes seguem APIs do App Router. Como a base atual usa vi
 - [Roadmap, milestones e backlog](docs/06-roadmap.md)
 - [Decisões técnicas](docs/07-decisoes-tecnicas.md)
 - [Checklist de lançamento](docs/08-checklist-lancamento.md)
+- [Operação e monitoramento](docs/09-operacao-monitoramento.md)
 
 ### Materiais para etapas manuais
 

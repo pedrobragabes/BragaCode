@@ -95,6 +95,14 @@ Issues:
 - BC-406: smoke test em produção;
 - BC-407: monitorar erros e conversão na primeira semana.
 
+Materiais operacionais:
+
+- [`templates/autorizacao-case.md`](templates/autorizacao-case.md): escopo e registro da autorização;
+- [`templates/inventario-assets-case.md`](templates/inventario-assets-case.md): tratamento e rastreabilidade de cada imagem;
+- [`templates/pedido-depoimento.md`](templates/pedido-depoimento.md): coleta, edição e aprovação da citação.
+
+O andamento executável é acompanhado também nas milestones e issues do GitHub. Itens manuais só são concluídos depois que o registro de autorização ou validação estiver disponível.
+
 ## Backlog priorizado
 
 ### P1 - antes do lançamento público

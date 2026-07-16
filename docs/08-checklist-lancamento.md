@@ -12,6 +12,8 @@
 - [ ] status de cada projeto revisado;
 - [ ] CTAs testados em todas as páginas.
 
+Use os modelos em [`docs/templates`](templates/) para registrar autorização de cases, inventário de assets e aprovação de depoimentos. Os registros preenchidos podem conter dados de contato e não devem ser versionados no repositório público.
+
 ## Legal e privacidade
 
 - [ ] razão social/CNPJ incluídos apenas se aplicáveis;

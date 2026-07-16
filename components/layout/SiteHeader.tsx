@@ -31,6 +31,11 @@ export function SiteHeader() {
   const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    document.documentElement.dataset.hydrated = "true";
+    return () => { delete document.documentElement.dataset.hydrated; };
+  }, []);
+
+  useEffect(() => {
     if (!menuOpen) return;
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {

@@ -48,7 +48,10 @@ npm run dev      # desenvolvimento com HMR
 npm run build    # build de produção
 npm run lint     # ESLint
 npm test         # build e smoke tests das rotas
+npm run test:e2e # fluxos críticos em Chrome desktop e mobile
 ```
+
+Na primeira execução local dos testes de navegador, instale o Chromium com `npx playwright install chromium`. No Windows, o Playwright usa o servidor Vite porque o cache de arquivos estáticos do `vinext start` 0.0.50 ainda normaliza caminhos como POSIX; no CI Linux, os mesmos testes usam o bundle de produção.
 
 ## Qualidade contínua
 
@@ -58,6 +61,7 @@ Pull requests e pushes em `main` executam automaticamente:
 - lint;
 - build de produção;
 - smoke tests de rotas, SEO e validação do formulário;
+- testes de navegador dos fluxos críticos em desktop e mobile;
 - auditoria das dependências usadas em produção.
 
 O merge deve acontecer somente quando o workflow `CI` estiver aprovado.

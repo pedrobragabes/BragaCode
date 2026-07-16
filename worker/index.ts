@@ -55,7 +55,7 @@ function tracesSampleRate(value: string | undefined) {
 }
 
 export default Sentry.withSentry(
-  (env) => env.SENTRY_DSN
+  (env) => env?.SENTRY_DSN
     ? {
         dsn: env.SENTRY_DSN,
         environment: env.SENTRY_ENVIRONMENT || "production",

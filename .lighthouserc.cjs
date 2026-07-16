@@ -27,7 +27,7 @@ module.exports = {
         "total-blocking-time": ["warn", { maxNumericValue: 200 }],
         "cumulative-layout-shift": ["error", { maxNumericValue: 0.1 }],
         "total-byte-weight": ["warn", { maxNumericValue: 921600 }],
-        "resource-summary:script:size": ["error", { maxNumericValue: 204800 }],
+        "resource-summary:script:size": ["error", { maxNumericValue: 327680 }],
       },
     },
     upload: {

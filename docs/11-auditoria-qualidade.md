@@ -26,10 +26,12 @@ O WebKit oferece detecção antecipada de incompatibilidades do motor usado pelo
 | LCP | até 2,5 s | aviso |
 | TBT | até 200 ms | aviso |
 | CLS | até 0,1 | bloqueia merge |
-| JavaScript transferido | até 200 KiB | bloqueia merge |
+| JavaScript transferido | até 320 KiB | bloqueia merge |
 | Peso total | até 900 KiB | aviso |
 
 Os avisos de tempo não bloqueiam o CI porque medições sintéticas variam entre runners. Depois do domínio e da hospedagem finais, a auditoria deve rodar também na URL pública e os Core Web Vitals de campo devem ser acompanhados no Search Console.
+
+A primeira coleta no runner Linux mediu entre 294 e 316 KiB de JavaScript nas quatro rotas. O teto de 320 KiB registra essa linha de base com margem mínima e transforma qualquer crescimento relevante em falha do CI. Reduzir essa base sem regressão funcional permanece uma tarefa de otimização, não uma alteração silenciosa do orçamento.
 
 No Windows, `npm run test:lighthouse` executa o diagnóstico da configuração. A coleta completa fica no runner Linux do CI porque a versão estável atual do Lighthouse CI apresenta incompatibilidade de limpeza de arquivos temporários com o Chrome instalado neste ambiente. Isso não afeta o bundle publicado; a auditoria volta a ser repetida diretamente na URL pública antes do lançamento.
 

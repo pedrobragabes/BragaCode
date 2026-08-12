@@ -21,9 +21,9 @@
     "@fontsource-variable/jetbrains-mono": "^5.2.8",
     "@fontsource-variable/manrope": "^5.2.8",
     "@sentry/cloudflare": "^10.66.0",
-    "next": "16.2.6",
-    "react": "19.2.6",
-    "react-dom": "19.2.6",
+    "next": "16.3.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
     "zod": "^4.4.3"
   },
   "devDependencies": {
@@ -41,8 +41,8 @@
     "@vitejs/plugin-rsc": "0.5.26",
     "cross-env": "^10.1.0",
     "eslint": "9.39.4",
-    "eslint-config-next": "16.2.6",
-    "react-server-dom-webpack": "19.2.6",
+    "eslint-config-next": "16.3.0",
+    "react-server-dom-webpack": "19.2.8",
     "rehype-pretty-code": "^0.14.4",
     "remark-frontmatter": "^5.0.0",
     "remark-mdx-frontmatter": "^5.2.0",
@@ -50,10 +50,12 @@
     "typescript": "5.9.3",
     "vinext": "0.0.50",
     "vite": "^8.1.4",
-    "wrangler": "^4.111.0"
+    "wrangler": "^4.122.0"
   },
   "overrides": {
-    "postcss": "8.5.19"
+    "nanoid": "3.3.18",
+    "postcss": "8.5.26",
+    "sharp": "0.35.3"
   },
   "type": "module"
 }

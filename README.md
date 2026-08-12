@@ -24,7 +24,7 @@ Site comercial da BragaCode, operação de desenvolvimento de software fundada p
 1. Instale dependências:
 
    ```bash
-   npm install
+   npm ci
    ```
 
 2. Copie `.env.example` para `.env.local` e preencha apenas as integrações que deseja testar.

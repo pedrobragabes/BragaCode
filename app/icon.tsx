@@ -14,8 +14,8 @@ export default function Icon() {
           height: "100%",
           alignItems: "center",
           justifyContent: "center",
-          background: "#0a0d0c",
-          color: "#f3f6f0",
+          background: "#11213b",
+          color: "#ffffff",
           fontFamily: "Arial, sans-serif",
           fontSize: 280,
           fontWeight: 800,
@@ -30,7 +30,7 @@ export default function Icon() {
             bottom: 0,
             width: 132,
             height: 132,
-            background: "#b7f34b",
+            background: "#96b9ff",
           }}
         />
       </div>

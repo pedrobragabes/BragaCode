@@ -1,6 +1,6 @@
-import Image from "next/image";
+import { StaticImage as Image } from "@/components/ui/StaticImage";
 import type { ProjectGalleryItem } from "@/content/projects";
-import { ProjectVisual } from "./ProjectVisual";
+
 
 type ProjectGalleryMediaProps = {
   item: ProjectGalleryItem;
@@ -26,10 +26,10 @@ export function ProjectGalleryMedia({
           priority={priority}
         />
       ) : (
-        <ProjectVisual kind={item.kind} label={`${item.title}: ${item.caption}`} />
+        <div className="project-type-cover"><span>Projeto em detalhe</span><strong>{item.title}</strong><p>{item.caption}</p></div>
       )}
       <span className="project-media-origin">
-        {item.asset ? "Screenshot autorizado" : "Representação reconstruída"}
+        {item.asset ? "Captura do site público" : ""}
       </span>
     </div>
   );

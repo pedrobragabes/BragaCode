@@ -50,60 +50,14 @@ export const englishServices = [
 ] as const;
 
 export const englishProjects = [
-  {
-    slug: "aquaflora-agroshop",
-    name: "AquaFlora AgroShop",
-    status: "Ongoing",
-    period: "2025 — present",
-    eyebrow: "E-commerce and operational integration",
-    summary: "WooCommerce evolution with Python/Docker inventory and pricing middleware, an internal barcode application and customer-service automation.",
-    technologies: ["Python", "Docker", "WooCommerce", "Node.js", "JWT", "LLMs"],
-    visual: "sync",
-  },
-  {
-    slug: "flower-shop-ecommerce",
-    name: "Flower shop e-commerce",
-    status: "Completed",
-    period: "2025",
-    eyebrow: "B2B/B2C catalog and admin panel",
-    summary: "A mobile-first catalog with Node.js, MySQL, Prisma, Cloudinary and a contextual WhatsApp purchasing journey.",
-    technologies: ["Next.js", "Node.js", "MySQL", "Prisma", "Cloudinary"],
-    visual: "store",
-  },
-  {
-    slug: "comercio-bes",
-    name: "Comércio BES",
-    status: "Evolving",
-    period: "2024 — 2025",
-    eyebrow: "Hyperlocal marketplace and business directory",
-    summary: "An installable PWA for finding local businesses by category and moving directly from discovery to WhatsApp contact.",
-    technologies: ["JavaScript", "PWA", "Deep links", "WhatsApp"],
-    visual: "directory",
-  },
+ {slug: "aquaflora-agroshop", name: "AquaFlora AgroShop", status: "Ongoing", period: "2025 — present", eyebrow: "Professional work · e-commerce", summary: "WooCommerce store and ERP inventory and price synchronization. Pedro Braga's work in AquaFlora's digital operation.", technologies: ["WooCommerce", "Python", "Next.js", "Fastify"], visual: "store", image: "aquaflora"},
+ {slug: "joysticknights", name: "JoysticKnights", status: "Live", period: "2020 — present", eyebrow: "Independent product · editorial platform", summary: "Gaming and culture portal with a Next.js frontend and WordPress as its CMS. A maintained publication with real editorial content.", technologies: ["Next.js", "React", "TypeScript", "WordPress"], visual: "editorial", image: "joysticknights"},
 ] as const;
-
 export const aquafloraEnglishCase = {
-  ...englishProjects[0],
-  problem: [
-    "Catalog growth made manual price and inventory updates between a legacy ERP and WooCommerce increasingly fragile.",
-    "Store and inventory teams needed to query an item from a phone using the barcode already available on the package.",
-    "Recurring WhatsApp questions reached the team without a consistent first triage step.",
-  ],
-  context: "The solution had to coexist with current systems and thousands of products. A full platform replacement would interrupt a working operation and introduce unnecessary risk.",
-  solution: [
-    "Maintenance and evolution of the WordPress/WooCommerce store and catalog workflows.",
-    "A Python middleware running in Docker to read, validate and synchronize inventory and prices through the WooCommerce REST API.",
-    "A mobile-first internal web app with JWT authentication, barcode scanning and inventory queries.",
-    "A Node.js and LLM workflow for initial triage, recurring answers and escalation to a person.",
-  ],
-  results: [
-    "Catalog updates no longer rely exclusively on editing products one by one.",
-    "The team gained a mobile, barcode-oriented path for checking price and availability at the point of work.",
-    "Recurring customer-service requests now receive a consistent first triage before escalation.",
-  ],
-  metrics: [
-    { value: "4,000+", label: "SKUs", note: "in the synchronization workflow" },
-    { value: "6,300+", label: "assets", note: "processed in the catalog" },
-    { value: "3", label: "workstreams", note: "store, internal operations and service" },
-  ],
+ ...englishProjects[0],
+ problem: ["Inventory and prices need to follow the ERP without overwriting product descriptions, categories or images.", "Internal product queries need their own interface and access controls."],
+ context: "Pedro Braga's professional experience at AquaFlora. The public store, stock synchronization and internal platform have independent deployment lifecycles.",
+ solution: ["Live store: maintenance and evolution of WordPress/WooCommerce.", "Stock Sync LITE: Python reads Athos ERP CSV exports and updates inventory and prices for existing WooCommerce SKUs, preserving editorial content.", "AquaApps and API: locally implemented and validated Next.js and Fastify base, with role-based access and product lookup. Server deployment remains a separate step.", "Customer-service automation is in development and is separate from Stock Sync."],
+ results: ["Inventory and pricing updates are separated from catalog editing.", "The internal platform has a locally validated base; this is not evidence of a production deployment.", "The public store can be visited. Commercial metrics and internal data are not disclosed."],
+ metrics: [],
 } as const;

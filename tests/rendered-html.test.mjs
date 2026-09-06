@@ -20,8 +20,9 @@ test("renderiza a Home comercial da BragaCode", async () => {
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
   const html = await response.text();
   assert.match(html, /BragaCode/);
-  assert.match(html, /Menos trabalho manual/);
-  assert.match(html, /4\.000\+/);
+  assert.match(html, /Tecnologia que conecta/);
+  assert.match(html, /aquaflora-live\.webp/);
+  assert.doesNotMatch(html, /4\.000\+/);
   assert.match(html, /AquaFlora AgroShop/);
   assert.match(html, /application\/ld\+json/);
   assert.doesNotMatch(html, /codex-preview|Starter Project|react-loading-skeleton/);
@@ -137,8 +138,8 @@ test("expõe a origem do case e preserva o status de protótipo", async () => {
   const professionalHtml = await professionalCase.text();
   assert.match(professionalHtml, /Transparência do case/);
   assert.match(professionalHtml, /Trabalho profissional/);
-  assert.match(professionalHtml, /Experiência profissional e currículo de Pedro Braga/);
-  assert.match(professionalHtml, /Representação reconstruída/);
+  assert.match(professionalHtml, /aquaflora-stock-sync/);
+  assert.match(professionalHtml, /Captura do site público/);
   assert.doesNotMatch(professionalHtml, /Screenshot autorizado/);
 
   const prototype = await render("/projetos/rastreia-gastos");

@@ -19,3 +19,5 @@
 [Autorização de case](templates/autorizacao-case.md), [inventário de assets](templates/inventario-assets-case.md) e [depoimento](templates/pedido-depoimento.md). Registros preenchidos com dados de clientes devem permanecer privados; não anexar autorizações pessoais em issues públicas.
 
 A revisão de setembro em 12/13 e o roadmap vigente orientam o próximo trabalho. Checklists de lançamento não significam que configurações externas foram concluídas.
+
+- [Fontes e curadoria atual dos projetos](14-project-sources.md).

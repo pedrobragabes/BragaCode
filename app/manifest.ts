@@ -8,8 +8,8 @@ export default function manifest(): MetadataRoute.Manifest {
       "Software, e-commerce e automações para empresas que querem crescer sem depender de processos manuais.",
     start_url: "/",
     display: "standalone",
-    background_color: "#0a0d0c",
-    theme_color: "#0a0d0c",
+    background_color: "#11213b",
+    theme_color: "#11213b",
     lang: "pt-BR",
     icons: [
       { src: "/icon", sizes: "512x512", type: "image/png", purpose: "any" },

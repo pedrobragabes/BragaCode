@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { ProjectCard } from "@/components/project/ProjectCard";
 import { ProjectGalleryMedia } from "@/components/project/ProjectGalleryMedia";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { getProject, projects } from "@/content/projects";
+import { getProject, listedProjects as projects } from "@/content/projects";
 import { services } from "@/content/services";
 import { createMetadata } from "@/lib/seo";
 import { absoluteUrl, whatsappUrl } from "@/lib/site";
@@ -63,6 +63,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 <p className="eyebrow"><span aria-hidden="true" />{project.eyebrow}</p>
                 <h1>{project.name}</h1>
                 <p className="case-summary">{project.summary}</p>
+                {project.sources && <div className="inline-links">{project.sources.map(source => <a key={source.href} className="text-link" href={source.href} target="_blank" rel="noreferrer">{source.label} ↗</a>)}</div>}
                 <div className="case-meta">
                   <div><span>Status</span><strong>{project.status}</strong></div>
                   <div><span>Período</span><strong>{project.period}</strong></div>
@@ -74,13 +75,13 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </div>
         </header>
 
-        <section className="case-metrics">
+        {project.metrics.length > 0 && <section className="case-metrics">
           <div className="container case-metrics-grid">
             {project.metrics.map((metric) => (
               <div key={metric.value + metric.label}><strong>{metric.value}</strong><span>{metric.label}</span><small>{metric.note}</small></div>
             ))}
           </div>
-        </section>
+        </section>}
 
         <section className="section case-narrative">
           <div className="container narrative-grid">
@@ -108,7 +109,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
         <section className="section case-gallery-section">
           <div className="container">
-            <div className="gallery-heading"><span>03</span><h2>Galeria do projeto</h2><p>Cada imagem informa se é um screenshot autorizado ou uma representação reconstruída para preservar dados internos.</p></div>
+            <div className="gallery-heading"><span>03</span><h2>Galeria do projeto</h2><p>Referências da interface pública e contexto do trabalho.</p></div>
             <div className="case-gallery">
               {project.gallery.map((item) => (
                 <figure key={item.title}>

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { ProjectCard } from "@/components/project/ProjectCard";
-import Image from "next/image";
+import { StaticImage as Image } from "@/components/ui/StaticImage";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { company, processSteps } from "@/content/company";
@@ -72,7 +72,7 @@ export default function Home() {
           </div>
           <Link href="/projetos/aquaflora-agroshop" className="company-hero-work">
             <div className="work-caption"><span>Experiência aplicada</span><span>01 / AquaFlora ↗</span></div>
-            <Image unoptimized src="/images/projects/aquaflora-live.webp" width={1265} height={712} alt="Loja virtual AquaFlora AgroShop em funcionamento" priority sizes="(max-width: 820px) 100vw, 55vw" />
+            <Image src="/images/projects/aquaflora-live.webp" width={1265} height={712} alt="Loja virtual AquaFlora AgroShop em funcionamento" priority sizes="(max-width: 820px) 100vw, 55vw" />
             <div className="work-caption"><strong>E-commerce conectado à operação</strong><span>Conheça o trabalho de Pedro Braga</span></div>
           </Link>
         </div>
@@ -135,7 +135,7 @@ export default function Home() {
 
 <section className="section founder-section">
         <div className="container founder-grid">
-          <div className="founder-portrait"><Image unoptimized src="/images/pedro-braga.webp" alt="Pedro Braga, fundador da BragaCode" width={600} height={750} sizes="(max-width: 820px) 100vw, 30vw" /></div>
+          <div className="founder-portrait"><Image src="/images/pedro-braga.webp" alt="Pedro Braga, fundador da BragaCode" width={600} height={750} sizes="(max-width: 820px) 100vw, 30vw" /></div>
           <div className="founder-copy">
             <p className="eyebrow"><span aria-hidden="true" />Quem está por trás</p>
             <h2>Pedro Braga.<br /><em>Fundador e responsável técnico.</em></h2>

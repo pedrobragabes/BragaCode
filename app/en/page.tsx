@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { EnglishProjectCard } from "@/components/project/EnglishProjectCard";
-import Image from "next/image";
+import { StaticImage as Image } from "@/components/ui/StaticImage";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { company } from "@/content/company";
@@ -39,7 +39,7 @@ export default function EnglishHomePage() {
             </div>
             <p className="hero-note"><span aria-hidden="true">●</span> Remote work across Brazil · English C1 · technical leadership by Pedro Braga</p>
           </div>
-          <Link href="/en/projects/aquaflora-agroshop" className="company-hero-work"><div className="work-caption"><span>Applied experience</span><span>01 / AquaFlora ↗</span></div><Image unoptimized src="/images/projects/aquaflora-live.webp" width={1265} height={712} alt="AquaFlora AgroShop public online store" priority sizes="(max-width: 820px) 100vw, 55vw" /><div className="work-caption"><strong>E-commerce connected to operations</strong><span>Explore Pedro Braga&apos;s work</span></div></Link>
+          <Link href="/en/projects/aquaflora-agroshop" className="company-hero-work"><div className="work-caption"><span>Applied experience</span><span>01 / AquaFlora ↗</span></div><Image src="/images/projects/aquaflora-live.webp" width={1265} height={712} alt="AquaFlora AgroShop public online store" priority sizes="(max-width: 820px) 100vw, 55vw" /><div className="work-caption"><strong>E-commerce connected to operations</strong><span>Explore Pedro Braga&apos;s work</span></div></Link>
         </div>
       </section>
 
@@ -67,7 +67,7 @@ export default function EnglishHomePage() {
 
       <section className="section founder-section">
         <div className="container founder-grid">
-          <div className="founder-portrait"><Image unoptimized src="/images/pedro-braga.webp" alt="Pedro Braga, founder of BragaCode" width={600} height={750} sizes="(max-width: 820px) 100vw, 30vw" /></div>
+          <div className="founder-portrait"><Image src="/images/pedro-braga.webp" alt="Pedro Braga, founder of BragaCode" width={600} height={750} sizes="(max-width: 820px) 100vw, 30vw" /></div>
           <div className="founder-copy"><p className="eyebrow"><span aria-hidden="true" />Founder</p><h2>Pedro Braga.<br /><em>Founder and technical lead.</em></h2><p>Pedro works across web applications, data integration and infrastructure. His current work includes WooCommerce operations, legacy ERP integration, internal mobile tools and Python/Node.js automation.</p><div className="inline-links"><Link className="text-link" href="/en/about">Read the background ↗</Link><a className="text-link" href={company.linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a></div></div>
         </div>
       </section>

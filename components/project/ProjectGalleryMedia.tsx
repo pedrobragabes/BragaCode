@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { StaticImage as Image } from "@/components/ui/StaticImage";
 import type { ProjectGalleryItem } from "@/content/projects";
 
 
@@ -16,7 +16,7 @@ export function ProjectGalleryMedia({
   return (
     <div className={`project-gallery-media ${item.asset ? "has-asset" : "is-reconstructed"}`}>
       {item.asset ? (
-        <Image unoptimized
+        <Image
           className="project-gallery-image"
           src={item.asset.src}
           alt={item.asset.alt}

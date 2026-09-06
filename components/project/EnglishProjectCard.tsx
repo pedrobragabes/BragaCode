@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+import { StaticImage as Image } from "@/components/ui/StaticImage";
 
 type EnglishProject = {
   slug: string;
@@ -19,7 +19,7 @@ export function EnglishProjectCard({ project, index }: { project: EnglishProject
   return (
     <article className="project-card">
       <Link href={href} className="project-card-visual" aria-label={`View ${project.name} case study`}>
-        <Image unoptimized src={`/images/projects/${project.image}-live.webp`} width={1265} height={712} alt={`${project.name} public website`} sizes="(max-width: 820px) 100vw, 50vw" />
+        <Image src={`/images/projects/${project.image}-live.webp`} width={1265} height={712} alt={`${project.name} public website`} sizes="(max-width: 820px) 100vw, 50vw" />
       </Link>
       <div className="project-card-content">
         <div className="project-card-meta"><span>{String(index + 1).padStart(2, "0")}</span><span>{project.status}</span><span>{project.period}</span></div>

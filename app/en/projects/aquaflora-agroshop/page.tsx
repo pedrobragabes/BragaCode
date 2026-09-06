@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
+import { StaticImage as Image } from "@/components/ui/StaticImage";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { aquafloraEnglishCase } from "@/content/english";
 import { createMetadata } from "@/lib/seo";
@@ -27,7 +27,7 @@ export default function EnglishAquafloraCasePage() {
     <div lang="en">
       <JsonLd data={jsonLd} />
       <article>
-        <header className="case-hero"><div className="container"><Link className="back-link" href="/en/projects">← All projects</Link><div className="case-hero-grid"><div><p className="eyebrow"><span aria-hidden="true" />{project.eyebrow}</p><h1>{project.name}</h1><p className="case-summary">{project.summary}</p><div className="case-meta"><div><span>Status</span><strong>{project.status}</strong></div><div><span>Period</span><strong>{project.period}</strong></div><div><span>Nature</span><strong>Professional work</strong></div></div></div><Image unoptimized src="/images/projects/aquaflora-live.webp" width={1265} height={712} alt="AquaFlora public online store, captured September 2026" priority /></div></div></header>
+        <header className="case-hero"><div className="container"><Link className="back-link" href="/en/projects">← All projects</Link><div className="case-hero-grid"><div><p className="eyebrow"><span aria-hidden="true" />{project.eyebrow}</p><h1>{project.name}</h1><p className="case-summary">{project.summary}</p><div className="case-meta"><div><span>Status</span><strong>{project.status}</strong></div><div><span>Period</span><strong>{project.period}</strong></div><div><span>Nature</span><strong>Professional work</strong></div></div></div><Image src="/images/projects/aquaflora-live.webp" width={1265} height={712} alt="AquaFlora public online store, captured September 2026" priority /></div></div></header>
 
 
         <section className="section case-narrative"><div className="container narrative-grid"><div className="narrative-index"><span>01</span><p>Problem and context</p></div><div className="narrative-content"><h2>What needed to change <em>in daily operations.</em></h2>{project.problem.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}<div className="context-box"><span>Context</span><p>{project.context}</p></div></div></div></section>

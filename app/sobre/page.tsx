@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { StaticImage as Image } from "@/components/ui/StaticImage";
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { PageHero } from "@/components/ui/PageHero";
@@ -43,7 +43,7 @@ export default function AboutPage() {
 
       <section className="section about-intro-section">
         <div className="container about-intro-grid">
-          <div className="founder-portrait"><Image unoptimized src="/images/pedro-braga.webp" alt="Pedro Braga" width={600} height={750} sizes="(max-width: 820px) 100vw, 30vw" /></div>
+          <div className="founder-portrait"><Image src="/images/pedro-braga.webp" alt="Pedro Braga" width={600} height={750} sizes="(max-width: 820px) 100vw, 30vw" /></div>
           <div className="about-copy">
             <p className="lead-paragraph">Pedro trabalha na interseção entre aplicação web, integração de dados e infraestrutura.</p>
             <p>Na prática, isso significa poder olhar para o catálogo no WooCommerce, o script que lê o ERP, a API consumida no estoque e o container que mantém a rotina executando — sem tratar cada camada como um problema isolado.</p>

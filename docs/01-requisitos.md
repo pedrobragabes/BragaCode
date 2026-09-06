@@ -1,5 +1,7 @@
 # Documento de requisitos - BragaCode
 
+> Planejamento e curadoria atuais: [posicionamento](12-posicionamento.md) e [roadmap](06-roadmap.md), revisão 2026-09-05. Este documento descreve a base do produto; estados externos precisam de evidência.
+
 ## 1. Visão do produto
 
 O site será o principal canal comercial da BragaCode e terá duas funções igualmente importantes:

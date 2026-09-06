@@ -4,6 +4,12 @@
 
 Site comercial da BragaCode, operação de desenvolvimento de software fundada por Pedro Braga. O projeto apresenta serviços, cases, trajetória e canais de contato com conteúdo em português brasileiro.
 
+## Planejamento atual
+
+A revisão de 2026-09-05 organiza as marcas, a curadoria comercial e a operação sem reiniciar funcionalidades já entregues. Consulte o [índice de documentação](docs/README.md), o [roadmap com issues reais](docs/06-roadmap.md), o [posicionamento](docs/12-posicionamento.md) e a [auditoria de publicação](docs/13-repositorio-e-publicacao.md).
+
+O GitHub executa CI a cada push na main; publicação automática no Sites não foi comprovada. Domínio, canais, autorização de cases e lançamento continuam nas issues existentes.
+
 ## Stack
 
 - Next.js com App Router e Server Components;
@@ -24,7 +30,7 @@ Site comercial da BragaCode, operação de desenvolvimento de software fundada p
 1. Instale dependências:
 
    ```bash
-   npm install
+   npm ci
    ```
 
 2. Copie `.env.example` para `.env.local` e preencha apenas as integrações que deseja testar.

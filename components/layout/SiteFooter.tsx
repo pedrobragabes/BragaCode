@@ -31,7 +31,7 @@ export function SiteFooter() {
       <div className="container footer-top">
         <div>
           <Logo href={isEnglish ? "/en" : "/"} label={isEnglish ? "BragaCode — home page" : "BragaCode — página inicial"} />
-          <p>{isEnglish ? "Software, e-commerce and automation for companies that want to grow without relying on manual processes." : company.positioning}</p>
+          <p>{isEnglish ? "Web applications, e-commerce and integrations to connect data and simplify business operations." : company.positioning}</p>
         </div>
         <div className="footer-links">
           <div>

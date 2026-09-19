@@ -26,7 +26,7 @@ export default function ContactPage() {
             <div><p className="micro-label">E-mail</p><a href={`mailto:${company.email}`}>{company.email}</a></div>
             <div><p className="micro-label">WhatsApp</p><a href={whatsappUrl("a página de Contato")} target="_blank" rel="noreferrer">{company.phoneDisplay} ↗</a></div>
             <div><p className="micro-label">Localização</p><p>{company.location}<br />{company.serviceArea}</p></div>
-            <div className="response-note"><span>Prazo de retorno</span><strong>Normalmente em até 1 dia útil.</strong><p>Demandas urgentes devem ser sinalizadas no início da mensagem.</p></div>
+            <div className="response-note"><span>Primeira conversa</span><strong>Diretamente com Pedro.</strong><p>Conte a necessidade e, se houver, o prazo desejado. A disponibilidade é combinada conforme o escopo.</p></div>
           </aside>
           <div>
             <div className="form-heading"><span>01</span><h2>Qual processo precisa funcionar melhor?</h2></div>

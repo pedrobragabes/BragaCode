@@ -21,3 +21,6 @@
 A revisão de setembro em 12/13 e o roadmap vigente orientam o próximo trabalho. Checklists de lançamento não significam que configurações externas foram concluídas.
 
 - [Fontes e curadoria atual dos projetos](14-project-sources.md).
+
+- [Redesign comercial e preparação de lançamento](15-redesign-comercial.md).
+- [Recomendações para portfólio e currículo](16-recomendacoes-portfolio.md).

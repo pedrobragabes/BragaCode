@@ -101,7 +101,7 @@ export async function POST(request: Request) {
 
   try {
     await deliver(data);
-    return NextResponse.json({ message: "Mensagem enviada. Pedro responderá assim que possível." });
+    return NextResponse.json({ message: "Solicitação aceita para envio. Pedro responderá assim que possível." });
   } catch (error) {
     const notConfigured = error instanceof Error && error.message === "provider_not_configured";
     reportOperationalError(error, {

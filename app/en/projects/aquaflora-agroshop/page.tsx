@@ -8,7 +8,7 @@ import { absoluteUrl, whatsappUrlEnglish } from "@/lib/site";
 
 export const metadata: Metadata = createMetadata({
   title: "AquaFlora AgroShop: WooCommerce, ERP and automation",
-  description: "WooCommerce store, Python inventory synchronization and a locally validated internal application base.",
+  description: "WooCommerce, scheduled inventory and price synchronization and internal product queries, with maturity described separately for each component.",
   path: "/en/projects/aquaflora-agroshop",
 });
 
@@ -34,7 +34,7 @@ export default function EnglishAquafloraCasePage() {
 
         <section className="section case-narrative alt-section"><div className="container narrative-grid"><div className="narrative-index"><span>02</span><p>Solution</p></div><div className="narrative-content"><h2>Responsibilities separated into <em>operable components.</em></h2>{project.solution.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}<div className="large-tag-list">{project.technologies.map((technology) => <span key={technology}>{technology}</span>)}</div></div></div></section>
 
-        <section className="section case-results-section"><div className="container results-grid"><div><p className="eyebrow"><span aria-hidden="true" />Results</p><h2>What changed — and what <em>continues to evolve.</em></h2></div><div><ol className="results-list">{project.results.map((result, index) => <li key={result}><span>0{index + 1}</span><p>{result}</p></li>)}</ol><p className="confidentiality-note"><strong>Disclosure note.</strong> ERP details, credentials, commercial rules and screens containing real operational data are omitted.</p><aside className="case-evidence"><div><span>Case transparency</span><strong>Professional work</strong></div><dl><div><dt>Description basis</dt><dd>Public store and documentation of the aquaflora and aquaflora-stock-sync repositories.</dd></div><div><dt>Last review</dt><dd>September 6, 2026</dd></div></dl></aside></div></div></section>
+        <section className="section case-results-section"><div className="container results-grid"><div><p className="eyebrow"><span aria-hidden="true" />Results</p><h2>What changed — and what <em>continues to evolve.</em></h2></div><div><ol className="results-list">{project.results.map((result, index) => <li key={result}><span>0{index + 1}</span><p>{result}</p></li>)}</ol><p className="confidentiality-note"><strong>Disclosure note.</strong> ERP details, credentials, commercial rules and screens containing real operational data are omitted.</p><aside className="case-evidence"><div><span>Case transparency</span><strong>Professional work</strong></div><dl><div><dt>Description basis</dt><dd>Public store, technical documentation and the founder&apos;s operational account in the September 2026 brief.</dd></div><div><dt>Scope and limits</dt><dd>Periodic processing, not real-time synchronization. The internal query API is independent from Stock Sync. No revenue, savings or customer-service automation in production is claimed.</dd></div><div><dt>Last review</dt><dd>September 18, 2026</dd></div></dl></aside></div></div></section>
 
         <section className="case-cta"><div className="container"><p>Similar project</p><h2>Does a process still depend on <em>manual checking?</em></h2><a className="button" href={whatsappUrlEnglish("the AquaFlora case study")} target="_blank" rel="noreferrer">Discuss your context <span aria-hidden="true">↗</span></a></div></section>
       </article>

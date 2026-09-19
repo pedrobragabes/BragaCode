@@ -5,7 +5,7 @@ import { ProjectCard } from "@/components/project/ProjectCard";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { PageHero } from "@/components/ui/PageHero";
 import { projects } from "@/content/projects";
-import { getService, services } from "@/content/services";
+import { getService, services, serviceBoundaries } from "@/content/services";
 import { createMetadata } from "@/lib/seo";
 import { absoluteUrl, whatsappUrl } from "@/lib/site";
 
@@ -107,6 +107,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
             <div className="feature-grid">
               {service.deliverables.map((item, index) => <div key={item}><span>0{index + 1}</span>{item}</div>)}
             </div>
+            <div className="service-limits"><h3>Limites e dependências</h3><p>{serviceBoundaries[service.slug]}</p><p>Acessos autorizados, regras de negócio e responsáveis pela validação são definidos antes da execução. Hospedagem, licenças e custos de terceiros são discriminados na proposta.</p></div>
             <div className="large-tag-list">{service.technologies.map((technology) => <span key={technology}>{technology}</span>)}</div>
           </div>
         </div>

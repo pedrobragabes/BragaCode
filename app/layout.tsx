@@ -16,6 +16,7 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   applicationName: "BragaCode",
+  icons: { icon: "/brand/favicon.svg", apple: "/apple-icon" },
   authors: [{ name: "Pedro Braga", url: "https://pedrobragabes.com" }],
   creator: "Pedro Braga",
   publisher: "BragaCode",
@@ -37,7 +38,7 @@ const themeScript = `
     const saved = localStorage.getItem('bragacode-theme');
     const theme = saved === 'light' || saved === 'dark'
       ? saved
-      : (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      : 'light';
     document.documentElement.dataset.theme = theme;
     document.documentElement.style.colorScheme = theme;
   } catch (_) {}

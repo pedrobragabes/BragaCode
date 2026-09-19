@@ -6,169 +6,77 @@ import { StaticImage as Image } from "@/components/ui/StaticImage";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { company, processSteps } from "@/content/company";
+import { faq } from "@/content/faq";
 import { featuredProjects } from "@/content/projects";
-import { services } from "@/content/services";
+import { serviceOffers } from "@/content/services";
 import { createMetadata } from "@/lib/seo";
 import { absoluteUrl, whatsappUrl } from "@/lib/site";
 
-export const metadata: Metadata = createMetadata({
-  title: "Software, e-commerce e automações",
-  description: company.positioning,
-  path: "/",
-});
-
+export const metadata: Metadata = createMetadata({ title: "Software que conecta sua operação", description: company.positioning, path: "/" });
 
 export default function Home() {
-  const jsonLd = [
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      name: company.name,
-      url: absoluteUrl(),
-      founder: { "@type": "Person", name: company.founder },
-      sameAs: [company.linkedin, company.github, company.personalSite],
-      email: company.email,
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "ProfessionalService",
-      name: company.name,
-      url: absoluteUrl(),
-      description: company.positioning,
-      areaServed: { "@type": "Country", name: "Brasil" },
-      founder: { "@type": "Person", name: company.founder },
-      serviceType: services.map((service) => service.shortTitle),
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      name: company.founder,
-      url: company.personalSite,
-      jobTitle: "Software Engineer e fundador da BragaCode",
-      sameAs: [company.linkedin, company.github],
-    },
-  ];
-
-  return (
-    <>
-      <JsonLd data={jsonLd} />
-      <section className="hero">
-        <div className="container hero-grid">
-          <div className="hero-copy">
-            <p className="eyebrow"><span aria-hidden="true" />Desenvolvimento de software · BragaCode</p>
-            <h1>Tecnologia que conecta <em>o seu negócio.</em></h1>
-            <p className="hero-lead">
-              Lojas virtuais, sistemas sob medida e integrações que fazem seus dados circularem. Do primeiro desenho à implantação, com Pedro Braga à frente do desenvolvimento.
-            </p>
-            <div className="hero-actions">
-              <a className="button" href={whatsappUrl("a Home")} target="_blank" rel="noreferrer">
-                Conversar sobre o projeto <span aria-hidden="true">↗</span>
-              </a>
-              <Link className="button button-secondary" href="/projetos">
-                Ver projetos <span aria-hidden="true">↓</span>
-              </Link>
-            </div>
-            <p className="hero-note"><span aria-hidden="true">●</span> Atendimento remoto em todo o Brasil · liderança técnica de Pedro Braga</p>
+  return <>
+    <JsonLd data={{ "@context": "https://schema.org", "@type": "ProfessionalService", name: company.name, url: absoluteUrl(), description: company.positioning, founder: { "@type": "Person", name: company.founder }, email: company.email, sameAs: [company.github, company.personalSite] }} />
+    <section className="commercial-hero">
+      <div className="container commercial-hero-grid">
+        <div className="commercial-hero-copy">
+          <p className="eyebrow"><span aria-hidden="true" />Software aplicado ao seu negócio</p>
+          <h1>Seus sistemas <br />conectados.<br /><em>Sua operação <br />mais simples.</em></h1>
+          <p className="hero-lead">Sistemas web, e-commerce e integrações para organizar dados e automatizar as rotinas da sua empresa.</p>
+          <div className="hero-actions">
+            <Link className="button" href="/contato">Conversar sobre um projeto <span aria-hidden="true">↗</span></Link>
+            <Link className="button button-secondary" href="/projetos">Conhecer projetos</Link>
           </div>
-          <Link href="/projetos/aquaflora-agroshop" className="company-hero-work">
-            <div className="work-caption"><span>Experiência aplicada</span><span>01 / AquaFlora ↗</span></div>
-            <Image src="/images/projects/aquaflora-live.webp" width={1265} height={712} alt="Loja virtual AquaFlora AgroShop em funcionamento" priority sizes="(max-width: 820px) 100vw, 55vw" />
-            <div className="work-caption"><strong>E-commerce conectado à operação</strong><span>Conheça o trabalho de Pedro Braga</span></div>
-          </Link>
+          <p className="hero-note">Do primeiro contato à entrega, diretamente com Pedro Braga.</p>
         </div>
-      </section>
-
-<section className="section services-section" id="servicos">
-        <div className="container">
-          <SectionHeading
-            eyebrow="Serviços"
-            title={<>O que podemos <em>desenvolver juntos.</em></>}
-            description="Uma presença digital bem construída. Uma loja conectada ao estoque. Um sistema que acompanha o jeito da sua empresa trabalhar."
-            action={<Link className="text-link" href="/servicos">Ver todos os serviços <span aria-hidden="true">↗</span></Link>}
-          />
-          <div className="services-grid">
-            {services.filter(service => ["ecommerce", "sistemas-web", "apis-e-integracoes"].includes(service.slug)).map((service) => (
-              <article className="service-card" key={service.slug}>
-                <div><span>{service.number}</span><i aria-hidden="true">↗</i></div>
-                <h3>{service.title}</h3>
-                <p>{service.summary}</p>
-                <ul>{service.deliverables.slice(0, 3).map((item) => <li key={item}>{item}</li>)}</ul>
-                <Link href={`/servicos#${service.slug}`} aria-label={`Saiba mais sobre ${service.title}`}>Explorar serviço</Link>
-              </article>
-            ))}
+        <div className="brand-panel">
+          <div className="brand-panel-top"><span>BRAGA CODE</span><span>Desenvolvimento de software</span></div>
+          <Image className="brand-panel-symbol" src="/brand/symbol.svg" alt="Monograma BC da Braga Code, com chevrons de código" width={820} height={470} priority />
+          <div className="brand-panel-bottom"><span>Conectar. Simplificar. Construir.</span><span aria-hidden="true">↗</span></div>
+          <div className="hero-flow" aria-label="Exemplo de integração: ERP, validação dos dados e loja virtual">
+            <span>ERP / arquivos</span><i aria-hidden="true">→</i><span>Validação</span><i aria-hidden="true">→</i><span>Loja virtual</span>
           </div>
         </div>
-      </section>
+      </div>
+      <nav className="container expertise-strip" aria-label="Áreas de atuação">{serviceOffers.map(offer => <Link key={offer.slug} href={`/servicos/${offer.slug}`}>{offer.shortTitle}<span aria-hidden="true">↗</span></Link>)}</nav>
+    </section>
 
-      <section className="section featured-section">
-        <div className="container">
-          <SectionHeading
-            eyebrow="Projetos em destaque"
-            title={<>Da operação de uma loja <em>à publicação de conteúdo.</em></>}
-            description="Experiência profissional e produtos próprios desenvolvidos por Pedro Braga, fundador da BragaCode."
-            action={<Link className="text-link" href="/projetos">Conhecer os projetos <span aria-hidden="true">↗</span></Link>}
-          />
-          <div className="projects-grid featured-projects">
-            {featuredProjects.map((project, index) => <ProjectCard project={project} index={index} key={project.slug} />)}
-          </div>
-        </div>
-      </section>
+    <section className="section services-section">
+      <div className="container">
+        <SectionHeading eyebrow="01 / O que podemos resolver" title={<>Menos tarefas repetidas.<br /><em>Mais fluidez no trabalho.</em></>} description="O ponto de partida é a sua rotina: o que precisa conversar, o que se repete e o que está dificultando o trabalho." />
+        <div className="offer-grid">{serviceOffers.map((offer, index) => <article className="offer-card" key={offer.slug}>
+          <div className="offer-number"><span>0{index + 1}</span><span aria-hidden="true">↗</span></div>
+          <h3><Link href={`/servicos/${offer.slug}`}>{offer.title}</Link></h3>
+          <p>{offer.problem}</p>
+          <div className="offer-delivery"><span>O que entregamos</span><p>{offer.delivery}</p></div>
+          <Link className="text-link" href={`/servicos/${offer.slug}`}>Conhecer o serviço <span aria-hidden="true">↗</span></Link>
+        </article>)}</div>
+      </div>
+    </section>
 
-      <section className="section process-section">
-        <div className="container">
-          <SectionHeading
-            eyebrow="Processo"
-            title={<>Clareza antes de <em>complexidade.</em></>}
-            description="Cada etapa produz uma saída concreta. Assim, escopo, decisão e responsabilidade não ficam presos em reunião."
-          />
-          <ol className="process-list">
-            {processSteps.map((step) => (
-              <li key={step.number}>
-                <span>{step.number}</span>
-                <div><h3>{step.title}</h3><p>{step.description}</p></div>
-                <small>{step.output}</small>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
+    <section className="section featured-section">
+      <div className="container">
+        <SectionHeading eyebrow="02 / Trabalho em contexto" title={<>Software que encontra<br /><em>a vida real.</em></>} description="Experiência profissional e projetos próprios de Pedro Braga. Cada estudo explica o problema, a entrega e seu estágio atual." action={<Link className="text-link" href="/projetos">Explorar os projetos ↗</Link>} />
+        <div className="projects-grid selected-projects">{featuredProjects.map((project, index) => <ProjectCard project={project} index={index} key={project.slug} />)}</div>
+      </div>
+    </section>
 
-<section className="section founder-section">
-        <div className="container founder-grid">
-          <div className="founder-portrait"><Image src="/images/pedro-braga.webp" alt="Pedro Braga, fundador da BragaCode" width={600} height={750} sizes="(max-width: 820px) 100vw, 30vw" /></div>
-          <div className="founder-copy">
-            <p className="eyebrow"><span aria-hidden="true" />Quem está por trás</p>
-            <h2>Pedro Braga.<br /><em>Fundador e responsável técnico.</em></h2>
-            <p>
-              Pedro atua no desenvolvimento e na operação de aplicações web desde 2020. Na AquaFlora AgroShop, trabalha com WooCommerce, integrações com ERP, aplicações internas e automações em Python e Node.js.
-            </p>
-            <p>
-              É estudante de Engenharia de Computação na UNIVESP e mantém prática contínua de infraestrutura com Docker, Linux, Nginx e Proxmox.
-            </p>
-            <div className="inline-links">
-              <Link className="text-link" href="/sobre">Conhecer a trajetória ↗</Link>
-              <a className="text-link" href={company.linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a>
-            </div>
-          </div>
-        </div>
-      </section>
+    <section className="section delivery-section">
+      <div className="container">
+        <SectionHeading eyebrow="03 / Como trabalhamos" title={<>Um problema claro.<br /><em>Uma entrega bem definida.</em></>} description="Você acompanha as decisões e valida o que está sendo construído. Escopo, responsabilidades e próximos passos ficam registrados." />
+        <ol className="delivery-steps">{processSteps.map(step => <li key={step.number}><span className="step-number">{step.number}</span><h3>{step.title}</h3><p>{step.description}</p><div><span>Você recebe</span><p>{step.output}</p></div></li>)}</ol>
+      </div>
+    </section>
 
-<section className="section home-contact" id="contato">
-        <div className="container contact-grid">
-          <div className="contact-copy">
-            <p className="eyebrow"><span aria-hidden="true" />Próximo passo</p>
-            <h2>Vamos conversar <em>sobre o seu projeto.</em></h2>
-            <p>Conte o que sua empresa precisa construir ou melhorar. A primeira conversa serve para entender o contexto, as prioridades e o próximo passo.</p>
-            <div className="contact-direct">
-              <span>Contato direto</span>
-              <a href={`mailto:${company.email}`}>{company.email}</a>
-              <a href={whatsappUrl("a seção de contato da Home")} target="_blank" rel="noreferrer">{company.phoneDisplay}</a>
-            </div>
-          </div>
-          <ContactForm source="a seção de contato da Home" />
-        </div>
-      </section>
+    <section className="section founder-section">
+      <div className="container founder-grid">
+        <div className="founder-portrait"><Image src="/images/pedro-braga.webp" alt="Pedro Braga, fundador e desenvolvedor responsável pela BragaCode" width={600} height={750} sizes="(max-width: 820px) 85vw, 30vw" /></div>
+        <div className="founder-copy"><p className="eyebrow"><span aria-hidden="true" />Uma conversa direta, do início ao fim</p><h2>Quem entende o problema<br /><em>também escreve o código.</em></h2><p>Sou Pedro Braga, fundador e desenvolvedor responsável pela BragaCode. Trabalho com aplicações web, integrações com sistemas legados e ferramentas para operações comerciais.</p><p>A BragaCode reúne essa experiência para construir soluções com escopo claro, validação com quem usa e documentação para continuar evoluindo.</p><div className="inline-links"><Link className="text-link" href="/sobre">Conheça a BragaCode ↗</Link><a className="text-link" href={company.personalSite} target="_blank" rel="noreferrer">Trajetória profissional ↗</a></div></div>
+      </div>
+    </section>
 
-</>
-  );
+    <section className="section faq-section"><div className="container faq-grid"><div><p className="eyebrow"><span aria-hidden="true" />Antes de começar</p><h2>Boas perguntas.<br /><em>Respostas diretas.</em></h2></div><div className="faq-list">{faq.map((item, index) => <details key={item.question}><summary><span>{String(index + 1).padStart(2, "0")}</span>{item.question}<i aria-hidden="true">+</i></summary><p>{item.answer}</p></details>)}</div></div></section>
+
+    <section className="section home-contact" id="contato"><div className="container contact-grid"><div className="contact-copy"><p className="eyebrow"><span aria-hidden="true" />Vamos entender o seu cenário</p><h2>Qual parte da rotina<br /><em>pode funcionar melhor?</em></h2><p>Conte o que acontece hoje, quais ferramentas você usa e onde está a dificuldade. Não precisa escrever um escopo técnico.</p><div className="contact-direct"><span>Fale diretamente com Pedro</span><a href={`mailto:${company.email}`}>{company.email}</a><a href={whatsappUrl("a Home")} target="_blank" rel="noreferrer">WhatsApp · {company.phoneDisplay}</a></div></div><ContactForm source="a Home" /></div></section>
+  </>;
 }

@@ -19,14 +19,14 @@ const projectTypes = [
 
 const formCopy = {
   pt: {
-    sending: "Enviando sua mensagem…", success: "Mensagem enviada. Pedro responderá em breve.", error: "Não foi possível enviar agora. Tente pelo WhatsApp.",
+    sending: "Enviando sua mensagem…", success: "Solicitação aceita para envio. Pedro responderá assim que possível.", error: "Não foi possível enviar agora. Tente pelo WhatsApp.",
     name: "Seu nome *", company: "Empresa", email: "E-mail *", phone: "Telefone", need: "O que você precisa? *", select: "Selecione uma opção",
     message: "Conte o que acontece hoje *", placeholder: "Ex.: atualizamos preço em duas planilhas e depois cadastramos tudo de novo na loja…",
     hint: "Não precisa escrever um escopo técnico. Descreva o processo, o volume e onde está o retrabalho.", honeypot: "Não preencha este campo",
     consent: "Concordo que a BragaCode use estes dados para responder ao meu contato. *", submit: "Enviar contexto", or: "ou", whatsapp: "chame no WhatsApp ↗",
   },
   en: {
-    sending: "Sending your message…", success: "Message sent. Pedro will reply shortly.", error: "The form could not be sent right now. Please use WhatsApp.",
+    sending: "Sending your message…", success: "Request accepted for delivery. Pedro will reply as soon as possible.", error: "The form could not be sent right now. Please use WhatsApp.",
     name: "Your name *", company: "Company", email: "Email *", phone: "Phone", need: "What do you need? *", select: "Select an option",
     message: "Describe what happens today *", placeholder: "Example: we update prices in two spreadsheets and then enter the same data again in the store…",
     hint: "You do not need a technical scope. Describe the process, volume and where rework happens.", honeypot: "Do not fill in this field",

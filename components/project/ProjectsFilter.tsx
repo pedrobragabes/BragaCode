@@ -1,18 +1,18 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { listedProjects as projects, type ProjectCategory } from "@/content/projects";
+import type { Project, ProjectCategory } from "@/content/projects";
 import { ProjectCard } from "./ProjectCard";
 
 const categories: ("Todos" | ProjectCategory)[] = [
   "Todos", "E-commerce", "Automação", "Sistema web", "Plataforma", "Infraestrutura", "Conteúdo", "Protótipo",
 ];
 
-export function ProjectsFilter() {
+export function ProjectsFilter({ projects }: { projects: Project[] }) {
   const [activeCategory, setActiveCategory] = useState<(typeof categories)[number]>("Todos");
   const visibleProjects = useMemo(
     () => activeCategory === "Todos" ? projects : projects.filter((project) => project.categories.includes(activeCategory)),
-    [activeCategory],
+    [activeCategory, projects],
   );
 
   return (

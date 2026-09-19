@@ -20,7 +20,7 @@ test("renderiza a Home comercial da BragaCode", async () => {
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
   const html = await response.text();
   assert.match(html, /BragaCode/);
-  assert.match(html, /Tecnologia que conecta/);
+  assert.match(html, /Seus sistemas/);
   assert.match(html, /aquaflora-live\.webp/);
   assert.doesNotMatch(html, /4\.000\+/);
   assert.match(html, /AquaFlora AgroShop/);
@@ -204,4 +204,53 @@ test("publica rotas em inglês com hreflang, formulário localizado e case prior
   const xml = await sitemap.text();
   assert.match(xml, /en\/projects\/aquaflora-agroshop/);
   assert.match(xml, /hreflang="en"/i);
+});
+
+
+test("retira o case excluído de rotas, sitemap e recomendações", async () => {
+  assert.equal((await render("/projetos/ecommerce-floricultura")).status, 404);
+  for (const path of ["/", "/projetos", "/servicos/ecommerce", "/sitemap.xml", "/en/projects"]) {
+    assert.doesNotMatch(await (await render(path)).text(), /ecommerce-floricultura|Florescer Garden|Oliveira Vidros|4\.000\+|6\.300\+/);
+  }
+});
+
+test("distingue beta, piloto e uso operacional por componente", async () => {
+  const beta = await (await render("/projetos/braga-commerce")).text();
+  assert.match(beta, /Beta/);
+  assert.match(beta, /Go-live comercial ainda depende/);
+  const pilot = await (await render("/projetos/sinalizacao-digital")).text();
+  assert.match(pilot, /Piloto/);
+  assert.match(pilot, /mesma experiência profissional/);
+  const operation = await (await render("/projetos/aquaflora-agroshop")).text();
+  assert.match(operation, /Uso diário relatado/);
+  assert.match(operation, /não em tempo real/);
+});
+
+test("a prévia não é indexável e usa o domínio comercial canônico", async () => {
+  const html = await (await render("/")).text();
+  assert.match(html, /noindex/);
+  assert.match(html, /https:\/\/bragacode\.dev/);
+});
+
+test("sem provedor o formulário informa indisponibilidade, sem confirmar envio", async () => {
+  const keys = ["CONTACT_WEBHOOK_URL", "CONTACT_WEBHOOK_SECRET", "RESEND_API_KEY", "CONTACT_TO_EMAIL", "CONTACT_FROM_EMAIL"];
+  const saved = Object.fromEntries(keys.map(key => [key, process.env[key]]));
+  keys.forEach(key => delete process.env[key]);
+  try {
+    const response = await render("/api/contact", {
+      method: "POST",
+      headers: { "content-type": "application/json", "cf-connecting-ip": "203.0.113.61" },
+      body: JSON.stringify({ submissionId: "7f312f58-303b-42a5-91d3-de22b74400d9", name: "Teste local", company: "", email: "teste@example.com", phone: "", projectType: "API ou integração", message: "Precisamos integrar a exportação do ERP com a loja virtual.", consent: true, website: "", startedAt: Date.now() - 5000 }),
+    });
+    assert.equal(response.status, 503);
+    const body = await response.json();
+    assert.match(body.message, /não está configurado/);
+    assert.match(body.message, /WhatsApp/);
+    assert.doesNotMatch(body.message, /Mensagem enviada|Solicitação aceita/);
+  } finally {
+    for (const key of keys) {
+      if (saved[key] === undefined) delete process.env[key];
+      else process.env[key] = saved[key];
+    }
+  }
 });

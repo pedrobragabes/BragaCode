@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "BragaCode — Software, E-commerce e Automações",
     short_name: "BragaCode",
     description:
-      "Software, e-commerce e automações para empresas que querem crescer sem depender de processos manuais.",
+      "Sistemas web, e-commerce e integrações para simplificar processos manuais.",
     start_url: "/",
     display: "standalone",
     background_color: "#11213b",

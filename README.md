@@ -4,6 +4,10 @@
 
 Site comercial da BragaCode, operação de desenvolvimento de software fundada por Pedro Braga. O projeto apresenta serviços, cases, trajetória e canais de contato com conteúdo em português brasileiro.
 
+## Revisão comercial de setembro de 2026
+
+O [relatório do redesign](docs/15-redesign-comercial.md) documenta identidade, curadoria, validações e preparação para publicação. Veja as [fontes dos cases](docs/14-project-sources.md). Previews usam noindex por padrão; ative NEXT_PUBLIC_SITE_INDEXABLE=true somente no domínio final validado.
+
 ## Planejamento atual
 
 A revisão de 2026-09-05 organiza as marcas, a curadoria comercial e a operação sem reiniciar funcionalidades já entregues. Consulte o [índice de documentação](docs/README.md), o [roadmap com issues reais](docs/06-roadmap.md), o [posicionamento](docs/12-posicionamento.md) e a [auditoria de publicação](docs/13-repositorio-e-publicacao.md).

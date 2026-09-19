@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ProjectsFilter } from "@/components/project/ProjectsFilter";
 import { PageHero } from "@/components/ui/PageHero";
+import { listedProjects } from "@/content/projects";
 
 import { createMetadata } from "@/lib/seo";
 
@@ -20,7 +21,7 @@ export default function ProjectsPage() {
         aside={<p className="page-index">ENGENHARIA · PRODUTO · OPERAÇÃO</p>}
       />
       <section className="section projects-page-section">
-        <div className="container"><ProjectsFilter /></div>
+        <div className="container"><ProjectsFilter projects={listedProjects} /></div>
       </section>
     </>
   );

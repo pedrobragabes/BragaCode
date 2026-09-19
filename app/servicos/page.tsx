@@ -4,7 +4,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { PageHero } from "@/components/ui/PageHero";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { projects } from "@/content/projects";
-import { services } from "@/content/services";
+import { services, serviceOffers } from "@/content/services";
 import { createMetadata } from "@/lib/seo";
 import { absoluteUrl, whatsappUrl } from "@/lib/site";
 
@@ -35,6 +35,7 @@ export default function ServicesPage() {
         aside={<a className="button" href={whatsappUrl("a página de Serviços")} target="_blank" rel="noreferrer">Discutir um gargalo <span aria-hidden="true">↗</span></a>}
       />
 
+      <section className="section service-offers-overview"><div className="container offer-grid">{serviceOffers.map((offer, index) => <article className="offer-card" key={offer.slug}><div className="offer-number"><span>0{index + 1}</span></div><h2>{offer.title}</h2><p>{offer.problem}</p><div className="offer-delivery"><span>Entrega</span><p>{offer.delivery}</p></div>{offer.relatedSlugs.map(slug => <Link className="text-link" href={"/servicos/" + slug} key={slug}>{services.find(service => service.slug === slug)?.shortTitle} ↗</Link>)}</article>)}</div></section>
       <section className="section service-detail-section">
         <div className="container service-detail-list">
           {services.map((service) => {

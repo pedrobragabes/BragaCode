@@ -50,14 +50,14 @@ export const englishServices = [
 ] as const;
 
 export const englishProjects = [
- {slug: "aquaflora-agroshop", name: "AquaFlora AgroShop", status: "Ongoing", period: "2025 — present", eyebrow: "Professional work · e-commerce", summary: "WooCommerce store and ERP inventory and price synchronization. Pedro Braga's work in AquaFlora's digital operation.", technologies: ["WooCommerce", "Python", "Next.js", "Fastify"], visual: "store", image: "aquaflora"},
+ {slug: "aquaflora-agroshop", name: "AquaFlora AgroShop", status: "In operation", period: "2025 — present", eyebrow: "Professional work · e-commerce", summary: "WooCommerce store and ERP inventory and price synchronization. Pedro Braga's work in AquaFlora's digital operation.", technologies: ["WooCommerce", "Python", "Next.js", "Fastify"], visual: "store", image: "aquaflora"},
  {slug: "joysticknights", name: "JoysticKnights", status: "Live", period: "2020 — present", eyebrow: "Independent product · editorial platform", summary: "Gaming and culture portal with a Next.js frontend and WordPress as its CMS. A maintained publication with real editorial content.", technologies: ["Next.js", "React", "TypeScript", "WordPress"], visual: "editorial", image: "joysticknights"},
 ] as const;
 export const aquafloraEnglishCase = {
  ...englishProjects[0],
  problem: ["Inventory and prices need to follow the ERP without overwriting product descriptions, categories or images.", "Internal product queries need their own interface and access controls."],
  context: "Pedro Braga's professional experience at AquaFlora. The public store, stock synchronization and internal platform have independent deployment lifecycles.",
- solution: ["Live store: maintenance and evolution of WordPress/WooCommerce.", "Stock Sync LITE: Python reads Athos ERP CSV exports and updates inventory and prices for existing WooCommerce SKUs, preserving editorial content.", "AquaApps and API: locally implemented and validated Next.js and Fastify base, with role-based access and product lookup. Server deployment remains a separate step.", "Customer-service automation is in development and is separate from Stock Sync."],
- results: ["Inventory and pricing updates are separated from catalog editing.", "The internal platform has a locally validated base; this is not evidence of a production deployment.", "The public store can be visited. Commercial metrics and internal data are not disclosed."],
+ solution: ["Live store: maintenance and evolution of WordPress/WooCommerce.", "Stock Sync LITE: Python reads Athos ERP CSV exports and updates inventory and prices for existing WooCommerce SKUs, preserving editorial content.", "Internal application and API: Next.js and Fastify, with role-based access and product lookup by name, SKU and EAN. The founder reports daily operational use.", "AquaTV is a separate digital signage pilot, with a Next.js dashboard, Express API and Expo/React Native TV player. Initial physical installation is documented; operational acceptance checks remain.", "Customer-service automation is in development and is separate from Stock Sync."],
+ results: ["Inventory and pricing updates are separated from catalog editing.", "The founder reports daily use of the internal applications. Repository documentation supports the implementation; this review did not audit the operational environment.", "The public store can be visited. Commercial metrics and internal data are not disclosed."],
  metrics: [],
 } as const;

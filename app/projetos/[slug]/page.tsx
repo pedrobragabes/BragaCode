@@ -66,6 +66,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 {project.sources && <div className="inline-links">{project.sources.map(source => <a key={source.href} className="text-link" href={source.href} target="_blank" rel="noreferrer">{source.label} ↗</a>)}</div>}
                 <div className="case-meta">
                   <div><span>Status</span><strong>{project.status}</strong></div>
+                  <div><span>Natureza</span><strong>{project.evidence.nature}</strong></div>
                   <div><span>Período</span><strong>{project.period}</strong></div>
                   <div><span>Frentes</span><strong>{project.categories.join(" · ")}</strong></div>
                 </div>
@@ -90,6 +91,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               <h2>O que precisava <em>mudar na rotina.</em></h2>
               {project.problem.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
               <div className="context-box"><span>Contexto</span>{project.context.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
+              <div className="context-box"><span>Contribuição</span><p>{project.role}</p>{project.parentSlug && <Link className="text-link" href={`/projetos/${project.parentSlug}`}>Conhecer o contexto completo ↗</Link>}</div>
             </div>
           </div>
         </section>
@@ -100,6 +102,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             <div className="narrative-content">
               <h2>Uma entrega dividida por <em>responsabilidade operacional.</em></h2>
               {project.solution.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+              {project.modules && <div className="case-module-grid">{project.modules.map(module => <article className="case-module" key={module.title}><span>{module.status}</span><h3>{module.title}</h3><p>{module.description}</p>{module.slug && <Link className="text-link" href={`/projetos/${module.slug}`}>Ver este recorte ↗</Link>}</article>)}</div>}
+              {project.decisions && <div className="case-limits"><h3>Decisões que definiram a solução</h3><ul>{project.decisions.map(item => <li key={item}>{item}</li>)}</ul></div>}
               <div className="feature-grid">
                 {project.features.map((feature, index) => <div key={feature}><span>{String(index + 1).padStart(2, "0")}</span>{feature}</div>)}
               </div>
@@ -109,7 +113,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
         <section className="section case-gallery-section">
           <div className="container">
-            <div className="gallery-heading"><span>03</span><h2>Galeria do projeto</h2><p>Referências da interface pública e contexto do trabalho.</p></div>
+            <div className="gallery-heading"><span>03</span><h2>{project.gallery.some(item => item.asset) ? "Interface do projeto" : "Como a solução se organiza"}</h2><p>{project.gallery.some(item => item.asset) ? "Captura da interface pública, com data e contexto." : "Fluxo documentado, sem dados da operação."}</p></div>
             <div className="case-gallery">
               {project.gallery.map((item) => (
                 <figure key={item.title}>
@@ -128,6 +132,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               <ol className="results-list">
                 {project.results.map((result, index) => <li key={result}><span>0{index + 1}</span><p>{result}</p></li>)}
               </ol>
+              {project.limits && <div className="case-limits"><h3>Estágio atual e limites</h3><ul>{project.limits.map(item => <li key={item}>{item}</li>)}</ul></div>}
               {project.confidentialityNote && <p className="confidentiality-note"><strong>Nota de confidencialidade.</strong> {project.confidentialityNote}</p>}
               <aside className="case-evidence" aria-labelledby="case-evidence-title">
                 <div>

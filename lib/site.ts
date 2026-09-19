@@ -1,12 +1,13 @@
 import { company } from "@/content/company";
 
-const fallbackUrl = "http://localhost:3000";
+const fallbackUrl = "https://bragacode.dev";
 
 export const siteConfig = {
   name: company.name,
   description: company.positioning,
   url: (process.env.NEXT_PUBLIC_SITE_URL || fallbackUrl).replace(/\/$/, ""),
   locale: "pt_BR",
+  indexable: process.env.NEXT_PUBLIC_SITE_INDEXABLE === "true",
 } as const;
 
 export function absoluteUrl(path = "/") {

@@ -5,8 +5,7 @@ import handler from "vinext/server/app-router-entry";
 import { sanitizeMonitoringEvent } from "../lib/monitoring";
 
 interface Env {
-  ASSETS: Fetcher;
-  DB: D1Database;
+  ASSETS: { fetch(request: Request): Promise<Response> };
   SENTRY_DSN?: string;
   SENTRY_ENVIRONMENT?: string;
   SENTRY_TRACES_SAMPLE_RATE?: string;

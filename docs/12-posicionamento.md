@@ -1,6 +1,6 @@
 # Posicionamento e fronteiras de marca
 
-Revisão: 2026-09-05.
+Revisão: 2026-09-18.
 
 | Identidade | Público e finalidade | Conteúdo principal |
 | --- | --- | --- |
@@ -18,11 +18,11 @@ A empresa oferece engenharia de software aplicada à operação: backend/APIs, e
 
 AquaFlora é a principal candidata a case, separando WooCommerce, Stock Sync, apps internos, Commerce Agent e infraestrutura. A maturidade precisa ser registrada por componente. Não atribuir produção ao agente apenas porque a loja está online.
 
-O case de floricultura ainda aparece na base PT/EN: revisar identidade e estado antes de mantê-lo como destaque. A relação com Florescer Garden não deve ser presumida só pelo segmento. Retirar da seleção se não houver entrega demonstrável e manter qualquer motivo comercial privado fora do site.
+O case histórico de floricultura foi retirado das rotas e do catálogo público nesta revisão. Não deve reaparecer sob identidade genérica.
 
 JoysticKnights é uma plataforma editorial própria, não um contrato comercial presumido. ComércioBES e BragaCommerce precisam de escopos distintos. HomeLab é laboratório. CadastraFácil permanece produto próprio independente, sem planos ou disponibilidade inventados; RastreIAGastos é side project.
 
-A implementação da curadoria está em [#30](https://github.com/pedrobragabes/BragaCode/issues/30); esta revisão organiza a documentação, não publica alegações novas no catálogo.
+A curadoria inicial foi concluída em [#30](https://github.com/pedrobragabes/BragaCode/issues/30). A revisão de setembro registra [fontes e maturidade por componente](14-project-sources.md), com relato operacional separado de teste reproduzido.
 
 ## Ordem
 

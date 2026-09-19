@@ -1,6 +1,6 @@
 # Roadmap
 
-Revisão: 2026-09-05. O estado vivo está nas [issues](https://github.com/pedrobragabes/BragaCode/issues) e [milestones](https://github.com/pedrobragabes/BragaCode/milestones).
+Revisão do estado das issues: 2026-09-18. O estado vivo está nas [issues](https://github.com/pedrobragabes/BragaCode/issues) e [milestones](https://github.com/pedrobragabes/BragaCode/milestones).
 
 A numeração M1–M4 do GitHub é a referência. O backlog antigo BC-xxx foi substituído por issues reais para não planejar novamente páginas de serviço, inglês, MDX, CRM, E2E e monitoramento já implementados.
 
@@ -15,14 +15,14 @@ A numeração M1–M4 do GitHub é a referência. O backlog antigo BC-xxx foi su
 
 ## Próxima sequência
 
-1. M5 fecha a seleção comercial; #6–#8 trabalham só nos cases selecionados.
+1. M5 está concluída no GitHub (#29–#31). A revisão editorial e visual está no [relatório de redesign](15-redesign-comercial.md); #6–#8 continuam para os critérios adicionais dos cases selecionados.
 2. #1 e #2 confirmam canais reais; #3 e #5 fecham os critérios de lançamento.
 3. M6 reconcilia manutenção e a publicação no Sites.
 4. #11 valida aquisição depois do domínio e formulário.
 
 Não iniciar CMS, área de cliente, newsletter ou calculadora sem necessidade demonstrada. CadastraFácil e currículo não são entregas deste repositório.
 
-## [M5 — Posicionamento e curadoria comercial](https://github.com/pedrobragabes/BragaCode/milestone/5)
+## Concluída: [M5 — Posicionamento e curadoria comercial](https://github.com/pedrobragabes/BragaCode/milestone/5)
 
 - [#29 — Consolidar posicionamento, roadmap e documentação comercial](https://github.com/pedrobragabes/BragaCode/issues/29)
 - [#30 — Revisar catálogo comercial e separar produtos próprios de cases de clientes](https://github.com/pedrobragabes/BragaCode/issues/30)

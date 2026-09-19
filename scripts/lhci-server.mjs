@@ -5,7 +5,8 @@ const child = spawn(
   process.execPath,
   ["node_modules/vinext/dist/cli.js", mode, "--port", "4173", "--hostname", "127.0.0.1"],
   {
-    env: { ...process.env, WRANGLER_LOG_PATH: ".wrangler/wrangler.log" },
+    // Audit production SEO explicitly; the normal preview remains noindex.
+    env: { ...process.env, NEXT_PUBLIC_SITE_INDEXABLE: "true", WRANGLER_LOG_PATH: ".wrangler/wrangler.log" },
     stdio: ["ignore", "inherit", "inherit"],
     windowsHide: true,
   },

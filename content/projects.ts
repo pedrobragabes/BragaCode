@@ -1,3 +1,4 @@
+import { z } from "zod";
 import type { ServiceSlug } from "./services";
 
 export type ProjectStatus =
@@ -6,7 +7,10 @@ export type ProjectStatus =
   | "Concluído"
   | "Em operação"
   | "Protótipo"
-  | "Laboratório";
+  | "Laboratório"
+  | "Piloto"
+  | "Beta"
+  | "Estudo/protótipo";
 
 export type ProjectCategory =
   | "E-commerce"
@@ -52,10 +56,17 @@ export type ProjectGalleryItem = {
   title: string;
   caption: string;
   asset?: ProjectGalleryAsset;
+  flow?: string[];
 };
 
 export type Project = {
   slug: string;
+  editorialStatus: "publicado" | "rascunho";
+  role: string;
+  parentSlug?: string;
+  decisions?: string[];
+  limits?: string[];
+  modules?: { title: string; status: string; description: string; slug?: string }[];
   listed?: boolean;
   sources?: { label: string; href: string }[];
   name: string;
@@ -79,14 +90,14 @@ export type Project = {
   seo: { title: string; description: string };
 };
 
-export const projects: Project[] = [
+const projectContent: Project[] = [
   {
     "slug": "aquaflora-agroshop",
-    "name": "AquaFlora AgroShop",
-    "eyebrow": "E-commerce + integração operacional",
-    "summary": "Loja WooCommerce e integração de estoque e preços com o ERP. Trabalho de Pedro Braga na operação digital da AquaFlora.",
-    "status": "Em evolução",
-    "period": "2025 — atual",
+    "name": "AquaFlora: do ERP à loja",
+    "eyebrow": "AquaFlora AgroShop · integração operacional",
+    "summary": "Estoque, preços e consulta interna conectados à operação da AquaFlora AgroShop. Evolução do WooCommerce e integração com ERP por Pedro Braga.",
+    "status": "Em operação",
+    "period": "Revisado em setembro de 2026",
     "featured": true,
     "categories": [
       "E-commerce",
@@ -100,18 +111,19 @@ export const projects: Project[] = [
       "sistemas-web"
     ],
     "problem": [
-      "Preço e estoque precisam acompanhar o ERP sem sobrescrever o conteúdo editorial dos produtos.",
-      "A consulta interna de produtos exige uma interface própria, com acesso controlado e busca por nome, SKU ou código de barras."
+      "A atualização exigia abrir o exportador do ERP, escolher categorias, colunas e formato e preparar o arquivo antes de alimentar a loja.",
+      "Era preciso atualizar preço e estoque sem sobrescrever descrições, imagens e categorias já organizadas no WooCommerce.",
+      "Para consultas de produtos, a equipe precisava de uma interface própria com busca por nome, código, SKU e EAN."
     ],
     "context": [
-      "Experiência profissional de Pedro Braga, fundador da BragaCode, na AquaFlora AgroShop.",
-      "A loja pública, a rotina de sincronização e a plataforma interna têm ciclos de implantação independentes."
+      "Experiência profissional de Pedro Braga na AquaFlora AgroShop, apresentada como trabalho do fundador da BragaCode.",
+      "O desafio era conectar o ERP existente à loja e às ferramentas internas, mantendo cada serviço independente."
     ],
     "solution": [
-      "Loja em operação: manutenção e evolução do catálogo WordPress/WooCommerce.",
-      "Stock Sync LITE: rotina Python que lê o CSV do ERP Athos e atualiza estoque e preço dos SKUs já existentes no WooCommerce, preservando descrições, categorias, imagens e SEO.",
-      "AquaApps e API: base implementada e validada localmente com Next.js e Fastify. Consulta por nome, SKU e EAN, sessões assinadas e permissões por perfil. A implantação no servidor ainda é uma etapa separada.",
-      "Atendimento automatizado: frente em desenvolvimento; não integra a rotina Stock Sync e não é apresentada como bot em produção."
+      "A rotina Stock Sync processa o CSV exportado pelo ERP, normaliza os dados e valida os identificadores antes de enviar atualizações.",
+      "O modo LITE usa um mapeamento de produtos existentes e limita a escrita a preço e estoque. Nomes, descrições, imagens, categorias e decisões editoriais permanecem na loja.",
+      "Um conector independente prepara um snapshot de catálogo. A API Fastify e a interface Next.js oferecem consulta com controle de acesso e indicação da idade dos dados.",
+      "A loja WooCommerce recebe manutenção e evolução. A sincronização agendada não depende da API de consulta interna."
     ],
     "features": [
       "Catálogo WooCommerce",
@@ -130,35 +142,82 @@ export const projects: Project[] = [
       "TypeScript"
     ],
     "results": [
-      "A rotina LITE separa a atualização de estoque e preço da edição do catálogo.",
-      "O código da plataforma interna possui uma base local validada; publicação e operação precisam de validação própria.",
-      "A loja pública pode ser consultada. Indicadores comerciais e dados internos não fazem parte deste case."
+      "Segundo o relato do fundador, a atualização deixou de depender da sequência manual de exportação e preparação do arquivo.",
+      "O modo LITE separa a atualização operacional da edição do catálogo e registra as execuções.",
+      "O fundador relata uso diário das aplicações internas. A documentação consultada comprova a base implementada; esta revisão não realizou auditoria do ambiente operacional."
     ],
     "metrics": [],
     "evidence": {
       "nature": "Trabalho profissional",
-      "lastReviewed": "6 de setembro de 2026",
-      "basis": "Loja pública e documentação dos repositórios aquaflora e aquaflora-stock-sync.",
-      "disclosure": "Experiência de Pedro Braga na AquaFlora; não implica contratação da BragaCode. Captura apenas da loja pública."
+      "lastReviewed": "18 de setembro de 2026",
+      "basis": "Documentação técnica consultada e relato operacional do fundador registrado no briefing de setembro de 2026.",
+      "disclosure": "Experiência de Pedro Braga na AquaFlora; não implica contratação da BragaCode. A captura retrata apenas a loja pública."
     },
     "gallery": [
       {
         "kind": "store",
-        "title": "AquaFlora AgroShop",
-        "caption": "Loja pública capturada em setembro de 2026. A imagem documenta a interface da loja; não representa os aplicativos internos.",
+        "title": "A loja pública da AquaFlora",
+        "caption": "Interface pública capturada em 6 de setembro de 2026. Não representa as aplicações internas.",
         "asset": {
           "src": "/images/projects/aquaflora-live.webp",
-          "alt": "Página inicial real da AquaFlora AgroShop, com navegação e vitrine de produtos",
+          "alt": "Página inicial da AquaFlora AgroShop, com navegação e vitrine de produtos",
           "width": 1265,
           "height": 712
         }
+      },
+      {
+        "kind": "sync",
+        "title": "Do arquivo à atualização",
+        "caption": "Fluxo simplificado do Stock Sync LITE. A consulta interna usa um conector independente.",
+        "flow": [
+          "CSV do ERP",
+          "Validação e mapeamento",
+          "Preço e estoque",
+          "WooCommerce"
+        ]
       }
     ],
-    "confidentialityNote": "Detalhes do ERP, credenciais, regras comerciais e telas com dados reais foram omitidos para preservar a operação do cliente.",
+    "confidentialityNote": "Catálogo real completo, regras comerciais, credenciais e interfaces internas não são exibidos.",
     "seo": {
-      "title": "AquaFlora: WooCommerce e integração de estoque",
-      "description": "Trabalho de Pedro Braga na loja WooCommerce, sincronização Python e desenvolvimento da plataforma interna AquaFlora."
+      "title": "Integração de ERP, estoque e WooCommerce",
+      "description": "Como uma rotina de processamento de CSV conecta preço e estoque à loja WooCommerce sem sobrescrever o conteúdo editorial."
     },
+    "editorialStatus": "publicado",
+    "role": "Desenvolvimento por Pedro Braga, fundador da BragaCode.",
+    "decisions": [
+      "Manter o ERP e o WooCommerce: integrar as fontes disponíveis sem exigir a troca de todo o sistema.",
+      "Atualizar somente os produtos mapeados: impedir que a rotina de estoque recrie ou substitua o catálogo editorial.",
+      "Usar fluxos independentes: uma falha na consulta interna não torna a nova API um intermediário obrigatório do Stock Sync."
+    ],
+    "limits": [
+      "A sincronização é periódica, não em tempo real.",
+      "O conjunto não é um ERP completo. Finanças, emissão fiscal e compras não fazem parte do escopo descrito.",
+      "O atendimento conversacional continua em desenvolvimento e não integra o fluxo operacional apresentado.",
+      "Não foram publicadas métricas de economia, receita ou volume de catálogo."
+    ],
+    "modules": [
+      {
+        "title": "Loja WooCommerce",
+        "status": "Em operação",
+        "description": "Manutenção do catálogo e evolução da experiência da loja."
+      },
+      {
+        "title": "Stock Sync",
+        "status": "Uso operacional relatado",
+        "description": "Processamento periódico de CSV; atualização restrita a estoque e preço."
+      },
+      {
+        "title": "Consulta interna e API",
+        "status": "Uso diário relatado",
+        "description": "Busca por nome, SKU e EAN, permissões e indicação da idade do catálogo."
+      },
+      {
+        "title": "Sinalização digital",
+        "status": "Piloto em dispositivo físico",
+        "description": "Dashboard e player Android TV. Validações de operação ainda pendentes.",
+        "slug": "sinalizacao-digital"
+      }
+    ],
     "sources": [
       {
         "label": "Visitar a loja",
@@ -171,12 +230,187 @@ export const projects: Project[] = [
     ]
   },
   {
-    "slug": "ecommerce-floricultura",
-    "name": "E-commerce para floricultura",
-    "eyebrow": "Catálogo B2B/B2C + painel administrativo",
-    "summary": "Plataforma mobile-first que organiza catálogo, imagens e pedidos e leva a conversa de compra para o WhatsApp.",
-    "status": "Concluído",
-    "period": "2025",
+    "slug": "joysticknights",
+    "name": "JoysticKnights",
+    "eyebrow": "Produto próprio · plataforma editorial",
+    "summary": "Evolução de um portal próprio: uma experiência de leitura em Next.js, mantendo o WordPress e o fluxo de publicação da redação.",
+    "status": "Em operação",
+    "period": "2020 — atual",
+    "featured": true,
+    "categories": [
+      "Conteúdo"
+    ],
+    "services": [
+      "sites-e-landing-pages",
+      "infraestrutura-e-suporte"
+    ],
+    "problem": [
+      "A interface pública precisava evoluir sem obrigar a redação a abandonar o WordPress e sem descartar o conteúdo existente."
+    ],
+    "context": [
+      "Portal editorial próprio do fundador, com conteúdo público de games e cultura geek. Não representa um cliente de software da BragaCode."
+    ],
+    "solution": [
+      "Frontend Next.js, React e TypeScript integrado ao WordPress como CMS editorial.",
+      "Rotas de notícias, análises e categorias, navegação temática e páginas individuais de conteúdo.",
+      "Rotinas documentadas de verificação técnica e publicação, com frontend e CMS mantidos como partes distintas."
+    ],
+    "features": [
+      "CMS desacoplado",
+      "Notícias e análises",
+      "Categorias editoriais",
+      "Interface responsiva"
+    ],
+    "technologies": [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "WordPress"
+    ],
+    "results": [
+      "O portal público mantém notícias e análises acessíveis na nova interface.",
+      "O conteúdo continua administrado no WordPress; a experiência de leitura é construída no frontend Next.js."
+    ],
+    "metrics": [],
+    "evidence": {
+      "nature": "Projeto próprio",
+      "lastReviewed": "18 de setembro de 2026",
+      "basis": "Site público e README do repositório JoysticKnights.",
+      "disclosure": "Produto próprio do fundador, apresentado como experiência de desenvolvimento e operação."
+    },
+    "gallery": [
+      {
+        "kind": "editorial",
+        "title": "Seleção da redação",
+        "caption": "Interface pública do JoysticKnights, capturada em setembro de 2026.",
+        "asset": {
+          "src": "/images/projects/joysticknights-live.webp",
+          "alt": "Portal JoysticKnights com menu lateral e seleção de notícias sobre games",
+          "width": 1265,
+          "height": 712
+        }
+      }
+    ],
+    "seo": {
+      "title": "JoysticKnights: portal editorial Next.js e WordPress",
+      "description": "Portal próprio de games com frontend Next.js, React, TypeScript e WordPress como CMS."
+    },
+    "sources": [
+      {
+        "label": "Visitar o portal",
+        "href": "https://joysticknights.com.br/"
+      },
+      {
+        "label": "Código no GitHub",
+        "href": "https://github.com/pedrobragabes/JoysticKnights"
+      }
+    ],
+    "editorialStatus": "publicado",
+    "role": "Criação, desenvolvimento e manutenção do portal próprio por Pedro Braga.",
+    "decisions": [
+      "Preservar o CMS para manter a rotina editorial enquanto a interface pública evolui.",
+      "Separar apresentação e conteúdo sem apresentar headless como solução obrigatória para qualquer portal."
+    ],
+    "limits": [
+      "A mudança de arquitetura não comprova, sozinha, ganho de tráfego ou conversão.",
+      "Marcas citadas na cobertura editorial não são clientes de software da BragaCode."
+    ]
+  },
+  {
+    "slug": "sinalizacao-digital",
+    "name": "AquaTV: conteúdo da loja em uma tela",
+    "eyebrow": "AquaFlora AgroShop · sinalização digital",
+    "summary": "Painel para organizar conteúdos e playlists, com player Android TV e cache local. Piloto em dispositivo físico, associado à mesma operação do case de integração.",
+    "status": "Piloto",
+    "period": "Instalação registrada em agosto de 2026",
+    "featured": false,
+    "categories": [
+      "Sistema web"
+    ],
+    "services": [
+      "sistemas-web",
+      "infraestrutura-e-suporte"
+    ],
+    "problem": [
+      "Centralizar imagens, vídeos e programação exibidos na loja, com reprodução dos arquivos em cache durante falhas de rede."
+    ],
+    "context": [
+      "Componente da mesma experiência profissional apresentada no case de integração de varejo. Não representa um segundo cliente."
+    ],
+    "solution": [
+      "Dashboard Next.js para conteúdos, playlists, programação e acompanhamento da TV.",
+      "API Node.js/Express com Prisma e SQLite, separada do painel.",
+      "Player Expo/React Native TV com cache transacional, reprodução offline e recuperação de falhas de vídeo."
+    ],
+    "features": [
+      "Playlists",
+      "Programação de conteúdos",
+      "Cache local",
+      "Player Android TV"
+    ],
+    "technologies": [
+      "Next.js",
+      "Express",
+      "Prisma",
+      "SQLite",
+      "Expo",
+      "React Native TV"
+    ],
+    "results": [
+      "A documentação registra a instalação do primeiro APK assinado em dispositivo físico.",
+      "O núcleo local está implementado; os testes de operação prolongada ainda precisam ser concluídos."
+    ],
+    "metrics": [],
+    "evidence": {
+      "nature": "Trabalho profissional",
+      "lastReviewed": "18 de setembro de 2026",
+      "basis": "README técnico consultado; sem inspeção do dispositivo nesta revisão.",
+      "disclosure": "Recorte da mesma operação de varejo. Telas, conteúdo comercial e identificadores do dispositivo não são divulgados."
+    },
+    "gallery": [
+      {
+        "kind": "infra",
+        "title": "Do painel à tela",
+        "caption": "Arquitetura local documentada. A TV mantém uma cópia dos arquivos para reprodução offline.",
+        "flow": [
+          "Painel web",
+          "API e arquivos locais",
+          "Cache no dispositivo",
+          "Android TV"
+        ]
+      }
+    ],
+    "seo": {
+      "title": "Sinalização digital com player Android TV",
+      "description": "Piloto de painel de conteúdos e playlists, API e player Android TV com cache local e reprodução offline."
+    },
+    "role": "Desenvolvimento do painel, API e player por Pedro Braga.",
+    "decisions": [
+      "Manter a API separada do painel para preservar o contrato do player.",
+      "Cache local para reproduzir conteúdos já sincronizados durante indisponibilidade da rede."
+    ],
+    "limits": [
+      "Instalação inicial não equivale a operação contínua validada.",
+      "Calibração, codecs, reinicialização, teste prolongado e backup externo ainda aparecem como pendências na documentação.",
+      "Sem integração automática de preços com o ERP declarada."
+    ],
+    "parentSlug": "aquaflora-agroshop",
+    "editorialStatus": "publicado",
+    "sources": [
+      {
+        "label": "Documentação técnica",
+        "href": "https://github.com/pedrobragabes/AquaFloraTV"
+      }
+    ]
+  },
+  {
+    "slug": "braga-commerce",
+    "name": "Braga Commerce",
+    "eyebrow": "Produto próprio · e-commerce em beta",
+    "summary": "Vitrine, carrinho, checkout e painel operacional para pequenos comércios. Beta protegido por senha, com regras de preço e estoque validadas no servidor.",
+    "status": "Beta",
+    "period": "Revisado em setembro de 2026",
     "featured": false,
     "categories": [
       "E-commerce",
@@ -184,88 +418,87 @@ export const projects: Project[] = [
     ],
     "services": [
       "ecommerce",
-      "sistemas-web",
-      "apis-e-integracoes"
+      "sistemas-web"
     ],
     "problem": [
-      "A floricultura precisava apresentar linhas para públicos B2B e B2C sem depender de catálogo enviado manualmente a cada contato.",
-      "Produtos, categorias e imagens precisavam ser administrados sem alteração direta no código."
+      "Uma loja pequena precisa de catálogo, pedidos e administração de estoque em um fluxo transacional enxuto."
     ],
     "context": [
-      "Grande parte da descoberta e da negociação acontece pelo celular. O site precisava carregar rápido e transformar o interesse em uma conversa contextualizada no WhatsApp.",
-      "O catálogo tinha necessidades diferentes de uma compra com checkout tradicional, por isso o fluxo comercial foi priorizado em vez de impor etapas desnecessárias."
+      "Produto próprio com loja piloto. A demonstração não é apresentada como cliente pagante nem como resultado de vendas."
     ],
     "solution": [
-      "Frontend em Next.js, React e Tailwind CSS com arquitetura mobile-first, páginas indexáveis e navegação por categorias.",
-      "Backend Node.js com MySQL e Prisma, expondo REST APIs para o catálogo.",
-      "Painel administrativo CRUD para produtos e categorias, upload de imagens via Cloudinary e integração com WhatsApp."
+      "Vitrine com categorias, variações, carrinho e checkout sem cadastro.",
+      "Preço e disponibilidade recalculados no servidor e reserva de estoque.",
+      "Integração Mercado Pago implementada, com webhook assinado e processamento idempotente.",
+      "Painel protegido por funções, com catálogo, pedidos e estoque."
     ],
     "features": [
-      "catálogo B2B/B2C",
-      "busca e categorias",
-      "painel CRUD",
-      "upload com Cloudinary",
-      "mensagem contextual no WhatsApp",
-      "SEO técnico e layout mobile-first"
+      "Vitrine responsiva",
+      "Carrinho",
+      "Checkout no servidor",
+      "Reserva de estoque",
+      "Painel operacional"
     ],
     "technologies": [
       "Next.js",
-      "React",
-      "Tailwind CSS",
-      "Node.js",
-      "MySQL",
+      "TypeScript",
+      "PostgreSQL",
       "Prisma",
-      "Cloudinary",
-      "WhatsApp"
+      "Supabase",
+      "Mercado Pago"
     ],
     "results": [
-      "O catálogo passou a ter uma fonte de administração própria para produtos, categorias e imagens.",
-      "A jornada móvel conecta o item visualizado a uma conversa de compra já contextualizada.",
-      "A separação entre interface e API deixa espaço para novos canais consumirem os mesmos dados."
+      "MVP documentado e beta publicado sob proteção por senha.",
+      "Consistência de preço, estoque e eventos de pagamento tratada no backend."
     ],
-    "metrics": [
-      {
-        "value": "B2B/B2C",
-        "label": "catálogo",
-        "note": "duas jornadas no mesmo produto"
-      },
-      {
-        "value": "1",
-        "label": "painel",
-        "note": "para produtos, categorias e imagens"
-      },
-      {
-        "value": "mobile",
-        "label": "first",
-        "note": "do catálogo ao contato"
-      }
-    ],
+    "metrics": [],
     "evidence": {
-      "nature": "Projeto de portfólio",
-      "lastReviewed": "16 de julho de 2026",
-      "basis": "Escopo técnico implementado por Pedro Braga.",
-      "disclosure": "Cliente e ativos comerciais permanecem anônimos até autorização expressa."
+      "nature": "Projeto próprio",
+      "lastReviewed": "18 de setembro de 2026",
+      "basis": "README atual do repositório público Braga Commerce.",
+      "disclosure": "Produto em beta; sem transações comerciais ou receita declaradas."
     },
     "gallery": [
       {
         "kind": "store",
-        "title": "E-commerce para floricultura",
-        "caption": "Catálogo B2B/B2C + painel administrativo"
+        "title": "Uma compra validada no servidor",
+        "caption": "Fluxo de responsabilidade documentado no beta; não é uma captura da aplicação.",
+        "flow": [
+          "Vitrine e carrinho",
+          "Cotação no servidor",
+          "Reserva de estoque",
+          "Pagamento"
+        ]
       }
     ],
-    "confidentialityNote": "A identidade do cliente e imagens comerciais não são exibidas nesta versão do portfólio.",
     "seo": {
-      "title": "E-commerce para floricultura com Next.js e Node.js",
-      "description": "Case de catálogo B2B/B2C com Next.js, painel administrativo, MySQL, Cloudinary e integração com WhatsApp."
+      "title": "Braga Commerce: e-commerce em beta",
+      "description": "Produto próprio em beta com vitrine, carrinho, checkout validado no servidor, reserva de estoque e painel operacional."
     },
-    "listed": false
+    "role": "Desenvolvimento do produto por Pedro Braga.",
+    "decisions": [
+      "Recalcular preço e disponibilidade no servidor, sem confiar nos valores enviados pelo navegador.",
+      "Processar eventos de pagamento de forma idempotente, evitando duplicação por novas tentativas."
+    ],
+    "limits": [
+      "Go-live comercial ainda depende dos aceites de infraestrutura, pagamentos, remetente e textos legais.",
+      "Integração implementada não equivale a transações reais ou testes ponta a ponta aprovados.",
+      "Marketplace, ERP, emissão fiscal e plataforma multiloja completa estão fora do MVP."
+    ],
+    "sources": [
+      {
+        "label": "Código e documentação",
+        "href": "https://github.com/pedrobragabes/Braga-Commerce"
+      }
+    ],
+    "editorialStatus": "publicado"
   },
   {
     "slug": "comercio-bes",
     "name": "Comércio BES",
-    "eyebrow": "Marketplace e guia comercial hiperlocal",
+    "eyebrow": "Produto próprio · guia comercial local",
     "summary": "Guia comercial de Boa Esperança do Sul: busca por categoria, perfis de estabelecimentos e contato direto. Produto próprio em evolução.",
-    "status": "Em evolução",
+    "status": "Em desenvolvimento",
     "period": "2024 — 2025",
     "featured": false,
     "categories": [
@@ -311,104 +544,27 @@ export const projects: Project[] = [
     "metrics": [],
     "evidence": {
       "nature": "Projeto próprio",
-      "lastReviewed": "16 de julho de 2026",
-      "basis": "Produto hiperlocal desenvolvido e mantido por Pedro Braga.",
+      "lastReviewed": "18 de setembro de 2026",
+      "basis": "Escopo registrado no portfólio público do fundador; funcionamento atual não reproduzido nesta revisão.",
       "disclosure": "Resultados descritos de forma qualitativa; não há métricas comerciais publicadas."
     },
     "gallery": [
       {
         "kind": "directory",
         "title": "Comércio BES",
-        "caption": "Marketplace e guia comercial hiperlocal"
+        "caption": "Guia de descoberta de negócios locais; não é um marketplace transacional."
       }
     ],
     "seo": {
-      "title": "Comércio BES: marketplace e guia comercial PWA",
-      "description": "Case de guia comercial hiperlocal com busca por categorias, páginas de estabelecimentos, PWA, deep links e WhatsApp."
+      "title": "Comércio BES: guia comercial local em desenvolvimento",
+      "description": "Produto próprio para descoberta de negócios locais, com busca, perfis e contato. Escopo separado de uma loja transacional."
     },
-    "sources": [
-      {
-        "label": "Código no GitHub",
-        "href": "https://github.com/pedrobragabes/Comercio_BES"
-      }
-    ]
-  },
-  {
-    "slug": "joysticknights",
-    "name": "JoysticKnights",
-    "eyebrow": "Produto próprio · plataforma editorial",
-    "summary": "Portal de games e cultura geek com frontend Next.js e WordPress como CMS. Publicação editorial e experiência de leitura em uma plataforma própria.",
-    "status": "Em operação",
-    "period": "2020 — atual",
-    "featured": true,
-    "categories": [
-      "Conteúdo"
-    ],
-    "services": [
-      "sites-e-landing-pages",
-      "infraestrutura-e-suporte"
-    ],
-    "problem": [
-      "Evoluir a experiência de leitura mantendo o fluxo editorial e o conteúdo do WordPress."
-    ],
-    "context": [
-      "Projeto próprio de Pedro Braga, mantido desde 2020. O frontend atual foi conferido no site público e no repositório."
-    ],
-    "solution": [
-      "Frontend em Next.js, React e TypeScript, com Tailwind CSS.",
-      "WordPress desacoplado como CMS para organizar notícias, análises e categorias.",
-      "Navegação por temas, destaque editorial e páginas de conteúdo na experiência pública."
-    ],
-    "features": [
-      "CMS desacoplado",
-      "Notícias e análises",
-      "Categorias editoriais",
-      "Interface responsiva"
-    ],
-    "technologies": [
-      "Next.js",
-      "React",
-      "TypeScript",
-      "Tailwind CSS",
-      "WordPress"
-    ],
-    "results": [
-      "Portal público disponível com conteúdo editorial real.",
-      "Frontend e CMS possuem responsabilidades separadas."
-    ],
-    "metrics": [],
-    "evidence": {
-      "nature": "Projeto próprio",
-      "lastReviewed": "6 de setembro de 2026",
-      "basis": "Site público e README do repositório JoysticKnights.",
-      "disclosure": "Produto próprio do fundador, apresentado como experiência de desenvolvimento e operação."
-    },
-    "gallery": [
-      {
-        "kind": "editorial",
-        "title": "Seleção da redação",
-        "caption": "Interface pública do JoysticKnights, capturada em setembro de 2026.",
-        "asset": {
-          "src": "/images/projects/joysticknights-live.webp",
-          "alt": "Portal JoysticKnights com menu lateral e seleção de notícias sobre games",
-          "width": 1265,
-          "height": 712
-        }
-      }
-    ],
-    "seo": {
-      "title": "JoysticKnights: portal editorial Next.js e WordPress",
-      "description": "Portal próprio de games com frontend Next.js, React, TypeScript e WordPress como CMS."
-    },
-    "sources": [
-      {
-        "label": "Visitar o portal",
-        "href": "https://joysticknights.com.br/"
-      },
-      {
-        "label": "Código no GitHub",
-        "href": "https://github.com/pedrobragabes/JoysticKnights"
-      }
+    "sources": [],
+    "editorialStatus": "publicado",
+    "role": "Desenvolvimento por Pedro Braga, fundador da BragaCode.",
+    "limits": [
+      "Sem volume de estabelecimentos, clientes ou pedidos declarado.",
+      "Repositório e aplicação pública não foram disponibilizados neste estudo."
     ]
   },
   {
@@ -454,16 +610,10 @@ export const projects: Project[] = [
     "results": [
       "A arquitetura inicial e APIs de validação foram estruturadas; o produto ainda está em desenvolvimento."
     ],
-    "metrics": [
-      {
-        "value": "MVP",
-        "label": "status",
-        "note": "protótipo em validação"
-      }
-    ],
+    "metrics": [],
     "evidence": {
       "nature": "Protótipo",
-      "lastReviewed": "16 de julho de 2026",
+      "lastReviewed": "18 de setembro de 2026",
       "basis": "Arquitetura e APIs iniciais desenvolvidas por Pedro Braga.",
       "disclosure": "Não é apresentado como produto finalizado nem como operação de cliente."
     },
@@ -477,13 +627,16 @@ export const projects: Project[] = [
     "seo": {
       "title": "RastreIAGastos: protótipo financeiro com IA e OCR",
       "description": "Protótipo em desenvolvimento para extrair e validar gastos com React, FastAPI, PostgreSQL e OCR."
-    }
+    },
+    "editorialStatus": "publicado",
+    "role": "Desenvolvimento por Pedro Braga, fundador da BragaCode.",
+    "listed": false
   },
   {
     "slug": "cadastra-facil",
     "name": "CadastraFácil",
-    "eyebrow": "Protótipo de cadastro para PMEs",
-    "summary": "Produto independente em desenvolvimento para cadastro assistido por IA, revisão humana e criação de rascunhos no WooCommerce.",
+    "eyebrow": "Produto próprio · fundação em desenvolvimento",
+    "summary": "Produto independente em desenvolvimento para transformar informações de produtos em cadastros revisáveis. A proposta prevê publicação como rascunho no WooCommerce.",
     "status": "Em desenvolvimento",
     "period": "Em desenvolvimento",
     "featured": false,
@@ -503,36 +656,26 @@ export const projects: Project[] = [
       "A proposta está sendo validada para pequenas e médias empresas, com foco em assistência e revisão em vez de automação opaca."
     ],
     "solution": [
-      "APIs iniciais para validação de dados, interface React e experimentos de automação para sugerir campos de produto."
+      "A base atual organiza contratos, configuração e portas de conectores.",
+      "O adapter WooCommerce implementa leitura via REST v3; persistência, isolamento e validação em sandbox ainda compõem a evolução da fundação."
     ],
     "features": [
-      "cadastro assistido",
-      "validação de dados",
-      "padronização",
-      "API",
-      "revisão antes de salvar"
+      "Contratos de dados",
+      "Conector de leitura WooCommerce",
+      "Base de configuração"
     ],
     "technologies": [
-      "Python",
-      "FastAPI",
-      "React",
-      "PostgreSQL",
-      "IA/OCR"
+      "TypeScript",
+      "WooCommerce REST API"
     ],
     "results": [
-      "O fluxo e as APIs iniciais estão em desenvolvimento; ainda não é apresentado como produto finalizado."
+      "Fundação e conectores iniciais documentados. O fluxo comercial completo ainda não está disponível."
     ],
-    "metrics": [
-      {
-        "value": "MVP",
-        "label": "status",
-        "note": "protótipo em validação"
-      }
-    ],
+    "metrics": [],
     "evidence": {
       "nature": "Projeto próprio",
-      "lastReviewed": "16 de julho de 2026",
-      "basis": "Fluxo e APIs iniciais desenvolvidos por Pedro Braga.",
+      "lastReviewed": "18 de setembro de 2026",
+      "basis": "Documentação atual da fundação e dos conectores, consultada em setembro de 2026.",
       "disclosure": "Não é apresentado como produto finalizado nem como operação de cliente."
     },
     "gallery": [
@@ -543,16 +686,22 @@ export const projects: Project[] = [
       }
     ],
     "seo": {
-      "title": "CadastraFácil: protótipo de cadastro assistido",
-      "description": "Protótipo em desenvolvimento para reduzir digitação e padronizar cadastros de produtos em PMEs."
-    }
+      "title": "CadastraFácil: produto em desenvolvimento",
+      "description": "Fundação de um produto de cadastro assistido, com conector de leitura WooCommerce e evolução prevista para revisão humana."
+    },
+    "editorialStatus": "publicado",
+    "role": "Desenvolvimento por Pedro Braga, fundador da BragaCode.",
+    "limits": [
+      "Revisão humana e publicação em rascunho fazem parte da proposta, não de uma operação comercial validada.",
+      "Sem planos, preços, teste grátis ou disponibilidade comercial."
+    ]
   },
   {
     "slug": "hybrid-homelab",
     "name": "Hybrid Homelab",
     "eyebrow": "Laboratório de infraestrutura",
     "summary": "Ambiente prático com Proxmox, Docker/LXC, Linux e Nginx para estudar redes, isolamento, SSL e deploy de aplicações.",
-    "status": "Laboratório",
+    "status": "Estudo/protótipo",
     "period": "Contínuo",
     "featured": false,
     "categories": [
@@ -589,16 +738,10 @@ export const projects: Project[] = [
     "results": [
       "O ambiente permite testar deploy, isolamento e recuperação antes de aplicar padrões semelhantes em projetos."
     ],
-    "metrics": [
-      {
-        "value": "24/7",
-        "label": "laboratório",
-        "note": "operação e aprendizado contínuos"
-      }
-    ],
+    "metrics": [],
     "evidence": {
       "nature": "Laboratório técnico",
-      "lastReviewed": "16 de julho de 2026",
+      "lastReviewed": "18 de setembro de 2026",
       "basis": "Ambiente pessoal de estudo, testes e operação de Pedro Braga.",
       "disclosure": "Não representa infraestrutura de cliente ou serviço comercial de hospedagem."
     },
@@ -612,10 +755,39 @@ export const projects: Project[] = [
     "seo": {
       "title": "Hybrid Homelab: Proxmox, Docker, Linux e Nginx",
       "description": "Laboratório prático de infraestrutura com Proxmox, Docker/LXC, Linux, Nginx, SSL e redes privadas."
-    }
+    },
+    "editorialStatus": "publicado",
+    "role": "Desenvolvimento por Pedro Braga, fundador da BragaCode.",
+    "listed": false
   }
 ];
 
+const publicProjectSchema = z.object({
+  slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
+  name: z.string().min(3), summary: z.string().min(30), role: z.string().min(10),
+  editorialStatus: z.enum(["publicado", "rascunho"]),
+  status: z.enum(["Em desenvolvimento", "Em evolução", "Concluído", "Em operação", "Protótipo", "Laboratório", "Piloto", "Beta", "Estudo/protótipo"]),
+  problem: z.array(z.string().min(10)).min(1),
+  context: z.array(z.string().min(10)).min(1),
+  solution: z.array(z.string().min(10)).min(1),
+  results: z.array(z.string().min(10)).min(1),
+  gallery: z.array(z.object({ title: z.string().min(1), caption: z.string().min(1),
+    asset: z.object({src: z.string().startsWith("/"), alt: z.string().min(1), width: z.number().positive(), height: z.number().positive()}).optional()
+  })).min(1),
+  sources: z.array(z.object({label: z.string().min(1), href: z.url().startsWith("https://")})).optional(),
+  seo: z.object({title: z.string().min(10), description: z.string().min(30)}),
+});
+const seenSlugs = new Set<string>();
+for (const project of projectContent) {
+  z.enum(["publicado", "rascunho"]).parse(project.editorialStatus);
+  if (seenSlugs.has(project.slug)) throw new Error(`Slug de projeto duplicado: ${project.slug}`);
+  seenSlugs.add(project.slug);
+  if (project.editorialStatus === "publicado") publicProjectSchema.parse(project);
+}
+export const projects = projectContent.filter(project => project.editorialStatus === "publicado");
+for (const project of projects) {
+  if (project.parentSlug && !projects.some(parent => parent.slug === project.parentSlug)) throw new Error(`Projeto-pai inválido: ${project.slug}`);
+}
 export const listedProjects = projects.filter(project => project.listed !== false);
 export const featuredProjects = listedProjects.filter(project => project.featured);
 export function getProject(slug: string) { return projects.find(project => project.slug === slug); }

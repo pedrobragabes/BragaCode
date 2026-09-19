@@ -91,7 +91,7 @@ export const services: Service[] = [
       { question: "Todo catálogo precisa de checkout online?", answer: "Não. Em vendas consultivas, B2B ou produtos sob orçamento, o catálogo pode levar uma seleção contextualizada ao WhatsApp ou ao time comercial." },
     ],
     technologies: ["Next.js", "Node.js", "WooCommerce", "MySQL", "Prisma"],
-    projectSlugs: ["aquaflora-agroshop", "ecommerce-floricultura"],
+    projectSlugs: ["aquaflora-agroshop", "braga-commerce"],
     seo: {
       title: "Desenvolvimento e integração de e-commerce",
       description: "E-commerce, WooCommerce, catálogo B2B/B2C, painel e sincronização de preços e estoque com a operação real.",
@@ -128,7 +128,7 @@ export const services: Service[] = [
       { question: "O sistema funciona no celular?", answer: "Quando o trabalho acontece no estoque, loja ou campo, a interface é planejada mobile-first e testada nos fluxos essenciais." },
     ],
     technologies: ["React", "Next.js", "FastAPI", "PostgreSQL", "JWT"],
-    projectSlugs: ["aquaflora-agroshop", "cadastra-facil"],
+    projectSlugs: ["aquaflora-agroshop", "sinalizacao-digital"],
     seo: {
       title: "Sistemas web e painéis administrativos",
       description: "Sistemas sob medida, painéis CRUD e aplicações mobile-first para consultas, cadastros e rotinas internas.",
@@ -165,7 +165,7 @@ export const services: Service[] = [
       { question: "A API fica documentada?", answer: "Sim. Contratos, autenticação, exemplos de payload, códigos de erro e procedimentos operacionais fazem parte da entrega aplicável." },
     ],
     technologies: ["Node.js", "Python", "FastAPI", "REST", "Docker"],
-    projectSlugs: ["aquaflora-agroshop", "rastreia-gastos"],
+    projectSlugs: ["aquaflora-agroshop"],
     seo: {
       title: "APIs e integrações entre sistemas",
       description: "APIs, webhooks e conectores com autenticação, validação, logs e retentativas para integrar ERP, loja e aplicações.",
@@ -202,7 +202,7 @@ export const services: Service[] = [
       { question: "Vocês usam IA nas automações?", answer: "Quando texto, classificação ou extração justificam o uso. A saída recebe limites, validação e fallback; IA não é adicionada onde uma regra determinística resolve melhor." },
     ],
     technologies: ["Python", "Pandas", "Node.js", "LLMs", "Docker"],
-    projectSlugs: ["aquaflora-agroshop", "cadastra-facil"],
+    projectSlugs: ["aquaflora-agroshop", "sinalizacao-digital"],
     seo: {
       title: "Automações com Python e Node.js",
       description: "Automações, ETLs e sincronizações com validação, alertas e revisão humana para reduzir tarefas repetitivas.",
@@ -250,3 +250,20 @@ export const services: Service[] = [
 export function getService(slug: string) {
   return services.find((service) => service.slug === slug);
 }
+
+export const serviceOffers = [
+  { slug: "sites-e-landing-pages", shortTitle: "Sites e e-commerce", title: "Sites, portais e e-commerce", problem: "Seu site precisa acompanhar o negócio, e o catálogo não pode depender de atualizações improvisadas.", delivery: "Sites empresariais, portais com CMS e lojas conectadas à operação.", relatedSlugs: ["sites-e-landing-pages", "ecommerce"] },
+  { slug: "sistemas-web", shortTitle: "Sistemas internos", title: "Sistemas web e ferramentas internas", problem: "Uma consulta simples exige várias telas. A planilha já não acompanha as regras da equipe.", delivery: "Consultas, cadastros, painéis e permissões definidos para o fluxo de trabalho.", relatedSlugs: ["sistemas-web"] },
+  { slug: "apis-e-integracoes", shortTitle: "Integrações e automações", title: "Integrações e automações", problem: "Os mesmos dados são digitados de novo. Preço, estoque e catálogo vivem em sistemas diferentes.", delivery: "Conectores, processamento de arquivos e rotinas com validação e registros.", relatedSlugs: ["apis-e-integracoes", "automacoes"] },
+  { slug: "infraestrutura-e-suporte", shortTitle: "Manutenção e evolução", title: "Operação, manutenção e evolução", problem: "Publicar uma mudança é arriscado, e falta um caminho claro para corrigir ou evoluir o sistema.", delivery: "Publicação, diagnóstico, correções e continuidade com responsabilidades acordadas.", relatedSlugs: ["infraestrutura-e-suporte"] },
+] as const;
+
+
+export const serviceBoundaries: Record<ServiceSlug, string> = {
+  "sites-e-landing-pages": "A entrega contempla as páginas e integrações acordadas. Produção recorrente de conteúdo, campanhas e manutenção não são ilimitadas nem implícitas no desenvolvimento.",
+  ecommerce: "Checkout, pagamentos, catálogo e integrações são definidos para a operação. Emissão fiscal, ERP, logística e marketplace dependem de escopo e fornecedores próprios.",
+  "sistemas-web": "O sistema resolve os módulos acordados. Consultas, cadastros e painéis não equivalem a um ERP completo nem incluem módulos financeiros ou fiscais por padrão.",
+  "apis-e-integracoes": "A viabilidade depende das interfaces permitidas pelos sistemas de origem. Exportação periódica não implica sincronização em tempo real.",
+  automacoes: "Exceções e decisões comerciais podem exigir revisão humana. IA só entra em tarefas delimitadas, com validação; não há promessa de eliminar todos os erros.",
+  "infraestrutura-e-suporte": "Horários, criticidade, prazos de resposta e responsabilidades são acordados. Não há suporte ilimitado ou disponibilidade 24/7 implícita."
+};

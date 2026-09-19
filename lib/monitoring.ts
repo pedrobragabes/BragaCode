@@ -7,7 +7,7 @@ type OperationalErrorContext = {
   status?: number;
 };
 
-type SanitizableEvent = Parameters<NonNullable<Parameters<typeof Sentry.init>[0]["beforeSend"]>>[0];
+type SanitizableEvent = Sentry.ErrorEvent;
 
 /** Remove request and identity fields before an event leaves the Worker. */
 export function sanitizeMonitoringEvent(event: SanitizableEvent) {

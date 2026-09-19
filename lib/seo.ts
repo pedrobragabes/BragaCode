@@ -39,6 +39,7 @@ export function createMetadata({ title, description, path }: PageMetadataInput):
   return {
     title,
     description,
+    robots: { index: siteConfig.indexable, follow: siteConfig.indexable },
     alternates: { canonical, languages: languageAlternates },
     openGraph: {
       type: "website",
@@ -48,7 +49,7 @@ export function createMetadata({ title, description, path }: PageMetadataInput):
       title,
       description,
       url: canonical,
-      images: [{ url: absoluteUrl("/og.png"), width: 1731, height: 909, alt: `${title} — BragaCode` }],
+      images: [{ url: absoluteUrl("/og.png"), width: 1200, height: 630, alt: `${title} — BragaCode` }],
     },
     twitter: {
       card: "summary_large_image",

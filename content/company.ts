@@ -8,34 +8,11 @@ export const company = {
   location: "Boa Esperança do Sul, SP",
   serviceArea: "Atendimento remoto em todo o Brasil",
   positioning:
-    "Software, e-commerce e automações para empresas que querem crescer sem depender de processos manuais.",
+    "Sistemas web, e-commerce e integrações para conectar dados, automatizar rotinas e simplificar a operação da sua empresa.",
   linkedin: "https://www.linkedin.com/in/pedrobragabes",
   github: "https://github.com/pedrobragabes",
   personalSite: "https://pedrobragabes.com",
 } as const;
-
-export const metrics = [
-  {
-    value: "4.000+",
-    label: "SKUs",
-    detail: "processados por rotina de sincronização entre ERP e WooCommerce",
-  },
-  {
-    value: "6.300+",
-    label: "ativos",
-    detail: "tratados no fluxo de catálogo e imagens do e-commerce",
-  },
-  {
-    value: "2020",
-    label: "em produção",
-    detail: "início da operação contínua de projetos web próprios",
-  },
-  {
-    value: "C1",
-    label: "inglês",
-    detail: "certificação EF SET para documentação e colaboração técnica",
-  },
-] as const;
 
 export const processSteps = [
   {
@@ -63,8 +40,8 @@ export const processSteps = [
     number: "04",
     title: "Operar e evoluir",
     description:
-      "Depois do lançamento, logs, suporte e dados de uso indicam o que corrigir, automatizar ou ampliar na próxima etapa.",
-    output: "Deploy, acompanhamento e plano de evolução.",
+      "Implantação, documentação e acompanhamento definidos no escopo. A manutenção e a evolução podem continuar em um acordo próprio.",
+    output: "Publicação documentada e responsabilidades de continuidade.",
   },
 ] as const;
 

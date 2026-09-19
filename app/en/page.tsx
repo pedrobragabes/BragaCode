@@ -11,7 +11,7 @@ import { absoluteUrl, whatsappUrlEnglish } from "@/lib/site";
 
 export const metadata: Metadata = createMetadata({
   title: "Software, e-commerce and automation",
-  description: "Software, e-commerce and automation for companies that want to grow without relying on manual processes.",
+  description: "Web applications, e-commerce and integrations to connect data, automate workflows and simplify business operations.",
   path: "/en",
 });
 
@@ -23,31 +23,20 @@ export default function EnglishHomePage() {
         "@type": "ProfessionalService",
         name: "BragaCode",
         url: absoluteUrl("/en"),
-        description: "Software, e-commerce and automation for companies that want to grow without relying on manual processes.",
+        description: "Web applications, e-commerce and integrations to connect data, automate workflows and simplify business operations.",
         areaServed: { "@type": "Country", name: "Brazil" },
         founder: { "@type": "Person", name: "Pedro Braga" },
       }} />
-      <section className="hero">
-        <div className="container hero-grid">
-          <div className="hero-copy">
-            <p className="eyebrow"><span aria-hidden="true" />Software connected to operations</p>
-            <h1>Technology that connects <em>your business.</em></h1>
-            <p className="hero-lead">Online stores, custom systems and integrations that keep your data moving. From design to deployment, with Pedro Braga leading development.</p>
-            <div className="hero-actions">
-              <a className="button" href={whatsappUrlEnglish("the English home page")} target="_blank" rel="noreferrer">Discuss a project <span aria-hidden="true">↗</span></a>
-              <Link className="button button-secondary" href="/en/projects">View projects <span aria-hidden="true">↓</span></Link>
-            </div>
-            <p className="hero-note"><span aria-hidden="true">●</span> Remote work across Brazil · English C1 · technical leadership by Pedro Braga</p>
-          </div>
-          <Link href="/en/projects/aquaflora-agroshop" className="company-hero-work"><div className="work-caption"><span>Applied experience</span><span>01 / AquaFlora ↗</span></div><Image src="/images/projects/aquaflora-live.webp" width={1265} height={712} alt="AquaFlora AgroShop public online store" priority sizes="(max-width: 820px) 100vw, 55vw" /><div className="work-caption"><strong>E-commerce connected to operations</strong><span>Explore Pedro Braga&apos;s work</span></div></Link>
-        </div>
-      </section>
+      <section className="commercial-hero"><div className="container commercial-hero-grid">
+        <div className="commercial-hero-copy"><p className="eyebrow"><span aria-hidden="true" />Software for your business</p><h1>Connected systems.<br /><em>Simpler operations.</em></h1><p className="hero-lead">Web applications, e-commerce and integrations that organize data and automate your company&apos;s daily work.</p><div className="hero-actions"><Link className="button" href="/en/contact">Discuss a project ↗</Link><Link className="button button-secondary" href="/en/projects">Explore projects</Link></div><p className="hero-note">From the first conversation to delivery, directly with Pedro Braga.</p></div>
+        <div className="brand-panel"><div className="brand-panel-top"><span>BRAGA CODE</span><span>Software development</span></div><Image className="brand-panel-symbol" src="/brand/symbol.svg" alt="Angular BC monogram with code chevrons" width={820} height={470} priority /><div className="brand-panel-bottom"><span>Connect. Simplify. Build.</span><span aria-hidden="true">↗</span></div><div className="hero-flow" aria-label="Integration example: ERP, validation and online store"><span>ERP / files</span><i aria-hidden="true">→</i><span>Validation</span><i aria-hidden="true">→</i><span>Online store</span></div></div>
+      </div></section>
 
 <section className="section services-section">
         <div className="container">
           <SectionHeading eyebrow="Services" title={<>From the storefront to <em>the operational layer.</em></>} description="Interface, business rules, integrations and deployment treated as parts of the same workflow." action={<Link className="text-link" href="/en/services">View all services ↗</Link>} />
-          <div className="services-grid">
-            {englishServices.filter(service => ["ecommerce", "web-applications", "apis-and-integrations"].includes(service.slug)).map((service) => (
+          <div className="services-grid english-service-offers">
+            {englishServices.filter(service => ["ecommerce", "web-applications", "apis-and-integrations", "infrastructure-and-support"].includes(service.slug)).map((service) => (
               <article className="service-card" key={service.slug}>
                 <div><span>{service.number}</span><i aria-hidden="true">↗</i></div><h3>{service.title}</h3><p>{service.summary}</p>
                 <ul>{service.deliverables.map((item) => <li key={item}>{item}</li>)}</ul>
@@ -61,7 +50,7 @@ export default function EnglishHomePage() {
       <section className="section featured-section">
         <div className="container">
           <SectionHeading eyebrow="Featured projects" title={<>Code connected to <em>real work.</em></>} description="Professional experience and independent products by Pedro Braga, founder of BragaCode." action={<Link className="text-link" href="/en/projects">Open portfolio ↗</Link>} />
-          <div className="projects-grid featured-projects">{englishProjects.map((project, index) => <EnglishProjectCard project={project} index={index} key={project.slug} />)}</div>
+          <div className="projects-grid selected-projects">{englishProjects.map((project, index) => <EnglishProjectCard project={project} index={index} key={project.slug} />)}</div>
         </div>
       </section>
 

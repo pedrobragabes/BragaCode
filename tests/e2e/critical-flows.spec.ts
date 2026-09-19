@@ -38,7 +38,7 @@ test("envia o formulário e apresenta confirmação acessível", async ({ page }
     const payload = route.request().postDataJSON();
     expect(payload.submissionId).toMatch(/^[0-9a-f-]{36}$/i);
     expect(payload.consent).toBe(true);
-    await route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ message: "Mensagem enviada. Pedro responderá assim que possível." }) });
+    await route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ message: "Solicitação aceita para envio. Pedro responderá assim que possível." }) });
   });
 
   await gotoHydrated(page, "/contato");
@@ -50,7 +50,7 @@ test("envia o formulário e apresenta confirmação acessível", async ({ page }
   await page.getByLabel(/Concordo que a BragaCode/).check();
   await page.getByRole("button", { name: /Enviar contexto/ }).click();
 
-  await expect(page.getByRole("status")).toContainText("Mensagem enviada");
+  await expect(page.getByRole("status")).toContainText("Solicitação aceita para envio");
 });
 
 test("publica rotas de contingência e contato", async ({ page, request }) => {

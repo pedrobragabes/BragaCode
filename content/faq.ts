@@ -20,9 +20,9 @@ export const faq = [
       "Depois de uma conversa inicial, você recebe um recorte de escopo com entregáveis, premissas, riscos, prazo estimado e forma de acompanhamento. Quando ainda há muita incerteza, a recomendação pode ser uma etapa curta de descoberta técnica.",
   },
   {
-    question: "A BragaCode atende fora de São Paulo?",
+    question: "Como ficam os dados e a hospedagem?",
     answer:
-      "Sim. O atendimento é remoto em todo o Brasil. Reuniões, homologação e documentação são organizadas para que o projeto não dependa de presença física.",
+      "A proposta define a titularidade dos dados, os acessos, a infraestrutura e as responsabilidades por backup e manutenção. Licenças e custos de serviços externos são combinados antes da contratação.",
   },
   {
     question: "O suporte continua depois da publicação?",

@@ -31,13 +31,13 @@ export default function EnglishHomePage() {
         <div className="container hero-grid">
           <div className="hero-copy">
             <p className="eyebrow"><span aria-hidden="true" />Software connected to operations</p>
-            <h1>Technology that connects <em>your business.</em></h1>
-            <p className="hero-lead">Online stores, custom systems and integrations that keep your data moving. From design to deployment, with Pedro Braga leading development.</p>
+            <h1>Software for <em>real operations.</em></h1>
+            <p className="hero-lead">We develop web applications, integrations, automation and e-commerce solutions that connect processes, data and businesses.</p>
             <div className="hero-actions">
               <a className="button" href={whatsappUrlEnglish("the English home page")} target="_blank" rel="noreferrer">Discuss a project <span aria-hidden="true">↗</span></a>
               <Link className="button button-secondary" href="/en/projects">View projects <span aria-hidden="true">↓</span></Link>
             </div>
-            <p className="hero-note"><span aria-hidden="true">●</span> Remote work across Brazil · English C1 · technical leadership by Pedro Braga</p>
+            <p className="hero-note"><span aria-hidden="true">●</span> Remote service · Founded by Pedro Braga</p>
           </div>
           <Link href="/en/projects/aquaflora-agroshop" className="company-hero-work"><div className="work-caption"><span>Applied experience</span><span>01 / AquaFlora ↗</span></div><Image src="/images/projects/aquaflora-live.webp" width={1265} height={712} alt="AquaFlora AgroShop public online store" priority sizes="(max-width: 820px) 100vw, 55vw" /><div className="work-caption"><strong>E-commerce connected to operations</strong><span>Explore Pedro Braga&apos;s work</span></div></Link>
         </div>
@@ -46,8 +46,8 @@ export default function EnglishHomePage() {
 <section className="section services-section">
         <div className="container">
           <SectionHeading eyebrow="Services" title={<>From the storefront to <em>the operational layer.</em></>} description="Interface, business rules, integrations and deployment treated as parts of the same workflow." action={<Link className="text-link" href="/en/services">View all services ↗</Link>} />
-          <div className="services-grid">
-            {englishServices.filter(service => ["ecommerce", "web-applications", "apis-and-integrations"].includes(service.slug)).map((service) => (
+          <div className="services-grid core-services-grid">
+            {englishServices.filter(service => ["ecommerce", "web-applications", "apis-and-integrations", "automation"].includes(service.slug)).map((service) => (
               <article className="service-card" key={service.slug}>
                 <div><span>{service.number}</span><i aria-hidden="true">↗</i></div><h3>{service.title}</h3><p>{service.summary}</p>
                 <ul>{service.deliverables.map((item) => <li key={item}>{item}</li>)}</ul>
@@ -60,8 +60,8 @@ export default function EnglishHomePage() {
 
       <section className="section featured-section">
         <div className="container">
-          <SectionHeading eyebrow="Featured projects" title={<>Code connected to <em>real work.</em></>} description="Professional experience and independent products by Pedro Braga, founder of BragaCode." action={<Link className="text-link" href="/en/projects">Open portfolio ↗</Link>} />
-          <div className="projects-grid featured-projects">{englishProjects.map((project, index) => <EnglishProjectCard project={project} index={index} key={project.slug} />)}</div>
+          <SectionHeading eyebrow="Featured projects" title={<>Code connected to <em>real work.</em></>} description="Professional experience and independent products by Pedro Braga, founder of BragaCode." action={<Link className="text-link" href="/en/projects">Explore the case studies ↗</Link>} />
+          <div className="projects-grid selected-cases">{englishProjects.map((project, index) => <EnglishProjectCard project={project} index={index} key={project.slug} />)}</div>
         </div>
       </section>
 

@@ -2,6 +2,8 @@
 
 Revisão: 2026-09-05.
 
+Atualização do site em 2026-09-25: navegação principal com Serviços, Cases, Sobre e Contato, além do acesso à Home pela marca. Artigos publicados permanecem disponíveis pelo rodapé. A oferta principal reúne sistemas web, integrações/APIs, e-commerce e automação. A seleção e a maturidade dos quatro cases estão registradas em [Fontes e curadoria](14-project-sources.md).
+
 | Identidade | Público e finalidade | Conteúdo principal |
 | --- | --- | --- |
 | Pedro Braga / pedrobragabes.com | Recrutadores, pares e contato profissional | Engenharia, experiência, projetos selecionados, formação, GitHub, LinkedIn e currículo |

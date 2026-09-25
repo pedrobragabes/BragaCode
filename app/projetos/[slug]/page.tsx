@@ -61,7 +61,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             <div className="case-hero-grid">
               <div>
                 <p className="eyebrow"><span aria-hidden="true" />{project.eyebrow}</p>
-                <h1>{project.name}</h1>
+                <p className="case-client">{project.name}</p>
+                <h1 className={project.caseTitle ? "case-story-title" : undefined}>{project.caseTitle || project.name}</h1>
                 <p className="case-summary">{project.summary}</p>
                 {project.sources && <div className="inline-links">{project.sources.map(source => <a key={source.href} className="text-link" href={source.href} target="_blank" rel="noreferrer">{source.label} ↗</a>)}</div>}
                 <div className="case-meta">
@@ -100,6 +101,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             <div className="narrative-content">
               <h2>Uma entrega dividida por <em>responsabilidade operacional.</em></h2>
               {project.solution.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+              {project.components && <div className="case-components">{project.components.map(component => <article key={component.title}><span>{component.status}</span><h3>{component.title}</h3><p>{component.description}</p></article>)}</div>}
               <div className="feature-grid">
                 {project.features.map((feature, index) => <div key={feature}><span>{String(index + 1).padStart(2, "0")}</span>{feature}</div>)}
               </div>
@@ -107,19 +109,28 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </div>
         </section>
 
-        <section className="section case-gallery-section">
+        {project.architecture && <section className="section architecture-section">
+          <div className="container">
+            <p className="eyebrow"><span aria-hidden="true" />Arquitetura em contexto</p>
+            <h2>{project.architecture.title}</h2>
+            <ol className="architecture-flow">{project.architecture.steps.map((step, index) => <li key={step.label}><span>0{index + 1}</span><strong>{step.label}</strong><p>{step.detail}</p>{index < project.architecture!.steps.length - 1 && <i aria-hidden="true">→</i>}</li>)}</ol>
+            {project.architecture.note && <p className="architecture-note">{project.architecture.note}</p>}
+          </div>
+        </section>}
+
+        {project.gallery.some(item => item.asset) && <section className="section case-gallery-section">
           <div className="container">
             <div className="gallery-heading"><span>03</span><h2>Galeria do projeto</h2><p>Referências da interface pública e contexto do trabalho.</p></div>
             <div className="case-gallery">
-              {project.gallery.map((item) => (
-                <figure key={item.title}>
+              {project.gallery.filter(item => item.asset).map((item) => (
+                <figure className={item.asset && item.asset.height > item.asset.width ? "is-portrait" : undefined} key={item.title}>
                   <ProjectGalleryMedia item={item} />
                   <figcaption><strong>{item.title}</strong><span>{item.caption}</span></figcaption>
                 </figure>
               ))}
             </div>
           </div>
-        </section>
+        </section>}
 
         <section className="section case-results-section">
           <div className="container results-grid">

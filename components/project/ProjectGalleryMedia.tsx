@@ -29,7 +29,7 @@ export function ProjectGalleryMedia({
         <div className="project-type-cover"><span>Projeto em detalhe</span><strong>{item.title}</strong><p>{item.caption}</p></div>
       )}
       <span className="project-media-origin">
-        {item.asset ? "Captura do site público" : ""}
+        {item.asset ? item.origin || "Captura do site público" : ""}
       </span>
     </div>
   );

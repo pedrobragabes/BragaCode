@@ -20,7 +20,11 @@ test("renderiza a Home comercial da BragaCode", async () => {
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
   const html = await response.text();
   assert.match(html, /BragaCode/);
-  assert.match(html, /Tecnologia que conecta/);
+  assert.match(html, /Software para/);
+  assert.match(html, /operações reais/);
+  assert.match(html, /images\/brand\/symbol-color\.png/);
+  assert.match(html, /PromoGames/);
+  assert.match(html, /Braga Commerce/);
   assert.match(html, /aquaflora-live\.webp/);
   assert.doesNotMatch(html, /4\.000\+/);
   assert.match(html, /AquaFlora AgroShop/);
@@ -43,13 +47,13 @@ test("publica manifest e ícones da marca", async () => {
   const data = await manifest.json();
   assert.equal(data.short_name, "BragaCode");
   assert.match(data.description, /processos manuais/);
-  assert.ok(data.icons.some((icon) => icon.src === "/icon"));
+  assert.ok(data.icons.some((icon) => icon.src === "/icon.png"));
 
-  const icon = await render("/icon");
+  const icon = await render("/icon.png");
   assert.equal(icon.status, 200);
   assert.match(icon.headers.get("content-type") ?? "", /^image\/png\b/i);
 
-  const appleIcon = await render("/apple-icon");
+  const appleIcon = await render("/apple-icon.png");
   assert.equal(appleIcon.status, 200);
   assert.match(appleIcon.headers.get("content-type") ?? "", /^image\/png\b/i);
 });
@@ -146,6 +150,29 @@ test("expõe a origem do case e preserva o status de protótipo", async () => {
   const prototypeHtml = await prototype.text();
   assert.match(prototypeHtml, /Protótipo/);
   assert.match(prototypeHtml, /Não é apresentado como produto finalizado/);
+});
+
+test("expõe a maturidade dos novos cases sem confundir prévia com produção", async () => {
+  const promo = await render("/projetos/promogames");
+  assert.equal(promo.status, 200);
+  const promoHtml = await promo.text();
+  assert.match(promoHtml, /Em desenvolvimento/);
+  assert.match(promoHtml, /migração.*preparação/i);
+  assert.match(promoHtml, /Captura da prévia local/);
+  assert.match(promoHtml, /promogames-mobile/);
+  assert.match(promoHtml, /REST \+ webhooks/);
+
+  const commerce = await render("/projetos/braga-commerce");
+  assert.equal(commerce.status, 200);
+  const commerceHtml = await commerce.text();
+  assert.match(commerceHtml, /Beta protegido/);
+  assert.match(commerceHtml, /Projeto próprio/);
+  assert.match(commerceHtml, /idempotente/);
+
+  const sitemap = await render("/sitemap.xml");
+  const xml = await sitemap.text();
+  assert.match(xml, /projetos\/promogames/);
+  assert.match(xml, /projetos\/braga-commerce/);
 });
 
 test("publica páginas individuais de serviço com SEO e cases relacionados", async () => {

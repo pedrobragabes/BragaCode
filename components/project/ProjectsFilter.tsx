@@ -5,7 +5,7 @@ import { listedProjects as projects, type ProjectCategory } from "@/content/proj
 import { ProjectCard } from "./ProjectCard";
 
 const categories: ("Todos" | ProjectCategory)[] = [
-  "Todos", "E-commerce", "Automação", "Sistema web", "Plataforma", "Infraestrutura", "Conteúdo", "Protótipo",
+  "Todos", "E-commerce", "Automação", "Sistema web", "Conteúdo",
 ];
 
 export function ProjectsFilter() {

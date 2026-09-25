@@ -20,7 +20,7 @@ const projectTypes = [
 const formCopy = {
   pt: {
     sending: "Enviando sua mensagem…", success: "Mensagem enviada. Pedro responderá em breve.", error: "Não foi possível enviar agora. Tente pelo WhatsApp.",
-    name: "Seu nome *", company: "Empresa", email: "E-mail *", phone: "Telefone", need: "O que você precisa? *", select: "Selecione uma opção",
+    name: "Seu nome *", company: "Empresa", email: "E-mail *", phone: "WhatsApp (opcional)", need: "O que você precisa? *", select: "Selecione uma opção",
     message: "Conte o que acontece hoje *", placeholder: "Ex.: atualizamos preço em duas planilhas e depois cadastramos tudo de novo na loja…",
     hint: "Não precisa escrever um escopo técnico. Descreva o processo, o volume e onde está o retrabalho.", honeypot: "Não preencha este campo",
     consent: "Concordo que a BragaCode use estes dados para responder ao meu contato. *", submit: "Enviar contexto", or: "ou", whatsapp: "chame no WhatsApp ↗",

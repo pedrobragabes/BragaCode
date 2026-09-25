@@ -3,8 +3,8 @@ import Link from "next/link";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { PageHero } from "@/components/ui/PageHero";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { projects } from "@/content/projects";
-import { services } from "@/content/services";
+import { listedProjects as projects } from "@/content/projects";
+import { coreServices as services } from "@/content/services";
 import { createMetadata } from "@/lib/seo";
 import { absoluteUrl, whatsappUrl } from "@/lib/site";
 

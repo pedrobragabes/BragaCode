@@ -48,13 +48,13 @@ export function createMetadata({ title, description, path }: PageMetadataInput):
       title,
       description,
       url: canonical,
-      images: [{ url: absoluteUrl("/og.png"), width: 1731, height: 909, alt: `${title} — BragaCode` }],
+      images: [{ url: absoluteUrl("/images/brand/logo-color.png"), width: 1448, height: 1086, alt: `${title} — BragaCode` }],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [absoluteUrl("/og.png")],
+      images: [absoluteUrl("/images/brand/logo-color.png")],
     },
   };
 }

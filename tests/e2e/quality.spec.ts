@@ -9,7 +9,7 @@ async function gotoHydrated(page: Page, path: string) {
 test("não apresenta violações WCAG A/AA nas jornadas principais", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium", "Auditoria axe centralizada no Chromium");
 
-  for (const path of ["/", "/servicos", "/projetos", "/contato", "/projetos/aquaflora-agroshop"]) {
+  for (const path of ["/", "/servicos", "/projetos", "/contato", "/projetos/aquaflora-agroshop", "/projetos/promogames", "/projetos/braga-commerce"]) {
     await gotoHydrated(page, path);
 
     for (const theme of ["light", "dark"] as const) {
@@ -74,7 +74,7 @@ for (const width of [320, 360, 640, 768, 1440]) {
     test.skip(testInfo.project.name !== "desktop-chromium", "Matriz de reflow centralizada no Chromium");
     await page.setViewportSize({ width, height: 900 });
 
-    for (const path of ["/", "/projetos", "/projetos/aquaflora-agroshop", "/contato"]) {
+    for (const path of ["/", "/projetos", "/projetos/aquaflora-agroshop", "/projetos/promogames", "/projetos/braga-commerce", "/contato"]) {
       await gotoHydrated(page, path);
       const dimensions = await page.evaluate(() => ({
         clientWidth: document.documentElement.clientWidth,

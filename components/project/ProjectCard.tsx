@@ -15,6 +15,7 @@ export function ProjectCard({ project, index = 0 }: { project: Project; index?: 
           <span>{project.evidence.nature}</span>
         </div>
         <h3><Link href={`/projetos/${project.slug}`}>{project.name}</Link></h3>
+        {project.caseTitle && <h4 className="project-card-title">{project.caseTitle}</h4>}
         <p>{project.summary}</p>
         <div className="tag-list">
           {project.categories.map((category) => <span key={category}>{category}</span>)}

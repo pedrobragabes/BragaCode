@@ -37,7 +37,7 @@ const themeScript = `
     const saved = localStorage.getItem('bragacode-theme');
     const theme = saved === 'light' || saved === 'dark'
       ? saved
-      : (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      : 'light';
     document.documentElement.dataset.theme = theme;
     document.documentElement.style.colorScheme = theme;
   } catch (_) {}

@@ -91,7 +91,7 @@ export const services: Service[] = [
       { question: "Todo catálogo precisa de checkout online?", answer: "Não. Em vendas consultivas, B2B ou produtos sob orçamento, o catálogo pode levar uma seleção contextualizada ao WhatsApp ou ao time comercial." },
     ],
     technologies: ["Next.js", "Node.js", "WooCommerce", "MySQL", "Prisma"],
-    projectSlugs: ["aquaflora-agroshop", "ecommerce-floricultura"],
+    projectSlugs: ["aquaflora-agroshop", "braga-commerce"],
     seo: {
       title: "Desenvolvimento e integração de e-commerce",
       description: "E-commerce, WooCommerce, catálogo B2B/B2C, painel e sincronização de preços e estoque com a operação real.",
@@ -100,10 +100,10 @@ export const services: Service[] = [
   {
     slug: "sistemas-web",
     number: "03",
-    title: "Sistemas web e painéis internos",
+    title: "Sistemas e aplicações web",
     shortTitle: "Sistemas web",
     summary:
-      "Ferramentas sob medida para consultas, cadastros e rotinas que não cabem bem em planilha ou software de prateleira.",
+      "Aplicações para substituir processos manuais, centralizar informações e dar suporte à operação: sistemas internos, dashboards, painéis e portais.",
     problem:
       "A equipe redigita dados, alterna entre muitas telas ou precisa voltar ao computador para uma consulta simples no estoque.",
     scope: [
@@ -128,7 +128,7 @@ export const services: Service[] = [
       { question: "O sistema funciona no celular?", answer: "Quando o trabalho acontece no estoque, loja ou campo, a interface é planejada mobile-first e testada nos fluxos essenciais." },
     ],
     technologies: ["React", "Next.js", "FastAPI", "PostgreSQL", "JWT"],
-    projectSlugs: ["aquaflora-agroshop", "cadastra-facil"],
+    projectSlugs: ["aquaflora-agroshop", "braga-commerce"],
     seo: {
       title: "Sistemas web e painéis administrativos",
       description: "Sistemas sob medida, painéis CRUD e aplicações mobile-first para consultas, cadastros e rotinas internas.",
@@ -137,10 +137,10 @@ export const services: Service[] = [
   {
     slug: "apis-e-integracoes",
     number: "04",
-    title: "APIs e integrações entre sistemas",
+    title: "Integrações e APIs",
     shortTitle: "APIs e integrações",
     summary:
-      "Camadas de integração para sistemas que precisam trocar dados com segurança, rastreabilidade e tolerância a falhas.",
+      "Integração entre plataformas que precisam trabalhar juntas: ERPs, lojas, gateways e sistemas legados, com APIs, webhooks e sincronização de dados.",
     problem:
       "ERP, loja, atendimento e aplicação interna usam fontes diferentes e criam versões conflitantes da mesma informação.",
     scope: [
@@ -165,7 +165,7 @@ export const services: Service[] = [
       { question: "A API fica documentada?", answer: "Sim. Contratos, autenticação, exemplos de payload, códigos de erro e procedimentos operacionais fazem parte da entrega aplicável." },
     ],
     technologies: ["Node.js", "Python", "FastAPI", "REST", "Docker"],
-    projectSlugs: ["aquaflora-agroshop", "rastreia-gastos"],
+    projectSlugs: ["aquaflora-agroshop", "promogames"],
     seo: {
       title: "APIs e integrações entre sistemas",
       description: "APIs, webhooks e conectores com autenticação, validação, logs e retentativas para integrar ERP, loja e aplicações.",
@@ -174,10 +174,10 @@ export const services: Service[] = [
   {
     slug: "automacoes",
     number: "05",
-    title: "Automações, estoque e preços",
+    title: "Automação de processos",
     shortTitle: "Automações",
     summary:
-      "Rotinas em Python e Node.js para remover trabalho repetitivo de catálogo, dados, atendimento e conciliação.",
+      "Automatização de rotinas repetitivas e processos operacionais para reduzir intervenção manual e inconsistências de dados.",
     problem:
       "Uma atualização simples exige exportar arquivo, ajustar coluna, importar novamente e conferir item por item.",
     scope: [
@@ -250,3 +250,5 @@ export const services: Service[] = [
 export function getService(slug: string) {
   return services.find((service) => service.slug === slug);
 }
+
+export const coreServices = (["sistemas-web", "apis-e-integracoes", "ecommerce", "automacoes"] as const).map(slug => services.find(service => service.slug === slug)!);

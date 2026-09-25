@@ -9,8 +9,7 @@ import { Logo } from "./Logo";
 
 const navigation = [
   { href: "/servicos", label: "Serviços" },
-  { href: "/projetos", label: "Projetos" },
-  { href: "/artigos", label: "Artigos" },
+  { href: "/projetos", label: "Cases" },
   { href: "/sobre", label: "Sobre" },
   { href: "/contato", label: "Contato" },
 ];

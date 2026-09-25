@@ -8,7 +8,7 @@ export const company = {
   location: "Boa Esperança do Sul, SP",
   serviceArea: "Atendimento remoto em todo o Brasil",
   positioning:
-    "Software, e-commerce e automações para empresas que querem crescer sem depender de processos manuais.",
+    "Sistemas web, integrações, automações e e-commerce para conectar processos, dados e negócios.",
   linkedin: "https://www.linkedin.com/in/pedrobragabes",
   github: "https://github.com/pedrobragabes",
   personalSite: "https://pedrobragabes.com",
@@ -39,52 +39,80 @@ export const metrics = [
 
 export const processSteps = [
   {
-    number: "01",
-    title: "Mapear o gargalo",
-    description:
-      "A conversa começa pelo fluxo atual: onde a equipe copia dados, perde tempo, corrige erro ou depende de uma única pessoa.",
-    output: "Mapa do processo, restrições e critério de sucesso.",
+    "number": "01",
+    "title": "Entender",
+    "description": "Entendemos o processo atual, os sistemas envolvidos e o problema que precisa ser resolvido.",
+    "output": "Contexto, restrições e prioridades."
   },
   {
-    number: "02",
-    title: "Recortar a entrega",
-    description:
-      "O projeto é dividido em uma primeira versão que resolve o núcleo do problema sem esconder riscos de integração ou operação.",
-    output: "Escopo, arquitetura, cronograma e prioridades.",
+    "number": "02",
+    "title": "Projetar",
+    "description": "Definimos escopo, arquitetura, integrações e critérios de entrega.",
+    "output": "Escopo claro e critérios de validação."
   },
   {
-    number: "03",
-    title: "Construir com visibilidade",
-    description:
-      "Entregas curtas, ambiente de homologação e decisões registradas mantêm o projeto verificável antes de chegar à produção.",
-    output: "Incrementos testáveis e documentação de uso.",
+    "number": "03",
+    "title": "Construir",
+    "description": "Implementação incremental com validação técnica e funcional ao longo do desenvolvimento.",
+    "output": "Entregas testáveis e decisões documentadas."
   },
   {
-    number: "04",
-    title: "Operar e evoluir",
-    description:
-      "Depois do lançamento, logs, suporte e dados de uso indicam o que corrigir, automatizar ou ampliar na próxima etapa.",
-    output: "Deploy, acompanhamento e plano de evolução.",
+    "number": "04",
+    "title": "Entregar",
+    "description": "Implantação, documentação e transferência do sistema para quem vai utilizá-lo.",
+    "output": "Sistema implantado e orientação de uso."
   },
+  {
+    "number": "05",
+    "title": "Evoluir",
+    "description": "Manutenção e novas funcionalidades conforme as necessidades da operação.",
+    "output": "Continuidade e próximos incrementos."
+  }
 ] as const;
 
 export const techGroups = [
   {
-    label: "Interfaces",
-    items: ["Next.js", "React", "TypeScript", "Tailwind CSS", "PWA"],
+    "label": "Frontend",
+    "items": [
+      "TypeScript",
+      "React",
+      "Next.js"
+    ]
   },
   {
-    label: "Backend e dados",
-    items: ["Node.js", "Python", "FastAPI", "MySQL", "PostgreSQL", "Prisma"],
+    "label": "Backend",
+    "items": [
+      "Node.js",
+      "Python",
+      "REST APIs"
+    ]
   },
   {
-    label: "Comércio",
-    items: ["WooCommerce", "WordPress", "REST APIs", "Cloudinary", "WhatsApp"],
+    "label": "Dados",
+    "items": [
+      "PostgreSQL",
+      "MySQL",
+      "SQLite",
+      "Prisma"
+    ]
   },
   {
-    label: "Infraestrutura",
-    items: ["Docker", "Linux", "Nginx", "Proxmox", "LXC", "Tailscale"],
+    "label": "E-commerce",
+    "items": [
+      "WooCommerce",
+      "WordPress",
+      "Mercado Pago"
+    ]
   },
+  {
+    "label": "Infraestrutura",
+    "items": [
+      "Docker",
+      "Linux",
+      "Nginx",
+      "Cloudflare"
+    ]
+  }
 ] as const;
 
 export const workPrinciples = [

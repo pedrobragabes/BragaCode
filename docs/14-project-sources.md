@@ -2,7 +2,7 @@
 
 - AquaFlora: https://aquafloragroshop.com.br/ e https://github.com/pedrobragabes/aquaflora-stock-sync. A documentação local da plataforma aquaflora distingue validação local de implantação. O bot é independente.
 - JoysticKnights: https://joysticknights.com.br/ e https://github.com/pedrobragabes/JoysticKnights. Frontend atual Next.js; WordPress é o CMS.
-- Comércio BES: https://github.com/pedrobragabes/Comercio_BES. PWA com API Express/PostgreSQL; não confundir com BragaCommerce.
+- Comércio BES: [repositório canônico comercio-bes](https://github.com/pedrobragabes/comercio-bes), confirmado em 29/09. Next/React em transição com API Express/PostgreSQL; não confundir com BragaCommerce. O endereço anterior e o upstream Ramon pertencem ao histórico; a [auditoria atual](15-auditoria-ecossistema.md) identifica fontes, commits e limites.
 - Imagens: capturas das interfaces públicas feitas em 6 de setembro de 2026, sem login. Originais PNG e versões WebP no diretório public/images/projects. Os jogos e produtos retratados pertencem aos respectivos titulares; uso contextual como registro dos projetos.
 - Retrato: imagem existente no portfólio pessoal do fundador.
 

@@ -6,7 +6,9 @@ Site comercial da BragaCode, operação de desenvolvimento de software fundada p
 
 ## Planejamento atual
 
-A revisão de 2026-09-05 organiza as marcas, a curadoria comercial e a operação sem reiniciar funcionalidades já entregues. Consulte o [índice de documentação](docs/README.md), o [roadmap com issues reais](docs/06-roadmap.md), o [posicionamento](docs/12-posicionamento.md) e a [auditoria de publicação](docs/13-repositorio-e-publicacao.md).
+A revisão de 2026-09-29 acrescenta o [Master Plan Braga Code 2026–2028](docs/16-master-plan-2026-2028.md), com [auditoria dos três projetos](docs/15-auditoria-ecossistema.md), [catálogo das 86 oportunidades](docs/17-catalogo-capacidades.md) e [prompt mestre de execução](docs/18-prompt-mestre-ecossistema.md). O plano propõe evolução integrada de BragaCode, ComércioBES e BragaCommerce, com responsabilidades e deploys independentes, sem declarar os módulos futuros disponíveis.
+
+Consulte também o [índice de documentação](docs/README.md), o [roadmap com issues reais](docs/06-roadmap.md), o [posicionamento](docs/12-posicionamento.md) e a [auditoria de publicação](docs/13-repositorio-e-publicacao.md).
 
 O GitHub executa CI a cada push na main; publicação automática no Sites não foi comprovada. Domínio, canais, autorização de cases e lançamento continuam nas issues existentes.
 

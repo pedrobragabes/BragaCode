@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "@fontsource-variable/manrope";
 import "@fontsource-variable/jetbrains-mono";
 import "./globals.css";
+import "./studio.css";
 import { Analytics } from "@/components/analytics/Analytics";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";

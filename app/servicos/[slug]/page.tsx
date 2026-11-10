@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ProjectCard } from "@/components/project/ProjectCard";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { PageHero } from "@/components/ui/PageHero";
+import { StudioServiceDetail } from "@/components/ui/StudioServiceDetail";
 import { projects } from "@/content/projects";
 import { getService, services } from "@/content/services";
 import { createMetadata } from "@/lib/seo";
-import { absoluteUrl, whatsappUrl } from "@/lib/site";
+import { absoluteUrl } from "@/lib/site";
+import { serviceIndex, serviceTiles } from "@/content/studio";
 
 type ServicePageProps = { params: Promise<{ slug: string }> };
 
@@ -69,101 +69,24 @@ export default async function ServicePage({ params }: ServicePageProps) {
     },
   ];
 
+  const icon = serviceIndex.find((item) => item.pt === slug)?.icon ?? "web";
+
   return (
     <>
       <JsonLd data={jsonLd} />
-      <PageHero
-        eyebrow={`Serviço ${service.number}`}
-        title={service.title}
-        description={service.summary}
-        aside={(
-          <div>
-            <p>{service.problem}</p>
-            <a className="button" href={whatsappUrl(`a página de ${service.shortTitle}`)} target="_blank" rel="noreferrer">
-              Discutir este cenário <span aria-hidden="true">↗</span>
-            </a>
-          </div>
-        )}
+      <StudioServiceDetail
+        icon={icon}
+        title={service.slug === "ecommerce" ? "E-commerce e integração com ERP" : service.title}
+        summary={service.summary}
+        problem={service.problem}
+        scope={service.scope}
+        deliverables={service.slug === "ecommerce" ? [...service.deliverables, "checkout e sincronização de estoque"] : service.deliverables}
+        process={service.process}
+        technologies={service.technologies}
+        faq={service.faq}
+        related={relatedProjects.length ? relatedProjects.map((project) => <ProjectCard key={project.slug} project={project} />) : undefined}
+        otherServices={serviceTiles(false).filter((item) => item.slug !== slug)}
       />
-
-      <section className="section service-scope-section">
-        <div className="container narrative-grid">
-          <div className="narrative-index"><span>01</span><p>Escopo</p></div>
-          <div className="narrative-content">
-            <h2>Quando contratar</h2>
-            <div className="service-scope-list">
-              {service.scope.map((item, index) => (
-                <article key={item}><span>0{index + 1}</span><p>{item}</p></article>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="section service-deliverables-section">
-        <div className="container stack-grid">
-          <div><span>02</span><h2>O que pode entrar na entrega</h2></div>
-          <div>
-            <div className="feature-grid">
-              {service.deliverables.map((item, index) => <div key={item}><span>0{index + 1}</span>{item}</div>)}
-            </div>
-            <div className="large-tag-list">{service.technologies.map((technology) => <span key={technology}>{technology}</span>)}</div>
-          </div>
-        </div>
-      </section>
-
-      <section className="section service-process-section">
-        <div className="container">
-          <div className="small-section-heading"><p>03</p><h2>Etapas do projeto</h2></div>
-          <div className="scope-grid">
-            {service.process.map((item, index) => (
-              <article key={item.title}><span>0{index + 1}</span><h3>{item.title}</h3><p>{item.description}</p></article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {relatedProjects.length > 0 && (
-        <section className="section related-projects-section">
-          <div className="container">
-            <div className="small-section-heading"><p>04 / Evidência</p><h2>Projetos relacionados a esta entrega</h2></div>
-            <div className="projects-grid">
-              {relatedProjects.map((project, index) => <ProjectCard key={project.slug} project={project} index={index} />)}
-            </div>
-          </div>
-        </section>
-      )}
-
-      <section className="section service-faq-section">
-        <div className="container faq-grid">
-          <div><h2>Perguntas frequentes</h2></div>
-          <div className="faq-list">
-            {service.faq.map((item, index) => (
-              <details key={item.question} open={index === 0}>
-                <summary>{item.question}<span aria-hidden="true">+</span></summary>
-                <p>{item.answer}</p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="inline-cta-section">
-        <div className="container inline-cta">
-          <h2>Solicitar orçamento</h2>
-          <a className="button" href={whatsappUrl(`o serviço de ${service.shortTitle}`)} target="_blank" rel="noreferrer">
-            Conversar com Pedro <span aria-hidden="true">↗</span>
-          </a>
-        </div>
-      </section>
-
-      <nav className="service-page-nav" aria-label="Outros serviços">
-        <div className="container">
-          {services.filter((item) => item.slug !== service.slug).map((item) => (
-            <Link href={`/servicos/${item.slug}`} key={item.slug}>{item.shortTitle} <span aria-hidden="true">↗</span></Link>
-          ))}
-        </div>
-      </nav>
     </>
   );
 }

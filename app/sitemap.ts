@@ -17,7 +17,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const path = `/projetos/${project.slug}`;
     return { url: absoluteUrl(path), lastModified: new Date(), changeFrequency: "monthly" as const, priority: project.featured ? 0.9 : 0.7, alternates: bilingualRoutes[path] ? alternates(path, bilingualRoutes[path]) : undefined };
   });
-  const serviceRoutes = services.map((service) => ({ url: absoluteUrl(`/servicos/${service.slug}`), lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.85 }));
+  const serviceRoutes = services.map((service) => {
+    const path = `/servicos/${service.slug}`;
+    return { url: absoluteUrl(path), lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.85, alternates: bilingualRoutes[path] ? alternates(path, bilingualRoutes[path]) : undefined };
+  });
   const articleRoutes = articles.map((article) => ({ url: absoluteUrl(`/artigos/${article.slug}`), lastModified: new Date(article.updatedAt || article.publishedAt), changeFrequency: "monthly" as const, priority: 0.75 }));
   return [...staticRoutes, ...englishRoutes, ...serviceRoutes, ...projectRoutes, ...articleRoutes];
 }

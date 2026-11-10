@@ -1,34 +1,24 @@
-import Link from "next/link";
-import { StaticImage as Image } from "@/components/ui/StaticImage";
 import { projectPath } from "@/lib/seo";
+import { StudioProject } from "./StudioProject";
 
-type EnglishProject = {
-  slug: string;
-  name: string;
-  status: string;
-  period: string;
-  eyebrow: string;
-  summary: string;
-  technologies: readonly string[];
-  visual: string;
-  image: string | null;
-};
+type EnglishProject = { slug: string; name: string; status: string; eyebrow: string; summary: string; image: string | null };
 
-export function EnglishProjectCard({ project, index }: { project: EnglishProject; index: number }) {
-  const href = projectPath(project.slug, "en");
+export function EnglishProjectCard({ project }: { project: EnglishProject }) {
+  const image = project.image ? {
+    src: project.image,
+    width: project.slug === "promogames" ? 1440 : 1265,
+    height: project.slug === "promogames" ? 1000 : 712,
+    alt: `${project.name} website`,
+  } : undefined;
 
-  return (
-    <article className="project-card">
-      <Link href={href} className="project-card-visual" aria-label={`View ${project.name} case study`}>
-        {project.image ? <Image src={project.image} width={1265} height={712} alt={`${project.name} interface`} sizes="(max-width: 820px) 100vw, 50vw" /> : <div className="project-type-cover"><span>{project.eyebrow}</span><strong>{project.name}</strong><span>{project.status}</span></div>}
-      </Link>
-      <div className="project-card-content">
-        <div className="project-card-meta"><span>{String(index + 1).padStart(2, "0")}</span><span>{project.status}</span><span>{project.period}</span></div>
-        <h3><Link href={href}>{project.name}</Link></h3>
-        <p>{project.summary}</p>
-        <div className="tag-list">{project.technologies.map((item) => <span key={item}>{item}</span>)}</div>
-        <Link className="text-link" href={href}>Open case study <span aria-hidden="true">↗</span></Link>
-      </div>
-    </article>
-  );
+  return <StudioProject
+    name={project.name}
+    href={projectPath(project.slug, "en")}
+    category={project.eyebrow}
+    status={project.status}
+    summary={project.summary}
+    image={image}
+    label="View project"
+    tone={project.slug === "aquaflora-agroshop" ? "sand" : "slate"}
+  />;
 }

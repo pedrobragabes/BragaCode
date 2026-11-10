@@ -180,7 +180,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         <section className="section related-projects-section">
           <div className="container">
             <div className="small-section-heading"><p>Continue explorando</p><h2>Projetos relacionados</h2></div>
-            <div className="projects-grid">{relatedProjects.map((item, index) => <ProjectCard key={item.slug} project={item} index={index} />)}</div>
+            <div className="projects-grid">{relatedProjects.map((item) => <ProjectCard key={item.slug} project={item} />)}</div>
           </div>
         </section>
       )}

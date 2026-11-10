@@ -137,9 +137,8 @@ export function SiteHeader() {
         inert={!menuOpen}
       >
         <nav className="container" aria-label={isEnglish ? "Mobile navigation" : "Navegação mobile"}>
-          {activeNavigation.map((item, index) => (
+          {activeNavigation.map((item) => (
             <Link href={item.href} key={item.href} onClick={() => setMenuOpen(false)}>
-              <span>0{index + 1}</span>
               {item.label}
               <i aria-hidden="true">↗</i>
             </Link>

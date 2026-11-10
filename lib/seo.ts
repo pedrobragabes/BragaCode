@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { englishProjects } from "@/content/english";
+import { serviceIndex } from "@/content/studio";
 import { absoluteUrl, siteConfig } from "./site";
 
 type PageMetadataInput = {
@@ -14,6 +15,7 @@ export const bilingualRoutes: Readonly<Record<string, string>> = {
   "/projetos": "/en/projects",
   "/sobre": "/en/about",
   "/contato": "/en/contact",
+  ...Object.fromEntries(serviceIndex.map(({ pt, en }) => [`/servicos/${pt}`, `/en/services/${en}`])),
   ...Object.fromEntries(englishProjects.map(({ slug }) => [`/projetos/${slug}`, `/en/projects/${slug}`])),
 };
 

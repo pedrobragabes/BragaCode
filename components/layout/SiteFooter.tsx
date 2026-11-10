@@ -8,7 +8,7 @@ import { Logo } from "./Logo";
 
 const pages = [
   ["Serviços", "/servicos"],
-  ["Cases", "/projetos"],
+  ["Projetos", "/projetos"],
   ["Artigos", "/artigos"],
   ["Sobre", "/sobre"],
   ["Contato", "/contato"],
@@ -31,7 +31,6 @@ export function SiteFooter() {
       <div className="container footer-top">
         <div>
           <Logo href={isEnglish ? "/en" : "/"} label={isEnglish ? "BragaCode — home page" : "BragaCode — página inicial"} />
-          <p>{isEnglish ? "Software, e-commerce and automation for companies that want to grow without relying on manual processes." : "Software · Sistemas · Integrações · Automação"}</p>
           <p className="footer-location">{company.location}<br />{isEnglish ? "Remote service" : "Atendimento remoto"}</p>
         </div>
         <div className="footer-links">

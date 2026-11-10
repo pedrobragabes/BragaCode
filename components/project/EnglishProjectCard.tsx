@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { StaticImage as Image } from "@/components/ui/StaticImage";
+import { projectPath } from "@/lib/seo";
 
 type EnglishProject = {
   slug: string;
@@ -14,7 +15,7 @@ type EnglishProject = {
 };
 
 export function EnglishProjectCard({ project, index }: { project: EnglishProject; index: number }) {
-  const href = project.slug === "aquaflora-agroshop" ? `/en/projects/${project.slug}` : `/projetos/${project.slug}`;
+  const href = projectPath(project.slug, "en");
 
   return (
     <article className="project-card">
@@ -26,7 +27,7 @@ export function EnglishProjectCard({ project, index }: { project: EnglishProject
         <h3><Link href={href}>{project.name}</Link></h3>
         <p>{project.summary}</p>
         <div className="tag-list">{project.technologies.map((item) => <span key={item}>{item}</span>)}</div>
-        <Link className="text-link" href={href}>{project.slug === "aquaflora-agroshop" ? "Open case study" : "Read case in Portuguese"} <span aria-hidden="true">↗</span></Link>
+        <Link className="text-link" href={href}>Open case study <span aria-hidden="true">↗</span></Link>
       </div>
     </article>
   );

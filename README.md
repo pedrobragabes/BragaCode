@@ -152,7 +152,7 @@ Para publicar um artigo:
 
 ## Versão em inglês
 
-As rotas `/en`, `/en/services`, `/en/projects`, `/en/about`, `/en/contact` e `/en/projects/aquaflora-agroshop` têm conteúdo próprio em inglês. O seletor `PT/EN` mantém pares equivalentes quando existem e volta à Home do outro idioma para conteúdo ainda não traduzido.
+As rotas `/en`, `/en/services`, `/en/projects`, `/en/about`, `/en/contact` e as páginas de AquaFlora, PromoGames, Braga Commerce e JoysticKnights em `/en/projects/[slug]` têm conteúdo próprio em inglês. O seletor `PT/EN` mantém pares equivalentes quando existem e volta à Home do outro idioma para conteúdo ainda não traduzido.
 
 `createMetadata` gera canonical, `hreflang` para `pt-BR`, `en` e `x-default`, além do locale correto no Open Graph. O sitemap repete os pares de idioma com alternates. Um script mínimo no `<head>` ajusta `document.documentElement.lang` antes do conteúdo e cada página inglesa também declara `lang="en"` no container principal.
 

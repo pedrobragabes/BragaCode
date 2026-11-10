@@ -20,11 +20,10 @@ test("renderiza a Home comercial da BragaCode", async () => {
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
   const html = await response.text();
   assert.match(html, /BragaCode/);
-  assert.match(html, /Software para/);
-  assert.match(html, /operações reais/);
+  assert.match(html, /<h1>Projetos<\/h1>/);
   assert.match(html, /images\/brand\/symbol-color\.png/);
   assert.match(html, /PromoGames/);
-  assert.match(html, /Braga Commerce/);
+  assert.match(html, /joysticknights-live\.webp/);
   assert.match(html, /aquaflora-live\.webp/);
   assert.doesNotMatch(html, /4\.000\+/);
   assert.match(html, /AquaFlora AgroShop/);
@@ -212,8 +211,10 @@ test("publica artigos MDX com código acessível, metadata e sitemap", async () 
   assert.match(await sitemap.text(), /artigos\/automacao-llm-escalonamento-humano/);
 });
 
-test("publica rotas em inglês com hreflang, formulário localizado e case prioritário", async () => {
-  for (const path of ["/en", "/en/services", "/en/projects", "/en/about", "/en/contact", "/en/projects/aquaflora-agroshop"]) {
+test("publica rotas em inglês com hreflang, formulário localizado e cases", async () => {
+  const cases = ["aquaflora-agroshop", "promogames", "braga-commerce", "joysticknights"];
+  const routes = ["/en", "/en/services", "/en/projects", "/en/about", "/en/contact", ...cases.map((slug) => `/en/projects/${slug}`)];
+  for (const path of routes) {
     const response = await render(path);
     assert.equal(response.status, 200, path);
     const html = await response.text();
@@ -223,12 +224,12 @@ test("publica rotas em inglês com hreflang, formulário localizado e case prior
   }
 
   const contact = await render("/en/contact");
-  assert.match(await contact.text(), /Which process needs to work better/);
+  assert.match(await contact.text(), /Send a message/);
   const casePage = await render("/en/projects/aquaflora-agroshop");
-  assert.match(await casePage.text(), /What needed to change/);
+  assert.match(await casePage.text(), /Inventory and pricing/);
 
   const sitemap = await render("/sitemap.xml");
   const xml = await sitemap.text();
-  assert.match(xml, /en\/projects\/aquaflora-agroshop/);
+  for (const slug of cases) assert.ok(xml.includes(`/en/projects/${slug}`));
   assert.match(xml, /hreflang="en"/i);
 });

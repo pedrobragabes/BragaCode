@@ -9,7 +9,7 @@ async function gotoHydrated(page: Page, path: string) {
 test("não apresenta violações WCAG A/AA nas jornadas principais", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium", "Auditoria axe centralizada no Chromium");
 
-  for (const path of ["/", "/servicos", "/projetos", "/contato", "/projetos/aquaflora-agroshop", "/projetos/promogames", "/projetos/braga-commerce"]) {
+  for (const path of ["/", "/en", "/en/projects/promogames", "/servicos", "/projetos", "/contato", "/projetos/aquaflora-agroshop", "/projetos/promogames", "/projetos/braga-commerce"]) {
     await gotoHydrated(page, path);
 
     for (const theme of ["light", "dark"] as const) {
@@ -55,7 +55,7 @@ test("respeita preferência por movimento reduzido", async ({ page }, testInfo) 
   await gotoHydrated(page, "/");
 
   const motion = await page.evaluate(() => {
-    const sample = document.querySelector(".project-card-visual img");
+    const sample = document.querySelector(".showcase-media img");
     const style = sample ? getComputedStyle(sample) : null;
     return {
       preference: matchMedia("(prefers-reduced-motion: reduce)").matches,
@@ -74,7 +74,7 @@ for (const width of [320, 360, 640, 768, 1440]) {
     test.skip(testInfo.project.name !== "desktop-chromium", "Matriz de reflow centralizada no Chromium");
     await page.setViewportSize({ width, height: 900 });
 
-    for (const path of ["/", "/projetos", "/projetos/aquaflora-agroshop", "/projetos/promogames", "/projetos/braga-commerce", "/contato"]) {
+    for (const path of ["/", "/en", "/projetos", "/projetos/aquaflora-agroshop", "/projetos/promogames", "/projetos/braga-commerce", "/contato"]) {
       await gotoHydrated(page, path);
       const dimensions = await page.evaluate(() => ({
         clientWidth: document.documentElement.clientWidth,

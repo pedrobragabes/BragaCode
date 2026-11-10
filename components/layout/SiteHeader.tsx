@@ -9,7 +9,7 @@ import { Logo } from "./Logo";
 
 const navigation = [
   { href: "/servicos", label: "Serviços" },
-  { href: "/projetos", label: "Cases" },
+  { href: "/projetos", label: "Projetos" },
   { href: "/sobre", label: "Sobre" },
   { href: "/contato", label: "Contato" },
 ];
@@ -33,6 +33,10 @@ export function SiteHeader() {
     document.documentElement.dataset.hydrated = "true";
     return () => { delete document.documentElement.dataset.hydrated; };
   }, []);
+
+  useEffect(() => {
+    document.documentElement.lang = isEnglish ? "en" : "pt-BR";
+  }, [isEnglish]);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -96,7 +100,7 @@ export function SiteHeader() {
           ))}
         </nav>
         <div className="header-actions">
-          <Link className="language-switch" href={localizedPath(pathname, isEnglish ? "pt-BR" : "en")} hrefLang={isEnglish ? "pt-BR" : "en"}>
+          <Link className="language-switch" href={localizedPath(pathname, isEnglish ? "pt-BR" : "en")} hrefLang={isEnglish ? "pt-BR" : "en"} lang={isEnglish ? "pt-BR" : "en"} aria-label={isEnglish ? "Português" : "English"}>
             {isEnglish ? "PT" : "EN"}
           </Link>
           <button

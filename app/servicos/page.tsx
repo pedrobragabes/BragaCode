@@ -28,12 +28,7 @@ export default function ServicesPage() {
   return (
     <>
       <JsonLd data={jsonLd} />
-      <PageHero
-        eyebrow="Serviços"
-        title={<>Software para o que acontece <em>entre a venda e a operação.</em></>}
-        description="A BragaCode projeta a interface que o cliente vê, a lógica que a equipe usa e as integrações que mantêm os dados em movimento."
-        aside={<a className="button" href={whatsappUrl("a página de Serviços")} target="_blank" rel="noreferrer">Discutir um gargalo <span aria-hidden="true">↗</span></a>}
-      />
+      <PageHero title="Serviços" description="Sistemas web, lojas WooCommerce, integrações com ERP e automação de tarefas." />
 
       <section className="section service-detail-section">
         <div className="container service-detail-list">
@@ -43,7 +38,7 @@ export default function ServicesPage() {
               <article className="service-detail" id={service.slug} key={service.slug}>
                 <div className="service-detail-number">{service.number}</div>
                 <div className="service-detail-main">
-                  <p className="eyebrow"><span aria-hidden="true" />{service.shortTitle}</p>
+
                   <h2><Link href={`/servicos/${service.slug}`}>{service.title}</Link></h2>
                   <p className="service-summary">{service.summary}</p>
                   <div className="service-problem">
@@ -77,8 +72,8 @@ export default function ServicesPage() {
       <section className="section scope-section">
         <div className="container">
           <SectionHeading
-            eyebrow="Forma de contratação"
-            title={<>Nem todo problema precisa virar <em>um projeto gigante.</em></>}
+            eyebrow="Contratação"
+            title="Formas de contratação"
             description="A primeira entrega pode ser uma automação isolada, uma integração, um MVP ou a evolução de um sistema que já existe."
           />
           <div className="scope-grid">
@@ -91,7 +86,7 @@ export default function ServicesPage() {
 
       <section className="inline-cta-section">
         <div className="container inline-cta">
-          <div><p>Tem um processo específico?</p><h2>Descreva o gargalo, não a solução pronta.</h2></div>
+          <h2>Solicitar orçamento</h2>
           <a className="button" href={whatsappUrl("o final da página de Serviços")} target="_blank" rel="noreferrer">Falar com Pedro <span aria-hidden="true">↗</span></a>
         </div>
       </section>

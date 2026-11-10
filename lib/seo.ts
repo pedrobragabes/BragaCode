@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { englishProjects } from "@/content/english";
 import { absoluteUrl, siteConfig } from "./site";
 
 type PageMetadataInput = {
@@ -7,14 +8,19 @@ type PageMetadataInput = {
   path: string;
 };
 
-const bilingualRoutes: Record<string, string> = {
+export const bilingualRoutes: Readonly<Record<string, string>> = {
   "/": "/en",
   "/servicos": "/en/services",
   "/projetos": "/en/projects",
   "/sobre": "/en/about",
   "/contato": "/en/contact",
-  "/projetos/aquaflora-agroshop": "/en/projects/aquaflora-agroshop",
+  ...Object.fromEntries(englishProjects.map(({ slug }) => [`/projetos/${slug}`, `/en/projects/${slug}`])),
 };
+
+export function projectPath(slug: string, locale: "pt-BR" | "en") {
+  const path = `/projetos/${slug}`;
+  return locale === "en" ? bilingualRoutes[path] ?? path : path;
+}
 
 export function localizedPath(path: string, targetLocale: "pt-BR" | "en") {
   const portuguesePath = bilingualRoutes[path]

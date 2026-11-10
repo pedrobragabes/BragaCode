@@ -6,6 +6,35 @@ async function gotoHydrated(page: Page, path: string) {
   return response;
 }
 
+test("abre detalhes de serviços e mantém o projeto ao trocar de idioma", async ({ page }) => {
+  await gotoHydrated(page, "/");
+  const commerce = page.locator("summary").filter({ hasText: "E-commerce" });
+  const automation = page.locator("summary").filter({ hasText: "Automação" });
+  await commerce.focus();
+  await page.keyboard.press("Enter");
+  await expect(page.getByRole("link", { name: "Detalhes do serviço" })).toHaveAttribute("href", "/servicos/ecommerce");
+  await automation.click();
+  await expect(page.getByRole("link", { name: "Detalhes do serviço" })).toHaveAttribute("href", "/servicos/automacoes");
+
+  await page.getByRole("link", { name: "English", exact: true }).click();
+  await expect(page.locator("html")).toHaveAttribute("lang", "en");
+  const firstProject = page.getByRole("tab", { name: "JoysticKnights" });
+  const aquaFlora = page.getByRole("tab", { name: "AquaFlora AgroShop" });
+  const promoGames = page.getByRole("tab", { name: "PromoGames" });
+  await expect(firstProject).toHaveAttribute("aria-selected", "true");
+  await firstProject.press("ArrowRight");
+  await expect(aquaFlora).toBeFocused();
+  await expect(page.getByRole("tabpanel")).toHaveAccessibleName("AquaFlora AgroShop");
+  await promoGames.click();
+  await expect(promoGames).toHaveAttribute("aria-selected", "true");
+  await page.getByRole("link", { name: "View project: PromoGames" }).click();
+  await expect(page).toHaveURL(/\/en\/projects\/promogames$/);
+  await expect(page.getByRole("heading", { name: "PromoGames", level: 1 })).toBeVisible();
+  await page.getByRole("link", { name: "Português", exact: true }).click();
+  await expect(page).toHaveURL(/\/projetos\/promogames$/);
+  await expect(page.locator("html")).toHaveAttribute("lang", "pt-BR");
+});
+
 test("mantém o tema escolhido após recarregar", async ({ page }) => {
   await gotoHydrated(page, "/");
   const html = page.locator("html");

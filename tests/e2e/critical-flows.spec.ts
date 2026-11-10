@@ -18,7 +18,16 @@ test("abre detalhes de serviços e mantém o projeto ao trocar de idioma", async
 
   await page.getByRole("link", { name: "English", exact: true }).click();
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
-  await page.getByRole("link", { name: /PromoGames/ }).click();
+  const firstProject = page.getByRole("tab", { name: "JoysticKnights" });
+  const aquaFlora = page.getByRole("tab", { name: "AquaFlora AgroShop" });
+  const promoGames = page.getByRole("tab", { name: "PromoGames" });
+  await expect(firstProject).toHaveAttribute("aria-selected", "true");
+  await firstProject.press("ArrowRight");
+  await expect(aquaFlora).toBeFocused();
+  await expect(page.getByRole("tabpanel")).toHaveAccessibleName("AquaFlora AgroShop");
+  await promoGames.click();
+  await expect(promoGames).toHaveAttribute("aria-selected", "true");
+  await page.getByRole("link", { name: "View project: PromoGames" }).click();
   await expect(page).toHaveURL(/\/en\/projects\/promogames$/);
   await expect(page.getByRole("heading", { name: "PromoGames", level: 1 })).toBeVisible();
   await page.getByRole("link", { name: "Português", exact: true }).click();

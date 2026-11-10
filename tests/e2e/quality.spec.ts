@@ -55,7 +55,7 @@ test("respeita preferência por movimento reduzido", async ({ page }, testInfo) 
   await gotoHydrated(page, "/");
 
   const motion = await page.evaluate(() => {
-    const sample = document.querySelector(".studio-browser");
+    const sample = document.querySelector(".showcase-media img");
     const style = sample ? getComputedStyle(sample) : null;
     return {
       preference: matchMedia("(prefers-reduced-motion: reduce)").matches,

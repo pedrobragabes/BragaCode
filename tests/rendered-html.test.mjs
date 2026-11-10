@@ -20,11 +20,11 @@ test("renderiza a Home comercial da BragaCode", async () => {
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
   const html = await response.text();
   assert.match(html, /BragaCode/);
-  assert.match(html, /<h1>Projetos<\/h1>/);
+  assert.match(html, /<h1[^>]*>Sistemas web/);
   assert.match(html, /images\/brand\/symbol-color\.png/);
   assert.match(html, /PromoGames/);
   assert.match(html, /joysticknights-live\.webp/);
-  assert.match(html, /aquaflora-live\.webp/);
+  assert.match(html, /aquaflora-catalogo\.webp/);
   assert.doesNotMatch(html, /4\.000\+/);
   assert.match(html, /AquaFlora AgroShop/);
   assert.match(html, /application\/ld\+json/);

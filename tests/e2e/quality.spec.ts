@@ -55,7 +55,7 @@ test("respeita preferência por movimento reduzido", async ({ page }, testInfo) 
   await gotoHydrated(page, "/");
 
   const motion = await page.evaluate(() => {
-    const sample = document.querySelector(".showcase-media img");
+    const sample = document.querySelector('[data-case="aquaflora-agroshop"] a span[aria-hidden="true"]');
     const style = sample ? getComputedStyle(sample) : null;
     return {
       preference: matchMedia("(prefers-reduced-motion: reduce)").matches,

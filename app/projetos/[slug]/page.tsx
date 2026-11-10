@@ -88,7 +88,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           <div className="container narrative-grid">
             <div className="narrative-index"><span>01</span><p>Problema e contexto</p></div>
             <div className="narrative-content">
-              <h2>O que precisava <em>mudar na rotina.</em></h2>
+              <h2>Problema e contexto</h2>
               {project.problem.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
               <div className="context-box"><span>Contexto</span>{project.context.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
             </div>
@@ -99,7 +99,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           <div className="container narrative-grid">
             <div className="narrative-index"><span>02</span><p>Solução</p></div>
             <div className="narrative-content">
-              <h2>Uma entrega dividida por <em>responsabilidade operacional.</em></h2>
+              <h2>Implementação</h2>
               {project.solution.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
               {project.components && <div className="case-components">{project.components.map(component => <article key={component.title}><span>{component.status}</span><h3>{component.title}</h3><p>{component.description}</p></article>)}</div>}
               <div className="feature-grid">
@@ -134,7 +134,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
         <section className="section case-results-section">
           <div className="container results-grid">
-            <div><p className="eyebrow"><span aria-hidden="true" />Resultados</p><h2>O que mudou — e o que ainda <em>está evoluindo.</em></h2></div>
+            <div><h2>Resultados e estágio atual</h2></div>
             <div>
               <ol className="results-list">
                 {project.results.map((result, index) => <li key={result}><span>0{index + 1}</span><p>{result}</p></li>)}
@@ -170,7 +170,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         <section className="case-cta">
           <div className="container">
             <p>Projeto semelhante</p>
-            <h2>Tem um processo que hoje depende de <em>conferência manual?</em></h2>
+            <h2>Contato</h2>
             <a className="button" href={whatsappUrl(`o case ${project.name}`)} target="_blank" rel="noreferrer">Conversar sobre o seu contexto <span aria-hidden="true">↗</span></a>
           </div>
         </section>

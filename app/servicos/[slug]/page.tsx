@@ -90,7 +90,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
         <div className="container narrative-grid">
           <div className="narrative-index"><span>01</span><p>Escopo</p></div>
           <div className="narrative-content">
-            <h2>O serviço começa pela rotina, <em>não pela tecnologia.</em></h2>
+            <h2>Quando contratar</h2>
             <div className="service-scope-list">
               {service.scope.map((item, index) => (
                 <article key={item}><span>0{index + 1}</span><p>{item}</p></article>
@@ -114,7 +114,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
 
       <section className="section service-process-section">
         <div className="container">
-          <div className="small-section-heading"><p>03 / Processo</p><h2>Decisões verificáveis em três momentos</h2></div>
+          <div className="small-section-heading"><p>03</p><h2>Etapas do projeto</h2></div>
           <div className="scope-grid">
             {service.process.map((item, index) => (
               <article key={item.title}><span>0{index + 1}</span><h3>{item.title}</h3><p>{item.description}</p></article>
@@ -136,7 +136,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
 
       <section className="section service-faq-section">
         <div className="container faq-grid">
-          <div><p className="eyebrow"><span aria-hidden="true" />Perguntas frequentes</p><h2>Antes de definir <em>o formato do projeto.</em></h2></div>
+          <div><h2>Perguntas frequentes</h2></div>
           <div className="faq-list">
             {service.faq.map((item, index) => (
               <details key={item.question} open={index === 0}>
@@ -150,7 +150,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
 
       <section className="inline-cta-section">
         <div className="container inline-cta">
-          <div><p>Próximo passo</p><h2>Conte o processo que hoje exige mais conferência.</h2></div>
+          <h2>Solicitar orçamento</h2>
           <a className="button" href={whatsappUrl(`o serviço de ${service.shortTitle}`)} target="_blank" rel="noreferrer">
             Conversar com Pedro <span aria-hidden="true">↗</span>
           </a>
